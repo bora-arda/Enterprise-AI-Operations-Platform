@@ -1,0 +1,107 @@
+[project]
+name = "agentic-procurement-platform"
+version = "0.1.0"
+description = "Agentic AI platform for enterprise procurement operations"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }
+]
+
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.3.0",
+    "sqlalchemy[asyncio]>=2.0.0",
+    "asyncpg>=0.29.0",
+    "alembic>=1.13.0",
+    "pgvector>=0.3.0",
+    "langgraph>=0.2.0",
+    "langgraph-checkpoint-postgres>=2.0.0",
+    "langchain-core>=0.3.0",
+    "langchain-openai>=0.2.0",
+    "langchain-ollama>=0.2.0",
+    "langchain-community>=0.3.0",
+    "fastmcp>=0.2.0",
+    "scikit-learn>=1.5.0",
+    "numpy>=1.26.0",
+    "pandas>=2.2.0",
+    "faker>=26.0.0",
+    "pyyaml>=6.0.0",
+    "python-multipart>=0.0.9",
+    "httpx>=0.27.0",
+    "tenacity>=8.4.0",
+    "structlog>=24.1.0",
+    "opentelemetry-api>=1.25.0",
+    "opentelemetry-sdk>=1.25.0",
+    "opentelemetry-exporter-otlp>=1.25.0",
+    "prometheus-client>=0.20.0",
+    "presidio-analyzer>=2.2.0",
+    "presidio-anonymizer>=2.2.0",
+    "rank-bm25>=0.2.2",
+    "sentence-transformers>=3.0.0",
+    "pypdf>=4.3.0",
+    "python-docx>=1.1.0",
+    "psycopg2-binary>=2.9.9",
+    "python-dateutil>=2.9.0",
+    "psycopg[binary]>=3.3.6",
+    "pyjwt>=2.15.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=5.0.0",
+    "ruff>=0.5.0",
+    "mypy>=1.10.0",
+    "pre-commit>=3.7.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/procurement_ai"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/procurement_ai", "tests", "scripts", "configs", "docs"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "SIM", "TCH"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/*" = ["E501", "N806", "B007", "SIM105"]
+"src/procurement_ai/api/routes/*" = ["B008"]
+"src/procurement_ai/auth/dependencies.py" = ["B008"]
+"tests/*" = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+warn_return_any = false
+warn_unused_configs = true
+check_untyped_defs = true
+# Framework generics (LangGraph) and SQLAlchemy's dynamic attributes produce
+# false positives that are not actionable in this codebase.
+disable_error_code = ["type-var", "attr-defined", "var-annotated"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.0",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.17.1",
+]

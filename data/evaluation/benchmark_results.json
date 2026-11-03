@@ -1,0 +1,139 @@
+{
+  "generated_at": "2026-11-03T17:33:39.061627",
+  "corpus": {
+    "documents": 274,
+    "embedded_documents": 274,
+    "embedding_model": "all-MiniLM-L6-v2 (384 dims)"
+  },
+  "retrieval": {
+    "bm25": {
+      "recall@5": 0.9791666666666666,
+      "precision@5": 0.2791666666666667,
+      "mrr": 0.9392361111111112,
+      "ndcg@5": 0.9492001314926011,
+      "queries": 48
+    },
+    "dense": {
+      "recall@5": 0.8541666666666666,
+      "precision@5": 0.17083333333333336,
+      "mrr": 0.7875248015873016,
+      "ndcg@5": 0.797492543082269,
+      "queries": 48
+    },
+    "hybrid": {
+      "recall@5": 1.0,
+      "precision@5": 0.20000000000000004,
+      "mrr": 0.9520833333333334,
+      "ndcg@5": 0.9641592097489357,
+      "queries": 48
+    }
+  },
+  "routing": {
+    "total": 100,
+    "correct": 100,
+    "accuracy": 1.0,
+    "misroutes": {}
+  },
+  "detection": {
+    "per_type": {
+      "already_paid": {
+        "ground_truth": 10,
+        "detected": 10,
+        "tp": 10,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "duplicate_invoice": {
+        "ground_truth": 15,
+        "detected": 15,
+        "tp": 15,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "expired_contract": {
+        "ground_truth": 10,
+        "detected": 12,
+        "tp": 10,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.8333333333333334,
+        "recall": 1.0
+      },
+      "invalid_po": {
+        "ground_truth": 10,
+        "detected": 10,
+        "tp": 10,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "invoice_exceeds_contract": {
+        "ground_truth": 20,
+        "detected": 20,
+        "tp": 20,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "invoice_exceeds_po": {
+        "ground_truth": 30,
+        "detected": 50,
+        "tp": 30,
+        "fp": 20,
+        "fn": 0,
+        "precision": 0.6,
+        "recall": 1.0
+      },
+      "missing_approval": {
+        "ground_truth": 25,
+        "detected": 38,
+        "tp": 25,
+        "fp": 13,
+        "fn": 0,
+        "precision": 0.6578947368421053,
+        "recall": 1.0
+      },
+      "payment_mismatch": {
+        "ground_truth": 10,
+        "detected": 10,
+        "tp": 10,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "wrong_currency": {
+        "ground_truth": 10,
+        "detected": 10,
+        "tp": 10,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "wrong_vendor": {
+        "ground_truth": 10,
+        "detected": 10,
+        "tp": 10,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    "overall": {
+      "tp": 150,
+      "fp": 35,
+      "fn": 0,
+      "precision": 0.8108108108108109,
+      "recall": 1.0
+    },
+    "detected_total": 185
+  }
+}

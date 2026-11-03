@@ -1,0 +1,1333 @@
+[
+  {
+    "question": "What is the payment status of invoice INV-037335?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-037335 amount: 11006.63",
+      "Status: paid"
+    ],
+    "invoice_id": "a06e1dad-fe16-4869-a9e3-5a35baba04bc"
+  },
+  {
+    "question": "What is the payment status of invoice INV-016136?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-016136 amount: 12810.63",
+      "Status: paid"
+    ],
+    "invoice_id": "b8d292cf-10bb-41b4-acef-43e428136a66"
+  },
+  {
+    "question": "What is the payment status of invoice INV-037941?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-037941 amount: 458147.03",
+      "Status: paid"
+    ],
+    "invoice_id": "252cac59-7f14-4480-9558-f3d24d9a6752"
+  },
+  {
+    "question": "What is the payment status of invoice INV-038963?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-038963 amount: 17939.66",
+      "Status: paid"
+    ],
+    "invoice_id": "0fc3fb03-3fd5-4124-b01a-22c5990f51aa"
+  },
+  {
+    "question": "What is the payment status of invoice INV-002605?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-002605 amount: 27096.72",
+      "Status: paid"
+    ],
+    "invoice_id": "20a022b5-57c3-4c3b-8668-c99cc4357058"
+  },
+  {
+    "question": "What is the payment status of invoice INV-040592?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-040592 amount: 88769.66",
+      "Status: paid"
+    ],
+    "invoice_id": "bb3d8c36-908c-4b5d-9e0d-6cfa3700e22b"
+  },
+  {
+    "question": "What is the payment status of invoice INV-005373?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-005373 amount: 25898.0",
+      "Status: paid"
+    ],
+    "invoice_id": "c7f71153-0af8-4c26-8c50-fadc5ba91f4b"
+  },
+  {
+    "question": "What is the payment status of invoice INV-027475?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-027475 amount: 2822.41",
+      "Status: paid"
+    ],
+    "invoice_id": "6adf2471-67ca-4b70-81f1-049b6d6fbe30"
+  },
+  {
+    "question": "Why is invoice INV-038252 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-038252 amount: 91594.88",
+      "Status: overdue"
+    ],
+    "invoice_id": "7819e3a8-6a71-4420-99f9-950f8e8c57b4"
+  },
+  {
+    "question": "What is the payment status of invoice INV-037043?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-037043 amount: 43926.03",
+      "Status: paid"
+    ],
+    "invoice_id": "6c9825f1-f5ac-4edc-84c9-bb2fc4f7fdde"
+  },
+  {
+    "question": "What is the payment status of invoice INV-034262?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-034262 amount: 8544.9",
+      "Status: paid"
+    ],
+    "invoice_id": "7e3a732c-0d3b-44e2-93b7-950bd726a781"
+  },
+  {
+    "question": "What is the payment status of invoice INV-020734?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-020734 amount: 37874.98",
+      "Status: paid"
+    ],
+    "invoice_id": "f4d8ff8e-b546-4f35-a438-f1d2822d3490"
+  },
+  {
+    "question": "What is the payment status of invoice INV-017090?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-017090 amount: 33131.54",
+      "Status: paid"
+    ],
+    "invoice_id": "2ef1e12f-26d2-45c1-812c-98a15fa698e5"
+  },
+  {
+    "question": "What is the payment status of invoice INV-013387?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-013387 amount: 1432.81",
+      "Status: paid"
+    ],
+    "invoice_id": "4653352e-ef02-485e-b358-17729a51c1a5"
+  },
+  {
+    "question": "Why is invoice INV-020591 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-020591 amount: 157188.42",
+      "Status: overdue"
+    ],
+    "invoice_id": "0a2fb882-c282-4065-8cf8-9935e3ba22aa"
+  },
+  {
+    "question": "What is the payment status of invoice INV-015643?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-015643 amount: 2364.29",
+      "Status: paid"
+    ],
+    "invoice_id": "520b09a9-2066-4d85-8e04-b87cf43c7ba6"
+  },
+  {
+    "question": "What is the payment status of invoice INV-017408?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-017408 amount: 55166.08",
+      "Status: paid"
+    ],
+    "invoice_id": "5646e01c-9566-4bf3-80b7-691961b70554"
+  },
+  {
+    "question": "What is the payment status of invoice INV-025939?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-025939 amount: 204048.58",
+      "Status: paid"
+    ],
+    "invoice_id": "418880c2-31dd-4768-88fc-0e566fa41f2a"
+  },
+  {
+    "question": "What is the payment status of invoice INV-008578?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-008578 amount: 2663.71",
+      "Status: paid"
+    ],
+    "invoice_id": "418b5849-5331-429c-ab75-db885190cbc8"
+  },
+  {
+    "question": "What is the payment status of invoice INV-019661?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-019661 amount: 17359.99",
+      "Status: paid"
+    ],
+    "invoice_id": "55eaf5b6-9e2f-4c71-96b4-b836b6df6fef"
+  },
+  {
+    "question": "Why is invoice INV-029965 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-029965 amount: 2837.96",
+      "Status: overdue"
+    ],
+    "invoice_id": "fbd6571a-f611-4337-9545-4e25c5a83af4"
+  },
+  {
+    "question": "What is the payment status of invoice INV-020721?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-020721 amount: 3071536.4",
+      "Status: paid"
+    ],
+    "invoice_id": "1c27546c-dbce-4d3b-afae-300acafa5518"
+  },
+  {
+    "question": "What is the payment status of invoice INV-004755?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-004755 amount: 24541.25",
+      "Status: paid"
+    ],
+    "invoice_id": "98dc6f8e-facb-48a8-a385-78fe668ff38c"
+  },
+  {
+    "question": "What is the payment status of invoice INV-000611?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-000611 amount: 43255.3",
+      "Status: paid"
+    ],
+    "invoice_id": "c59a6f9c-9f78-4ef1-ac97-c6a485b07d78"
+  },
+  {
+    "question": "What is the payment status of invoice INV-030035?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-030035 amount: 1368.42",
+      "Status: paid"
+    ],
+    "invoice_id": "f9fc250e-b99e-44f2-a8a6-f89534ca617d"
+  },
+  {
+    "question": "What is the payment status of invoice INV-040709?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-040709 amount: 125856.55",
+      "Status: paid"
+    ],
+    "invoice_id": "e7ddfe9d-75d3-4972-87c6-9e42f7dbe52c"
+  },
+  {
+    "question": "Why is invoice INV-036897 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-036897 amount: 86990.93",
+      "Status: overdue"
+    ],
+    "invoice_id": "3c26c7c8-f398-4129-8099-df45b0303593"
+  },
+  {
+    "question": "Why is invoice INV-006553 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-006553 amount: 1145785.23",
+      "Status: overdue"
+    ],
+    "invoice_id": "247dcc89-1604-47d6-bf6e-41ca3964920d"
+  },
+  {
+    "question": "What is the payment status of invoice INV-004802?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-004802 amount: 15563.84",
+      "Status: paid"
+    ],
+    "invoice_id": "fd6a16c4-1a37-4c2d-9af1-959272d4fa7b"
+  },
+  {
+    "question": "What is the payment status of invoice INV-035235?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-035235 amount: 24787.0",
+      "Status: paid"
+    ],
+    "invoice_id": "744e8990-dfd3-474a-90c8-69627b687284"
+  },
+  {
+    "question": "What is the payment status of invoice INV-013970?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-013970 amount: 36046.38",
+      "Status: paid"
+    ],
+    "invoice_id": "b81b2328-d52f-4b44-bbca-12dfacebcb43"
+  },
+  {
+    "question": "What is the payment status of invoice INV-033154?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-033154 amount: 45915.21",
+      "Status: paid"
+    ],
+    "invoice_id": "df2e02a2-9b25-4393-a2c8-60b803379a78"
+  },
+  {
+    "question": "What is the payment status of invoice INV-017381?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-017381 amount: 10513.67",
+      "Status: paid"
+    ],
+    "invoice_id": "50f9f10d-0a41-4cb8-b09d-0bb4b73ac052"
+  },
+  {
+    "question": "Why is invoice INV-008681 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-008681 amount: 125649.8",
+      "Status: overdue"
+    ],
+    "invoice_id": "b6a23329-1973-42b9-aa0a-5c5bee55123b"
+  },
+  {
+    "question": "What is the payment status of invoice INV-022873?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-022873 amount: 896947.23",
+      "Status: paid"
+    ],
+    "invoice_id": "4b3d25e6-8737-4889-a36f-63afcba088c4"
+  },
+  {
+    "question": "What is the payment status of invoice INV-004509?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-004509 amount: 27675.67",
+      "Status: paid"
+    ],
+    "invoice_id": "e6115130-a300-4928-9c01-3687b83816af"
+  },
+  {
+    "question": "What is the payment status of invoice INV-016010?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-016010 amount: 36412276.3",
+      "Status: paid"
+    ],
+    "invoice_id": "428d1f49-af3b-4568-ac95-d3e35da6ced7"
+  },
+  {
+    "question": "What is the payment status of invoice INV-024218?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-024218 amount: 51957.09",
+      "Status: paid"
+    ],
+    "invoice_id": "9e523999-42b9-48eb-87e1-7fb9a28a5a14"
+  },
+  {
+    "question": "Why is invoice INV-018677 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-018677 amount: 1338314.36",
+      "Status: overdue"
+    ],
+    "invoice_id": "06646cb6-8cf9-47b4-a53c-f3e920d8dcde"
+  },
+  {
+    "question": "Why is invoice INV-010339 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-010339 amount: 782117.21",
+      "Status: overdue"
+    ],
+    "invoice_id": "9a39b225-06bf-495c-b536-f8b3bb33968e"
+  },
+  {
+    "question": "What is the payment status of invoice INV-028717?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-028717 amount: 257788.55",
+      "Status: paid"
+    ],
+    "invoice_id": "4a2d3204-5d12-480d-9f3f-667c44c409aa"
+  },
+  {
+    "question": "What is the payment status of invoice INV-035601?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-035601 amount: 40788.97",
+      "Status: paid"
+    ],
+    "invoice_id": "c06dd583-3896-45d4-adf5-86e489ad23ca"
+  },
+  {
+    "question": "What is the payment status of invoice INV-019826?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-019826 amount: 7239.98",
+      "Status: paid"
+    ],
+    "invoice_id": "ef214c15-e332-4163-8f70-926804438220"
+  },
+  {
+    "question": "Why is invoice INV-040087 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-040087 amount: 2994.67",
+      "Status: overdue"
+    ],
+    "invoice_id": "caca4840-32ae-4e11-bc42-3e37fb46610d"
+  },
+  {
+    "question": "What is the payment status of invoice INV-034665?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-034665 amount: 211164.6",
+      "Status: paid"
+    ],
+    "invoice_id": "c79a53a4-4e81-4528-85d9-29236d017e7e"
+  },
+  {
+    "question": "What is the payment status of invoice INV-000513?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-000513 amount: 206591.77",
+      "Status: paid"
+    ],
+    "invoice_id": "fddb78ea-600b-442b-bc14-a8efad2e00d0"
+  },
+  {
+    "question": "What is the payment status of invoice INV-036347?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-036347 amount: 115814.81",
+      "Status: paid"
+    ],
+    "invoice_id": "22091846-0295-4dba-9825-4fcc9445bc58"
+  },
+  {
+    "question": "What is the payment status of invoice INV-019621?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-019621 amount: 20380.4",
+      "Status: paid"
+    ],
+    "invoice_id": "8587d1fe-4275-4f40-93b7-cfa8d2bf163b"
+  },
+  {
+    "question": "What is the payment status of invoice INV-006789?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-006789 amount: 15335.01",
+      "Status: paid"
+    ],
+    "invoice_id": "0dbfdfe1-6df4-4f2a-94d8-7b81d62b12f7"
+  },
+  {
+    "question": "What is the payment status of invoice INV-008801?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-008801 amount: 1069037.16",
+      "Status: paid"
+    ],
+    "invoice_id": "95e9eed2-16c5-4c9b-b73f-631360615519"
+  },
+  {
+    "question": "What is the payment status of invoice INV-017333?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-017333 amount: 186895.6",
+      "Status: paid"
+    ],
+    "invoice_id": "69e46f8e-bc02-42cc-8cb0-1ed24aab8524"
+  },
+  {
+    "question": "What is the payment status of invoice INV-007565?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-007565 amount: 245411.96",
+      "Status: paid"
+    ],
+    "invoice_id": "00422834-634c-4c6c-94cf-724dd5fc35f9"
+  },
+  {
+    "question": "What is the payment status of invoice INV-007015?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-007015 amount: 14071.28",
+      "Status: paid"
+    ],
+    "invoice_id": "6b3fa874-aa8d-4f54-805b-1153291290dd"
+  },
+  {
+    "question": "What is the payment status of invoice INV-036257?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-036257 amount: 2097163.96",
+      "Status: paid"
+    ],
+    "invoice_id": "acdfad80-52ed-4146-b1fa-784b825b77b9"
+  },
+  {
+    "question": "What is the payment status of invoice INV-010188?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-010188 amount: 742249.99",
+      "Status: paid"
+    ],
+    "invoice_id": "711ddebc-71cc-4cda-aa43-5004fdbe3671"
+  },
+  {
+    "question": "What is the payment status of invoice INV-017849?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-017849 amount: 28308.9",
+      "Status: paid"
+    ],
+    "invoice_id": "ffd3298b-3bba-4a0c-9e9d-63bf95eee5de"
+  },
+  {
+    "question": "What is the payment status of invoice INV-018466?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-018466 amount: 9682.83",
+      "Status: paid"
+    ],
+    "invoice_id": "23b80b1f-5958-49aa-b000-50e7be3e5155"
+  },
+  {
+    "question": "What is the payment status of invoice INV-039639?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-039639 amount: 41742.65",
+      "Status: paid"
+    ],
+    "invoice_id": "80179729-3c17-42f4-bb07-b31afe300b40"
+  },
+  {
+    "question": "What is the payment status of invoice INV-013804?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-013804 amount: 6195.67",
+      "Status: paid"
+    ],
+    "invoice_id": "4e680a19-5f46-4018-a905-920fdfdbf6fe"
+  },
+  {
+    "question": "Why is invoice INV-022472 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-022472 amount: 116566.03",
+      "Status: overdue"
+    ],
+    "invoice_id": "b88d5ea1-3362-4c5c-aa0b-9ca30022b6c7"
+  },
+  {
+    "question": "What is the payment status of invoice INV-013343?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-013343 amount: 12791.31",
+      "Status: paid"
+    ],
+    "invoice_id": "98ff9266-2aa2-4074-9dbc-c50a55b7fb5e"
+  },
+  {
+    "question": "What is the payment status of invoice INV-041566?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-041566 amount: 94778.13",
+      "Status: paid"
+    ],
+    "invoice_id": "c2766559-dbc7-4c7b-877f-62edcf45c2f2"
+  },
+  {
+    "question": "What is the payment status of invoice INV-017301?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-017301 amount: 2436.35",
+      "Status: paid"
+    ],
+    "invoice_id": "f25c5ca9-f64a-4c62-a830-4e70cf973a7b"
+  },
+  {
+    "question": "What is the payment status of invoice INV-033123?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-033123 amount: 1134304.3",
+      "Status: paid"
+    ],
+    "invoice_id": "188bbabb-c52d-4345-aca3-df27e792e793"
+  },
+  {
+    "question": "Why is invoice INV-032017 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-032017 amount: 213904.27",
+      "Status: overdue"
+    ],
+    "invoice_id": "d019fec5-e98f-447a-9571-14477aa1aade"
+  },
+  {
+    "question": "What is the payment status of invoice INV-016458?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-016458 amount: 36968.56",
+      "Status: paid"
+    ],
+    "invoice_id": "d9971990-721c-44c9-9632-9862a9b97eab"
+  },
+  {
+    "question": "What is the payment status of invoice INV-003330?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-003330 amount: 4264183.28",
+      "Status: paid"
+    ],
+    "invoice_id": "e0bdb2f8-ae48-4b29-b560-614cb0201f62"
+  },
+  {
+    "question": "Why is invoice INV-006049 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-006049 amount: 343381.46",
+      "Status: overdue"
+    ],
+    "invoice_id": "28676e00-f8a5-44be-a2b7-b3b16a6a0819"
+  },
+  {
+    "question": "What is the payment status of invoice INV-041569?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-041569 amount: 357133.61",
+      "Status: paid"
+    ],
+    "invoice_id": "e1141049-ee3e-4781-bf46-14ddb8e17954"
+  },
+  {
+    "question": "Show me the details of invoice INV-027760",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice"
+    ],
+    "expected_facts": [
+      "Invoice INV-027760 amount: 2677838.69",
+      "Status: submitted"
+    ],
+    "invoice_id": "08e7eef2-e372-4d81-ba73-5f812a74b6ce"
+  },
+  {
+    "question": "What is the payment status of invoice INV-018133?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-018133 amount: 2616841.75",
+      "Status: paid"
+    ],
+    "invoice_id": "dfabc286-1e35-49e1-96ef-291fed19f97a"
+  },
+  {
+    "question": "What is the payment status of invoice INV-002890?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-002890 amount: 68865.16",
+      "Status: paid"
+    ],
+    "invoice_id": "b72340d9-e693-431c-8a5b-28aede5579e2"
+  },
+  {
+    "question": "What is the payment status of invoice INV-000233?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-000233 amount: 60183.86",
+      "Status: paid"
+    ],
+    "invoice_id": "74ff5540-4aab-4924-b019-c2cc0f3293a8"
+  },
+  {
+    "question": "What is the payment status of invoice INV-021860?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-021860 amount: 32168.44",
+      "Status: paid"
+    ],
+    "invoice_id": "84811248-39a6-4805-a2c3-c544d7a02f15"
+  },
+  {
+    "question": "What is the payment status of invoice INV-008574?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-008574 amount: 16873.73",
+      "Status: paid"
+    ],
+    "invoice_id": "55e30615-bc37-4ea5-8376-d9bc514c4042"
+  },
+  {
+    "question": "What is the payment status of invoice INV-041754?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-041754 amount: 62380.87",
+      "Status: paid"
+    ],
+    "invoice_id": "b3b6939a-695a-429e-8608-f0639376f469"
+  },
+  {
+    "question": "What is the payment status of invoice INV-017168?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-017168 amount: 690170.76",
+      "Status: paid"
+    ],
+    "invoice_id": "e3c919fb-e0ee-40d7-9cbb-590deb15cb07"
+  },
+  {
+    "question": "What is the payment status of invoice INV-010590?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-010590 amount: 385075.77",
+      "Status: paid"
+    ],
+    "invoice_id": "f94fc19e-dc8f-486a-8739-4d4a6caba4c5"
+  },
+  {
+    "question": "Why is invoice INV-028957 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-028957 amount: 19730.32",
+      "Status: overdue"
+    ],
+    "invoice_id": "cf18f1ea-7570-4e9b-b0f5-44f92ee8f027"
+  },
+  {
+    "question": "What is the payment status of invoice INV-036155?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-036155 amount: 946423.31",
+      "Status: paid"
+    ],
+    "invoice_id": "ff65d0eb-b348-4587-aa5c-5cf362302104"
+  },
+  {
+    "question": "What is the payment status of invoice INV-028029?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-028029 amount: 410433308.88",
+      "Status: paid"
+    ],
+    "invoice_id": "e788e272-327c-4493-b91c-7c51c175828c"
+  },
+  {
+    "question": "What is the payment status of invoice INV-036760?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-036760 amount: 27625.62",
+      "Status: paid"
+    ],
+    "invoice_id": "f19433bf-0237-4961-a2a3-6d1720d6197a"
+  },
+  {
+    "question": "What is the payment status of invoice INV-000634?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-000634 amount: 2547788.49",
+      "Status: paid"
+    ],
+    "invoice_id": "8f17abbd-f124-4b2e-a463-b82d201040b0"
+  },
+  {
+    "question": "Why is invoice INV-007332 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-007332 amount: 1855.0",
+      "Status: overdue"
+    ],
+    "invoice_id": "9102058f-6005-4a7c-9cb9-c788e8399af7"
+  },
+  {
+    "question": "What is the payment status of invoice INV-004932?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-004932 amount: 408522.81",
+      "Status: paid"
+    ],
+    "invoice_id": "c3df0bdc-02de-433a-945a-cb660252ee8b"
+  },
+  {
+    "question": "Why is invoice INV-009769 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-009769 amount: 55831.87",
+      "Status: overdue"
+    ],
+    "invoice_id": "caccacd0-91b8-4254-bdba-9888f0e4c5c0"
+  },
+  {
+    "question": "What is the payment status of invoice INV-035756?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-035756 amount: 557959.96",
+      "Status: paid"
+    ],
+    "invoice_id": "dce27c73-cafa-43a1-ad9d-9f9472523855"
+  },
+  {
+    "question": "What is the payment status of invoice INV-002362?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-002362 amount: 65873.34",
+      "Status: paid"
+    ],
+    "invoice_id": "8fe85a82-2959-4787-89ac-15cd2f480c67"
+  },
+  {
+    "question": "What is the payment status of invoice INV-024197?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-024197 amount: 17694.76",
+      "Status: paid"
+    ],
+    "invoice_id": "49dc831c-00c3-4756-88fc-57216929faae"
+  },
+  {
+    "question": "What is the payment status of invoice INV-038176?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-038176 amount: 8091.42",
+      "Status: paid"
+    ],
+    "invoice_id": "fbb0272d-0f9b-4384-baa7-a49fa8d2e522"
+  },
+  {
+    "question": "What is the payment status of invoice INV-036211?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-036211 amount: 7739.16",
+      "Status: paid"
+    ],
+    "invoice_id": "321dbd26-bebd-48ef-96e0-348e1612d789"
+  },
+  {
+    "question": "Why is invoice INV-009706 overdue?",
+    "expected_workflow": "investigation",
+    "expected_tools": [
+      "get_invoice",
+      "get_purchase_order",
+      "get_payment_status",
+      "search_documents"
+    ],
+    "expected_facts": [
+      "Invoice INV-009706 amount: 720289.97",
+      "Status: overdue"
+    ],
+    "invoice_id": "d12a4334-0ec2-47b0-beb0-6002c4794e31"
+  },
+  {
+    "question": "What is the payment status of invoice INV-028167?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-028167 amount: 34463.82",
+      "Status: paid"
+    ],
+    "invoice_id": "8f103e17-1aaa-45c9-8c4e-1701e9dccf76"
+  },
+  {
+    "question": "What is the payment status of invoice INV-008353?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-008353 amount: 53679.07",
+      "Status: paid"
+    ],
+    "invoice_id": "dd5c2e5b-7e28-40fa-b392-407ec653f4f3"
+  },
+  {
+    "question": "What is the payment status of invoice INV-002742?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-002742 amount: 128968.51",
+      "Status: paid"
+    ],
+    "invoice_id": "856f9cfe-13be-4791-9140-c2ccfc51307e"
+  },
+  {
+    "question": "What is the payment status of invoice INV-020203?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-020203 amount: 7016.12",
+      "Status: paid"
+    ],
+    "invoice_id": "391a7d26-ad39-49e4-862c-3ffdb1dd8d1c"
+  },
+  {
+    "question": "What is the payment status of invoice INV-023898?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-023898 amount: 80458.08",
+      "Status: paid"
+    ],
+    "invoice_id": "4c442564-a362-488e-a43c-3427c979ee4c"
+  },
+  {
+    "question": "What is the payment status of invoice INV-002615?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-002615 amount: 28216.14",
+      "Status: paid"
+    ],
+    "invoice_id": "c27590f3-d0d2-43da-a331-7dac69e87836"
+  },
+  {
+    "question": "What is the payment status of invoice INV-023450?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-023450 amount: 3862.61",
+      "Status: paid"
+    ],
+    "invoice_id": "2f40b9e8-4a18-4da7-b497-f2d7b78923eb"
+  },
+  {
+    "question": "What is the payment status of invoice INV-013768?",
+    "expected_workflow": "retrieval",
+    "expected_tools": [
+      "get_invoice",
+      "get_payment_status"
+    ],
+    "expected_facts": [
+      "Invoice INV-013768 amount: 3265.36",
+      "Status: paid"
+    ],
+    "invoice_id": "b7738ec0-9da4-4157-94ed-3a2ec0f6b535"
+  }
+]

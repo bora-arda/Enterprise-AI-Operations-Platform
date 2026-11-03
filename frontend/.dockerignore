@@ -1,0 +1,6 @@
+node_modules
+build
+.cache
+playwright-report
+test-results
+npm-debug.log*

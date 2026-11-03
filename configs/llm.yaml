@@ -1,0 +1,40 @@
+# LLM Provider Configuration
+# Copy relevant section to .env or set as environment variables
+
+providers:
+  openai:
+    api_key_env: OPENAI_API_KEY
+    default_model: gpt-4o-mini
+    models:
+      - gpt-4o-mini
+      - gpt-4o
+      - gpt-4-turbo
+    max_tokens: 4096
+    temperature: 0.1
+
+  ollama:
+    base_url_env: OLLAMA_BASE_URL
+    default_model: llama3.1
+    models:
+      - llama3.1
+      - llama3.1:8b
+      - llama3.1:70b
+      - mistral
+    max_tokens: 4096
+    temperature: 0.1
+
+# Active provider (override with LLM_PROVIDER env var)
+active_provider: openai
+
+# Retry configuration
+retry:
+  max_attempts: 3
+  initial_delay_seconds: 1
+  max_delay_seconds: 10
+  exponential_base: 2
+
+# Token usage tracking
+tracking:
+  enabled: true
+  log_prompts: false  # Set true only for debugging (may contain sensitive data)
+  log_completions: false

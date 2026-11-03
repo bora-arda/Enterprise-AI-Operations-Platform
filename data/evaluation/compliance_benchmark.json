@@ -1,0 +1,652 @@
+[
+  {
+    "question": "Does invoice INV-036067 comply with its purchase order and contract?",
+    "invoice_id": "d3921994-b90d-4889-a2b6-20196be7b040",
+    "po_id": "9f604786-c4e7-4f6f-aaa3-be6c0ff81671",
+    "contract_id": "ocds-b5fd17-192e4e89-0db7-4e2b-94c7-f93510736798_ocds-b5fd17-192e4e89-0db7-4e2b-94c7-f93510736798-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 27147.82",
+      "PO amount: 28067.51",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-006417 comply with its purchase order and contract?",
+    "invoice_id": "ee9c7f6c-70bc-4151-9ac8-31c30712daf8",
+    "po_id": "1d90f2a3-34ad-4622-8302-41a48aae7c49",
+    "contract_id": "ocds-b5fd17-0487d350-2045-48e9-9119-c3c6efbde750_ocds-b5fd17-0487d350-2045-48e9-9119-c3c6efbde750-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 1959279.56",
+      "PO amount: 2185181.64",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-003316 comply with its purchase order and contract?",
+    "invoice_id": "59dcbbde-30c3-4efb-95f9-ce583b3683d2",
+    "po_id": "202a76b0-a788-40a2-92d6-e285d15f966e",
+    "contract_id": "ocds-b5fd17-0255adf6-470e-469a-a924-bbb7f7b722a6_ocds-b5fd17-0255adf6-470e-469a-a924-bbb7f7b722a6-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 3215.34",
+      "PO amount: 3936.21",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-035428 comply with its purchase order and contract?",
+    "invoice_id": "1d25ec2e-17f5-4b1e-b548-42aa1b66b377",
+    "po_id": "a6552940-7d5e-4426-9279-763809e80115",
+    "contract_id": "ocds-b5fd17-18b06356-2b65-472f-9280-f0352c61a50d_ocds-b5fd17-18b06356-2b65-472f-9280-f0352c61a50d-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 1085241.98",
+      "PO amount: 1341457.55",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-000968 comply with its purchase order and contract?",
+    "invoice_id": "0e42bb1d-d13e-4527-babc-bcfbf91b3afd",
+    "po_id": "76306994-652d-467f-a38f-b6dd310c96e7",
+    "contract_id": "ocds-b5fd17-006380ed-55b0-4515-ae96-80e9fa13d0a9_ocds-b5fd17-006380ed-55b0-4515-ae96-80e9fa13d0a9-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 97836.29",
+      "PO amount: 124132.21",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-006113 comply with its purchase order and contract?",
+    "invoice_id": "87b5b6ba-48c0-4367-b530-f7d38ea3b4b4",
+    "po_id": "36e2e75b-6372-467a-a9f2-1149395ca277",
+    "contract_id": "ocds-b5fd17-044d7c5c-b608-44bd-8b21-ced2ba88b001_ocds-b5fd17-044d7c5c-b608-44bd-8b21-ced2ba88b001-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 248493.05",
+      "PO amount: 313708.18",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-015492 comply with its purchase order and contract?",
+    "invoice_id": "d8d9ca45-204f-43bf-844d-308a1bceee4b",
+    "po_id": "ecdb413b-ae4d-48e6-b258-052bb5b2b08c",
+    "contract_id": "ocds-b5fd17-0a971744-906f-4592-9b6a-e17e4e625342_ocds-b5fd17-0a971744-906f-4592-9b6a-e17e4e625342-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 2920843.99",
+      "PO amount: 3655819.06",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-010900 comply with its purchase order and contract?",
+    "invoice_id": "6e8226a3-f0ff-4bfa-8b58-fcdfffe6f3ef",
+    "po_id": "6a334ff5-e9e4-41af-beb9-4aec49f477cc",
+    "contract_id": "ocds-b5fd17-078bd8bc-582b-4f5f-9089-4d46aeb90a3a_ocds-b5fd17-078bd8bc-582b-4f5f-9089-4d46aeb90a3a-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 1357361.63",
+      "PO amount: 1396418.35",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-026635 comply with its purchase order and contract?",
+    "invoice_id": "db97e75c-2087-4e16-8bef-0590d6293310",
+    "po_id": "3e3038aa-987b-43ba-9d1c-8aa0b55a6488",
+    "contract_id": "ocds-b5fd17-12bde6d4-7433-417d-a0d5-32b8c6184164_ocds-b5fd17-12bde6d4-7433-417d-a0d5-32b8c6184164-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 305476.89",
+      "PO amount: 399885.34",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-031827 comply with its purchase order and contract?",
+    "invoice_id": "421bb81c-d3fc-429f-90ab-0e065d881092",
+    "po_id": "dc274aa8-7798-4357-8345-6e1cf97c917f",
+    "contract_id": "ocds-b5fd17-16420b1c-5594-480e-b313-145277319ce7_ocds-b5fd17-16420b1c-5594-480e-b313-145277319ce7-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 23482.96",
+      "PO amount: 25396.71",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-031547 comply with its purchase order and contract?",
+    "invoice_id": "8ed79d23-0041-4791-8358-a576f431f790",
+    "po_id": "ee3e99a4-aa5a-4f07-9def-0f51c1498a75",
+    "contract_id": "ocds-b5fd17-160437ab-07c1-4727-894b-a5a8073d87a2_ocds-b5fd17-160437ab-07c1-4727-894b-a5a8073d87a2-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 59531.89",
+      "PO amount: 67850.26",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-014009 comply with its purchase order and contract?",
+    "invoice_id": "3a1c4f68-73c1-4295-8004-c4c02ed2ad87",
+    "po_id": "5028b1c0-90ee-4759-8323-4fc60558714c",
+    "contract_id": "ocds-b5fd17-0989b95e-9e62-48a8-bb78-4aabb5a4331a_ocds-b5fd17-0989b95e-9e62-48a8-bb78-4aabb5a4331a-2",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 19643.57",
+      "PO amount: 24042.74",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-026283 comply with its purchase order and contract?",
+    "invoice_id": "6dcf2b2e-a016-4ca2-b642-4fbd17bde0f0",
+    "po_id": "de9a3c80-12c6-42fb-8fbe-e9858cc6b1b7",
+    "contract_id": "ocds-b5fd17-1272be26-8661-4f1c-b47d-40bdf261dc40_ocds-b5fd17-1272be26-8661-4f1c-b47d-40bdf261dc40-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 56759.74",
+      "PO amount: 75614.13",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-003843 comply with its purchase order and contract?",
+    "invoice_id": "41192bce-ec38-4a8d-873c-9bd0ebd1d470",
+    "po_id": "92d9e541-353d-4cbe-889c-f2e44738b14a",
+    "contract_id": "ocds-b5fd17-02b338d4-66dd-4fe7-8dd2-7ffe07a7c25f_ocds-b5fd17-02b338d4-66dd-4fe7-8dd2-7ffe07a7c25f-2",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 1987434.13",
+      "PO amount: 2449379.74",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-010790 comply with its purchase order and contract?",
+    "invoice_id": "9112c298-9ccf-4a90-b498-00a25c2a34b3",
+    "po_id": "bfdb6fe6-9eca-45ce-a318-d44e42333df2",
+    "contract_id": "ocds-b5fd17-074df8a5-409b-42a4-9855-95b3061ba959_ocds-b5fd17-074df8a5-409b-42a4-9855-95b3061ba959-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 26243.77",
+      "PO amount: 33380.24",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-024837 comply with its purchase order and contract?",
+    "invoice_id": "30f7062a-051e-441d-bfbb-b040951ebf33",
+    "po_id": "a25c43ac-7b80-4029-a2b1-6f1b7d9458b0",
+    "contract_id": "ocds-b5fd17-11360e12-11c1-4e67-b75b-d958e985e171_ocds-b5fd17-11360e12-11c1-4e67-b75b-d958e985e171-2",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 17028.24",
+      "PO amount: 17354.55",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-000142 comply with its purchase order and contract?",
+    "invoice_id": "f4ef9b7d-476b-47a2-a948-0ff7598ea377",
+    "po_id": "402f1f86-ca65-441d-9937-8e7d9b9a4a63",
+    "contract_id": "ocds-b5fd17-000c12e2-1a4a-417b-b0f6-b98ba37de54c_ocds-b5fd17-000c12e2-1a4a-417b-b0f6-b98ba37de54c-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 17949.24",
+      "PO amount: 23955.68",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-025587 comply with its purchase order and contract?",
+    "invoice_id": "98c702b4-cd5d-4875-9e52-47891c433e8e",
+    "po_id": "c438b1cb-d7de-4aac-94fd-b0f74d062b95",
+    "contract_id": "ocds-b5fd17-11e6f344-79c3-45e8-bea3-5432729f4122_ocds-b5fd17-11e6f344-79c3-45e8-bea3-5432729f4122-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 12105.86",
+      "PO amount: 12563.92",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-017381 comply with its purchase order and contract?",
+    "invoice_id": "50f9f10d-0a41-4cb8-b09d-0bb4b73ac052",
+    "po_id": "f2e3ef29-72e0-4a17-82a0-bcc03feab037",
+    "contract_id": "ocds-b5fd17-0bf1badd-70ba-4649-9fe0-16389e0ed2e7_ocds-b5fd17-0bf1badd-70ba-4649-9fe0-16389e0ed2e7-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 10513.67",
+      "PO amount: 11842.53",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-029820 comply with its purchase order and contract?",
+    "invoice_id": "439a2a49-55aa-46c8-b07e-8c11561338bd",
+    "po_id": "9038ff5a-e1b7-4e6f-ac50-90e098d90746",
+    "contract_id": "ocds-b5fd17-14de797e-d366-49ac-826b-9d8d7c63c741_ocds-b5fd17-14de797e-d366-49ac-826b-9d8d7c63c741-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 1323006.75",
+      "PO amount: 1457923.81",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-018695 comply with its purchase order and contract?",
+    "invoice_id": "0e4e03b7-046b-4605-a730-2b917636d8c3",
+    "po_id": "e0178f4e-d86f-4099-a3ed-1076b21428ad",
+    "contract_id": "ocds-b5fd17-0d11bc63-085e-4d75-8b30-5b730660c62a_ocds-b5fd17-0d11bc63-085e-4d75-8b30-5b730660c62a-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 1209843.26",
+      "PO amount: 1502848.87",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-027723 comply with its purchase order and contract?",
+    "invoice_id": "22b9a841-24a8-4b78-93cd-18a8f01452b6",
+    "po_id": "2a9f676e-68c5-43c0-a32f-8c0096745492",
+    "contract_id": "ocds-b5fd17-137f6103-44e8-403c-9e8d-a959252466ef_ocds-b5fd17-137f6103-44e8-403c-9e8d-a959252466ef-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 1178085.15",
+      "PO amount: 1482687.12",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-036423 comply with its purchase order and contract?",
+    "invoice_id": "11a6b860-8148-4b00-a588-60b84d4caf22",
+    "po_id": "6923a6a1-6ee2-463f-bf2d-98b1d5725398",
+    "contract_id": "ocds-b5fd17-19711332-103e-443a-a9a4-84294db7d4fe_ocds-b5fd17-19711332-103e-443a-a9a4-84294db7d4fe-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 30483.77",
+      "PO amount: 40777.46",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-031895 comply with its purchase order and contract?",
+    "invoice_id": "c28126c8-31eb-4afa-98d5-1615f872a06b",
+    "po_id": "0cb4d320-d2b6-4967-b950-07be91f3adca",
+    "contract_id": "ocds-b5fd17-16523f32-b6bb-4038-b03f-87bb83775096_ocds-b5fd17-16523f32-b6bb-4038-b03f-87bb83775096-2",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 35473.41",
+      "PO amount: 39878.97",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-010145 comply with its purchase order and contract?",
+    "invoice_id": "bf0abeb5-b415-4024-b913-581c7d68d69a",
+    "po_id": "96d3b2dd-779b-4005-add9-5b7ec74c38f7",
+    "contract_id": "ocds-b5fd17-06fa4cc3-afcb-4fcd-a844-d0a87773165f_ocds-b5fd17-06fa4cc3-afcb-4fcd-a844-d0a87773165f-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 7202507.14",
+      "PO amount: 7362038.72",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-012446 comply with its purchase order and contract?",
+    "invoice_id": "b3337acb-1b20-45e0-87f7-adf4ab232e84",
+    "po_id": "aff30d67-51e5-47bc-8902-8571fbb43285",
+    "contract_id": "ocds-b5fd17-088ae861-91e6-4305-82d2-e9b9e8c10710_ocds-b5fd17-088ae861-91e6-4305-82d2-e9b9e8c10710-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 19191.57",
+      "PO amount: 21901.08",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-019446 comply with its purchase order and contract?",
+    "invoice_id": "e0b7330d-a083-4830-9785-a3a54fe93fa0",
+    "po_id": "218e1510-894a-45e5-ba8c-95f1494f87c9",
+    "contract_id": "ocds-b5fd17-0d7a32e3-11c4-4846-aeb7-497b2d6e1aa7_ocds-b5fd17-0d7a32e3-11c4-4846-aeb7-497b2d6e1aa7-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 30559.91",
+      "PO amount: 32370.16",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-014268 comply with its purchase order and contract?",
+    "invoice_id": "db2d9038-80ca-49a1-9bf4-d053dcdb1bd8",
+    "po_id": "89515c5b-f6d6-4082-94dd-e7c053fd29d2",
+    "contract_id": "ocds-b5fd17-09bcf730-2cb1-4645-a644-2d97ce35f93c_ocds-b5fd17-09bcf730-2cb1-4645-a644-2d97ce35f93c-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 18539.65",
+      "PO amount: 24022.82",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-003833 comply with its purchase order and contract?",
+    "invoice_id": "26231681-c001-471c-aead-950a4b435be7",
+    "po_id": "78ccc101-d766-405f-8e60-8aae2043e5dd",
+    "contract_id": "ocds-b5fd17-02b338d4-66dd-4fe7-8dd2-7ffe07a7c25f_ocds-b5fd17-02b338d4-66dd-4fe7-8dd2-7ffe07a7c25f-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 1407648.0",
+      "PO amount: 1472224.63",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-037958 comply with its purchase order and contract?",
+    "invoice_id": "647b7a12-1cc1-41f5-8fb8-3fa0aaf36a68",
+    "po_id": "bff69b75-4c00-424b-b98e-46f08d63a86f",
+    "contract_id": "ocds-b5fd17-1a66b274-909b-4e76-95e6-899047e7b4c6_ocds-b5fd17-1a66b274-909b-4e76-95e6-899047e7b4c6-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 78443.09",
+      "PO amount: 90387.29",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-035534 comply with its purchase order and contract?",
+    "invoice_id": "2dd9e464-068e-4c0d-9f1e-8f3f9926bae4",
+    "po_id": "d586f332-5547-4069-a07b-f2145e4e8925",
+    "contract_id": "ocds-b5fd17-18c89c16-c97d-47bb-b7c8-f22b4b5f9c7c_ocds-b5fd17-18c89c16-c97d-47bb-b7c8-f22b4b5f9c7c-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 167393.49",
+      "PO amount: 170855.76",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-003995 comply with its purchase order and contract?",
+    "invoice_id": "ab94a0d2-f4b6-4a9b-8348-7faeb63358e8",
+    "po_id": "756a252e-2672-4aa9-9090-5ce9c25cef50",
+    "contract_id": "ocds-b5fd17-02cab34b-8c5e-4e1f-a22c-8a7721694fed_ocds-b5fd17-02cab34b-8c5e-4e1f-a22c-8a7721694fed-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 14507.52",
+      "PO amount: 18754.24",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-020553 comply with its purchase order and contract?",
+    "invoice_id": "ece3b710-77f0-4309-aac6-31ee692641aa",
+    "po_id": "1b0c07d5-faaa-45d5-8ac9-8a6979607158",
+    "contract_id": "ocds-b5fd17-0e429a76-d16b-4e53-a876-91f40b8f2408_ocds-b5fd17-0e429a76-d16b-4e53-a876-91f40b8f2408-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 28206.97",
+      "PO amount: 29888.8",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-003747 comply with its purchase order and contract?",
+    "invoice_id": "1535bc2b-54f8-4138-b8f0-cbd6596c22a6",
+    "po_id": "62c23b45-d603-4326-b5f1-d7986c339c2b",
+    "contract_id": "ocds-b5fd17-028f52fd-5803-480f-9bb6-738a04389643_ocds-b5fd17-028f52fd-5803-480f-9bb6-738a04389643-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 27301.82",
+      "PO amount: 33065.59",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-003287 comply with its purchase order and contract?",
+    "invoice_id": "bed59a0a-a15f-42d7-8011-f74bb2fc2a2d",
+    "po_id": "3ee39212-305a-447b-aba1-0db6b3656245",
+    "contract_id": "ocds-b5fd17-02532c18-7793-4652-8e5f-13f2abd28b5a_ocds-b5fd17-02532c18-7793-4652-8e5f-13f2abd28b5a-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 251964.12",
+      "PO amount: 286371.02",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-038285 comply with its purchase order and contract?",
+    "invoice_id": "116cb16e-9fd4-4c95-bb4b-6ad1c9aaa9f4",
+    "po_id": "e14fef5d-95f7-40f5-a232-ae321734b93e",
+    "contract_id": "ocds-b5fd17-1a913401-081e-46fc-8d91-d298d97980dd_ocds-b5fd17-1a913401-081e-46fc-8d91-d298d97980dd-2",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 26402.64",
+      "PO amount: 33028.49",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-031247 comply with its purchase order and contract?",
+    "invoice_id": "997501eb-459d-454d-a1d7-1493416ec0a8",
+    "po_id": "b063bb02-e0d2-423f-b67a-ac3bc7d01c5c",
+    "contract_id": "ocds-b5fd17-15ed108d-b5a9-41c2-ba9f-9957eaa3549b_ocds-b5fd17-15ed108d-b5a9-41c2-ba9f-9957eaa3549b-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 39137.83",
+      "PO amount: 53766.16",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-032955 comply with its purchase order and contract?",
+    "invoice_id": "2264c9d1-eb74-45be-b0dd-3c63d87375b0",
+    "po_id": "c0dffd07-116e-4fe2-8100-47ae809a90a9",
+    "contract_id": "ocds-b5fd17-17115f8d-7493-4389-8137-6c3e01fb4b09_ocds-b5fd17-17115f8d-7493-4389-8137-6c3e01fb4b09-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 1116.93",
+      "PO amount: 1453.92",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-034808 comply with its purchase order and contract?",
+    "invoice_id": "afa89279-6175-4cd0-a599-24c600bb03f2",
+    "po_id": "0a7c42a4-9c83-4094-a868-c98fec1f77eb",
+    "contract_id": "ocds-b5fd17-185b1f44-6238-4125-b446-5edb46aee6f0_ocds-b5fd17-185b1f44-6238-4125-b446-5edb46aee6f0-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 521.56",
+      "PO amount: 605.37",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-010318 comply with its purchase order and contract?",
+    "invoice_id": "0bed666c-3b64-42a2-bea9-375b236164ba",
+    "po_id": "aefdeea4-8f3d-4982-96af-601271262daf",
+    "contract_id": "ocds-b5fd17-0739a977-0d65-4b98-8bee-a7da8bd5933c_ocds-b5fd17-0739a977-0d65-4b98-8bee-a7da8bd5933c-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 32431.45",
+      "PO amount: 35367.61",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-003728 comply with its purchase order and contract?",
+    "invoice_id": "78f47126-e2d0-4690-843a-0aa324377458",
+    "po_id": "4329570d-dc93-4bb5-9c23-3009f6746663",
+    "contract_id": "ocds-b5fd17-028d898f-bbc0-4ec3-b226-e8bb08a15d19_ocds-b5fd17-028d898f-bbc0-4ec3-b226-e8bb08a15d19-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 444133.66",
+      "PO amount: 485889.4",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-033282 comply with its purchase order and contract?",
+    "invoice_id": "8131e013-55c0-4f0b-9c63-8aa13be64f0d",
+    "po_id": "46f414f5-f6bf-4458-8eb3-a4499ffc06ed",
+    "contract_id": "ocds-b5fd17-17548ce2-1173-471f-90e0-c1786411f546_ocds-b5fd17-17548ce2-1173-471f-90e0-c1786411f546-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 1047.95",
+      "PO amount: 1492.47",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-005251 comply with its purchase order and contract?",
+    "invoice_id": "35f69685-967c-47c6-8ddb-242fd4c3c815",
+    "po_id": "47d3d1b5-9fd5-4468-b671-c97025b356d3",
+    "contract_id": "ocds-b5fd17-03d7e39f-8a32-4f0d-864b-ad075a0e27ba_ocds-b5fd17-03d7e39f-8a32-4f0d-864b-ad075a0e27ba-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 22607.97",
+      "PO amount: 23076.81",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-012179 comply with its purchase order and contract?",
+    "invoice_id": "47c6b00c-416f-4448-ae11-befb75ef16f2",
+    "po_id": "55b7842d-f96a-4e08-aa39-c2f50ca7df3a",
+    "contract_id": "ocds-b5fd17-08536662-86ac-4427-a457-4d91a57e0c06_ocds-b5fd17-08536662-86ac-4427-a457-4d91a57e0c06-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 15867.49",
+      "PO amount: 17881.3",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-004491 comply with its purchase order and contract?",
+    "invoice_id": "f924ca79-6d47-4ae7-a7e0-4b41d4ddb27a",
+    "po_id": "357d1e91-09c8-4755-aff6-7a6021956128",
+    "contract_id": "ocds-b5fd17-0301460a-8cab-4993-8c4a-799d77deb713_ocds-b5fd17-0301460a-8cab-4993-8c4a-799d77deb713-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 755490.39",
+      "PO amount: 830773.45",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-038997 comply with its purchase order and contract?",
+    "invoice_id": "8b518fd8-be66-4188-bce0-a744be93f932",
+    "po_id": "a8fe0742-5834-4fc1-b077-6d6bb04a0c1b",
+    "contract_id": "ocds-b5fd17-1aed1df7-e653-4b31-abcb-fd4d6c6920dc_ocds-b5fd17-1aed1df7-e653-4b31-abcb-fd4d6c6920dc-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 56120.31",
+      "PO amount: 61846.1",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-004454 comply with its purchase order and contract?",
+    "invoice_id": "3faa687f-648e-44fe-97d5-8f7a4c280d8f",
+    "po_id": "fd0c3cba-37c8-43a1-b3f2-59e662ef98ce",
+    "contract_id": "ocds-b5fd17-02ffba5e-e30e-4a21-af4a-13d90e6c6a63_ocds-b5fd17-02ffba5e-e30e-4a21-af4a-13d90e6c6a63-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 18907.3",
+      "PO amount: 20327.99",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-015415 comply with its purchase order and contract?",
+    "invoice_id": "5a78e861-c9da-4f79-8ce4-e66cdac9ee82",
+    "po_id": "72d64964-b4fd-4109-9923-498dfbc55a62",
+    "contract_id": "ocds-b5fd17-0a76347f-bcda-4d80-a423-2e2f13c55a0d_ocds-b5fd17-0a76347f-bcda-4d80-a423-2e2f13c55a0d-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 258801.6",
+      "PO amount: 291513.08",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-026462 comply with its purchase order and contract?",
+    "invoice_id": "7106298b-eee8-422c-b136-31e805dddae2",
+    "po_id": "547fb31b-ab39-406b-b7a4-a43be8cd79bf",
+    "contract_id": "ocds-b5fd17-1292b215-34d3-484d-95b3-5e630527f0a5_ocds-b5fd17-1292b215-34d3-484d-95b3-5e630527f0a5-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 128636.11",
+      "PO amount: 135136.48",
+      "Contract max: N/A"
+    ]
+  },
+  {
+    "question": "Does invoice INV-007857 comply with its purchase order and contract?",
+    "invoice_id": "141cecae-1e89-401c-b4b8-18b9b30b725a",
+    "po_id": "cd125bc5-fd8c-4094-ba92-7c14909dc5cd",
+    "contract_id": "ocds-b5fd17-056366b2-43c2-43bc-a1bd-1dbbc73667d8_ocds-b5fd17-056366b2-43c2-43bc-a1bd-1dbbc73667d8-1",
+    "expected_result": "compliant",
+    "expected_issues": [],
+    "expected_facts": [
+      "Invoice amount: 219475.85",
+      "PO amount: 231702.79",
+      "Contract max: N/A"
+    ]
+  }
+]

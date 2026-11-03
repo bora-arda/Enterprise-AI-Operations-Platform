@@ -1,0 +1,71 @@
+name: Integration Tests
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: pass
+          POSTGRES_DB: procurement
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U user -d procurement"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+          python-version: "3.12"
+      - name: Wait for PostgreSQL
+        run: |
+          until pg_isready -h localhost -p 5432 -U user -d procurement; do
+            sleep 1
+          done
+      - name: Run integration tests
+        env:
+          DATABASE_URL: postgresql+asyncpg://user:pass@localhost:5432/procurement
+        run: |
+          uv run alembic -c src/procurement_ai/database/migrations/alembic.ini upgrade head
+          uv run pytest tests/integration/ -v
+
+  evaluation:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: pass
+          POSTGRES_DB: procurement
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U user -d procurement"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+          python-version: "3.12"
+      - name: Wait for PostgreSQL
+        run: |
+          until pg_isready -h localhost -p 5432 -U user -d procurement; do
+            sleep 1
+          done
+      - name: Run evaluation tests
+        env:
+          DATABASE_URL: postgresql+asyncpg://user:pass@localhost:5432/procurement
+        run: |
+          uv run pytest tests/evaluation/ -v

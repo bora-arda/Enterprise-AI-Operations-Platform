@@ -1,0 +1,1562 @@
+[
+  {
+    "query": "What are the payment terms and contract value for NCL Contractors Ltd?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Aecom Ltd?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Britain Thinks?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for CEOX SERVICES LTD?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for John Nixon Limited?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Bytes Software Services?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for CAPITA BUSINESS SERVICES LIMITED?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Travel Planet TMC UK Limited?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for RICOH UK LTD?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for SOFTCAT PLC?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Internet Investigations Solutions Limited?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Johnsons Moving Services Ltd?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Quartix Ltd?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Gowling WLG (UK) LLP?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for City of York Council?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Deloitte LLP?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Turnkey Construction Limited?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Ernst & Young?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Breast Cancer Now?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for CFE Research and Consulting?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for ACCENTURE (UK) LIMITED?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for University Of Plymouth?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for N E & C Ltd?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Hunter Communication Services Ltd?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Morgan Lambert LTD?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Expedition Engineering?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for STARBUCKS COFFEE COMPANY (UK) LIMITED?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for SHB Hire Ltd?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for B Nokes Contracts Ltd?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Richardson Decorating Contractors Ltd?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Hammond (ECS) Ltd?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for KAYS TRAFFIC MANAGEMENT SYSTEMS LTD.?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "What are the payment terms and contract value for Bituchem Building Products Limited?",
+    "expected_sources": [
+      "DOC-CONT-ocds-b5f"
+    ],
+    "document_type": "contract",
+    "metadata": {
+      "document_id": "DOC-CONT-ocds-b5f"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-038619",
+    "expected_sources": [
+      "DOC-INV-4f4cca58"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-4f4cca58"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-018232",
+    "expected_sources": [
+      "DOC-INV-f115b1b8"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-f115b1b8"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-000426",
+    "expected_sources": [
+      "DOC-INV-34f92585"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-34f92585"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-010464",
+    "expected_sources": [
+      "DOC-INV-0bf64271"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-0bf64271"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-027697",
+    "expected_sources": [
+      "DOC-INV-10aa23d6"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-10aa23d6"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-022299",
+    "expected_sources": [
+      "DOC-INV-410b4d6a"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-410b4d6a"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-018211",
+    "expected_sources": [
+      "DOC-INV-b1d6d66e"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-b1d6d66e"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-010190",
+    "expected_sources": [
+      "DOC-INV-c8f74d3c"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-c8f74d3c"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-014111",
+    "expected_sources": [
+      "DOC-INV-cb9e603c"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-cb9e603c"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-022060",
+    "expected_sources": [
+      "DOC-INV-83a75669"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-83a75669"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-006699",
+    "expected_sources": [
+      "DOC-INV-47f60481"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-47f60481"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-006079",
+    "expected_sources": [
+      "DOC-INV-dd5c2a7e"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-dd5c2a7e"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-024899",
+    "expected_sources": [
+      "DOC-INV-dbb4f181"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-dbb4f181"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-006339",
+    "expected_sources": [
+      "DOC-INV-b8083900"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-b8083900"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-023527",
+    "expected_sources": [
+      "DOC-INV-d42c339e"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-d42c339e"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-022542",
+    "expected_sources": [
+      "DOC-INV-07718679"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-07718679"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-039566",
+    "expected_sources": [
+      "DOC-INV-387678f3"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-387678f3"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-017336",
+    "expected_sources": [
+      "DOC-INV-df2ce9f7"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-df2ce9f7"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-002848",
+    "expected_sources": [
+      "DOC-INV-a2b7761f"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-a2b7761f"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-030109",
+    "expected_sources": [
+      "DOC-INV-7ff27d7b"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-7ff27d7b"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-035143",
+    "expected_sources": [
+      "DOC-INV-5604d662"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-5604d662"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-008181",
+    "expected_sources": [
+      "DOC-INV-6d7bdc90"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-6d7bdc90"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-024808",
+    "expected_sources": [
+      "DOC-INV-305583e6"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-305583e6"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-005165",
+    "expected_sources": [
+      "DOC-INV-12d5448b"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-12d5448b"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-036179",
+    "expected_sources": [
+      "DOC-INV-1aef0e56"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-1aef0e56"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-019214",
+    "expected_sources": [
+      "DOC-INV-afc484cc"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-afc484cc"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-041199",
+    "expected_sources": [
+      "DOC-INV-c8a703e8"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-c8a703e8"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-040536",
+    "expected_sources": [
+      "DOC-INV-a815c5e7"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-a815c5e7"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-023701",
+    "expected_sources": [
+      "DOC-INV-0cf8bb11"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-0cf8bb11"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-037838",
+    "expected_sources": [
+      "DOC-INV-a4f75ab6"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-a4f75ab6"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-012602",
+    "expected_sources": [
+      "DOC-INV-fc22ba9e"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-fc22ba9e"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-004559",
+    "expected_sources": [
+      "DOC-INV-b087c3a6"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-b087c3a6"
+    }
+  },
+  {
+    "query": "Show me details for invoice INV-003004",
+    "expected_sources": [
+      "DOC-INV-730a14dc"
+    ],
+    "document_type": "invoice",
+    "metadata": {
+      "document_id": "DOC-INV-730a14dc"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-007468",
+    "expected_sources": [
+      "DOC-PO-b01aec9c"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-b01aec9c"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-009483",
+    "expected_sources": [
+      "DOC-PO-baaa391b"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-baaa391b"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-002615",
+    "expected_sources": [
+      "DOC-PO-b4f3f533"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-b4f3f533"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-007629",
+    "expected_sources": [
+      "DOC-PO-cadc2e98"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-cadc2e98"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-003310",
+    "expected_sources": [
+      "DOC-PO-5d1b172d"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-5d1b172d"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-012456",
+    "expected_sources": [
+      "DOC-PO-b6a8e016"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-b6a8e016"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-009109",
+    "expected_sources": [
+      "DOC-PO-fcb9294e"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-fcb9294e"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-014858",
+    "expected_sources": [
+      "DOC-PO-10529fe1"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-10529fe1"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-011955",
+    "expected_sources": [
+      "DOC-PO-db1bbe63"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-db1bbe63"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-005330",
+    "expected_sources": [
+      "DOC-PO-ab96072e"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-ab96072e"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-012131",
+    "expected_sources": [
+      "DOC-PO-4b6bde31"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-4b6bde31"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-011642",
+    "expected_sources": [
+      "DOC-PO-7c893941"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-7c893941"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-006866",
+    "expected_sources": [
+      "DOC-PO-339de555"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-339de555"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-008749",
+    "expected_sources": [
+      "DOC-PO-b0959f64"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-b0959f64"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-002340",
+    "expected_sources": [
+      "DOC-PO-f9a72f33"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-f9a72f33"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-005608",
+    "expected_sources": [
+      "DOC-PO-63282dae"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-63282dae"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-008022",
+    "expected_sources": [
+      "DOC-PO-ac804a88"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-ac804a88"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-005355",
+    "expected_sources": [
+      "DOC-PO-bc1c0d4c"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-bc1c0d4c"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-015148",
+    "expected_sources": [
+      "DOC-PO-4cbdc617"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-4cbdc617"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-012434",
+    "expected_sources": [
+      "DOC-PO-097c2266"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-097c2266"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-008846",
+    "expected_sources": [
+      "DOC-PO-4b405823"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-4b405823"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-007197",
+    "expected_sources": [
+      "DOC-PO-adacf466"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-adacf466"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-010627",
+    "expected_sources": [
+      "DOC-PO-8dd0b702"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-8dd0b702"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-001833",
+    "expected_sources": [
+      "DOC-PO-092e55d9"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-092e55d9"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-007506",
+    "expected_sources": [
+      "DOC-PO-d1d75b75"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-d1d75b75"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-001052",
+    "expected_sources": [
+      "DOC-PO-51724f9f"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-51724f9f"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-010337",
+    "expected_sources": [
+      "DOC-PO-79b32d99"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-79b32d99"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-013146",
+    "expected_sources": [
+      "DOC-PO-39ca5b67"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-39ca5b67"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-008774",
+    "expected_sources": [
+      "DOC-PO-be514712"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-be514712"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-002169",
+    "expected_sources": [
+      "DOC-PO-51b409f1"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-51b409f1"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-006914",
+    "expected_sources": [
+      "DOC-PO-2f7e9b34"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-2f7e9b34"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-010312",
+    "expected_sources": [
+      "DOC-PO-67e2920e"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-67e2920e"
+    }
+  },
+  {
+    "query": "Find information about PO: PO-006968",
+    "expected_sources": [
+      "DOC-PO-5f580372"
+    ],
+    "document_type": "purchase_order",
+    "metadata": {
+      "document_id": "DOC-PO-5f580372"
+    }
+  },
+  {
+    "query": "What does the vendor management policy say about approval requirements?",
+    "expected_sources": [
+      "DOC-POL-VEND-001"
+    ],
+    "document_type": "policy",
+    "metadata": {
+      "document_id": "DOC-POL-VEND-001"
+    }
+  },
+  {
+    "query": "What does the approval policy say about approval requirements?",
+    "expected_sources": [
+      "DOC-POL-APPR-001"
+    ],
+    "document_type": "policy",
+    "metadata": {
+      "document_id": "DOC-POL-APPR-001"
+    }
+  },
+  {
+    "query": "What does the payment policy say about approval requirements?",
+    "expected_sources": [
+      "DOC-POL-PAY-001"
+    ],
+    "document_type": "policy",
+    "metadata": {
+      "document_id": "DOC-POL-PAY-001"
+    }
+  },
+  {
+    "query": "What does the procurement policy say about approval requirements?",
+    "expected_sources": [
+      "DOC-POL-PROC-001"
+    ],
+    "document_type": "policy",
+    "metadata": {
+      "document_id": "DOC-POL-PROC-001"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-035742",
+    "expected_sources": [
+      "DOC-EMAIL-66a490d8"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-66a490d8"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-016050",
+    "expected_sources": [
+      "DOC-EMAIL-afe4214b"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-afe4214b"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-006718",
+    "expected_sources": [
+      "DOC-EMAIL-9bb1cfba"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-9bb1cfba"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-001740",
+    "expected_sources": [
+      "DOC-EMAIL-835ebfce"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-835ebfce"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-001953",
+    "expected_sources": [
+      "DOC-EMAIL-28d8fe59"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-28d8fe59"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-006141",
+    "expected_sources": [
+      "DOC-EMAIL-b43e2f54"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-b43e2f54"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-005698",
+    "expected_sources": [
+      "DOC-EMAIL-9a741325"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-9a741325"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-009145",
+    "expected_sources": [
+      "DOC-EMAIL-b37052be"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-b37052be"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-014629",
+    "expected_sources": [
+      "DOC-EMAIL-05c47c4f"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-05c47c4f"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-018025",
+    "expected_sources": [
+      "DOC-EMAIL-086f5b80"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-086f5b80"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-001640",
+    "expected_sources": [
+      "DOC-EMAIL-de5cdd16"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-de5cdd16"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-015248",
+    "expected_sources": [
+      "DOC-EMAIL-c0b9035d"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-c0b9035d"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-033119",
+    "expected_sources": [
+      "DOC-EMAIL-8ddc6cea"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-8ddc6cea"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-041906",
+    "expected_sources": [
+      "DOC-EMAIL-1c3adb51"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-1c3adb51"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-002083",
+    "expected_sources": [
+      "DOC-EMAIL-3de41248"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-3de41248"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-027652",
+    "expected_sources": [
+      "DOC-EMAIL-12530f02"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-12530f02"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-007297",
+    "expected_sources": [
+      "DOC-EMAIL-890f1d6d"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-890f1d6d"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-014329",
+    "expected_sources": [
+      "DOC-EMAIL-5ae941c5"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-5ae941c5"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-039454",
+    "expected_sources": [
+      "DOC-EMAIL-2f9091bd"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-2f9091bd"
+    }
+  },
+  {
+    "query": "Find information about Email: INV-038699",
+    "expected_sources": [
+      "DOC-EMAIL-61fb1768"
+    ],
+    "document_type": "email",
+    "metadata": {
+      "document_id": "DOC-EMAIL-61fb1768"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000039",
+    "expected_sources": [
+      "DOC-NOTE-8f226294"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-8f226294"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000005",
+    "expected_sources": [
+      "DOC-NOTE-2e788c78"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-2e788c78"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000025",
+    "expected_sources": [
+      "DOC-NOTE-9a4ba5b0"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-9a4ba5b0"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000048",
+    "expected_sources": [
+      "DOC-NOTE-4b10536f"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-4b10536f"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000050",
+    "expected_sources": [
+      "DOC-NOTE-fddfceb0"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-fddfceb0"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000030",
+    "expected_sources": [
+      "DOC-NOTE-f86219fc"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-f86219fc"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000034",
+    "expected_sources": [
+      "DOC-NOTE-3f6a4866"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-3f6a4866"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000017",
+    "expected_sources": [
+      "DOC-NOTE-10f66a4e"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-10f66a4e"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000036",
+    "expected_sources": [
+      "DOC-NOTE-df572098"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-df572098"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000001",
+    "expected_sources": [
+      "DOC-NOTE-5099b32a"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-5099b32a"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000008",
+    "expected_sources": [
+      "DOC-NOTE-b0ebd3fe"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-b0ebd3fe"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000035",
+    "expected_sources": [
+      "DOC-NOTE-44c8c098"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-44c8c098"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000018",
+    "expected_sources": [
+      "DOC-NOTE-4a4e5976"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-4a4e5976"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000022",
+    "expected_sources": [
+      "DOC-NOTE-483f02ba"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-483f02ba"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000040",
+    "expected_sources": [
+      "DOC-NOTE-d83baad4"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-d83baad4"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000019",
+    "expected_sources": [
+      "DOC-NOTE-44a6aafb"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-44a6aafb"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000028",
+    "expected_sources": [
+      "DOC-NOTE-2c65a719"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-2c65a719"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000011",
+    "expected_sources": [
+      "DOC-NOTE-59467303"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-59467303"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000045",
+    "expected_sources": [
+      "DOC-NOTE-2e366b04"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-2e366b04"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000041",
+    "expected_sources": [
+      "DOC-NOTE-504ebcf9"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-504ebcf9"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000024",
+    "expected_sources": [
+      "DOC-NOTE-a6d44bc2"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-a6d44bc2"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000029",
+    "expected_sources": [
+      "DOC-NOTE-11b29e17"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-11b29e17"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000032",
+    "expected_sources": [
+      "DOC-NOTE-1403f223"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-1403f223"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000009",
+    "expected_sources": [
+      "DOC-NOTE-9104f078"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-9104f078"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000043",
+    "expected_sources": [
+      "DOC-NOTE-516348b9"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-516348b9"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000047",
+    "expected_sources": [
+      "DOC-NOTE-7406d786"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-7406d786"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000006",
+    "expected_sources": [
+      "DOC-NOTE-49b62a7a"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-49b62a7a"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000026",
+    "expected_sources": [
+      "DOC-NOTE-0eb8e6be"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-0eb8e6be"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000004",
+    "expected_sources": [
+      "DOC-NOTE-0702d19a"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-0702d19a"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000021",
+    "expected_sources": [
+      "DOC-NOTE-d497ea78"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-d497ea78"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000010",
+    "expected_sources": [
+      "DOC-NOTE-be42adc3"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-be42adc3"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000023",
+    "expected_sources": [
+      "DOC-NOTE-a597b979"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-a597b979"
+    }
+  },
+  {
+    "query": "Find information about Note: INV-000007",
+    "expected_sources": [
+      "DOC-NOTE-0ab27b1e"
+    ],
+    "document_type": "operational_note",
+    "metadata": {
+      "document_id": "DOC-NOTE-0ab27b1e"
+    }
+  }
+]

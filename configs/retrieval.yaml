@@ -1,0 +1,65 @@
+# Retrieval Pipeline Configuration
+
+# Document chunking
+chunking:
+  default_chunk_size: 400
+  default_chunk_overlap: 50
+  by_document_type:
+    contract:
+      chunk_size: 500
+      overlap: 50
+      strategy: by_section
+    policy:
+      chunk_size: 400
+      overlap: 50
+      strategy: by_clause
+    invoice:
+      chunk_size: 300
+      overlap: 30
+      strategy: by_line_item
+    email:
+      chunk_size: 350
+      overlap: 50
+      strategy: by_thread
+
+# Embedding configuration
+embeddings:
+  provider: openai  # openai | sentence_transformers
+  openai:
+    model: text-embedding-3-small
+    dimensions: 1536
+  sentence_transformers:
+    model: all-MiniLM-L6-v2
+    dimensions: 384
+  batch_size: 100
+
+# BM25 configuration
+bm25:
+  index_path: data/processed/bm25_index.pkl
+  k1: 1.5
+  b: 0.75
+
+# Dense vector search
+dense:
+  top_k: 20
+  similarity_threshold: 0.5
+
+# Hybrid fusion
+fusion:
+  method: rrf  # reciprocal rank fusion
+  rrf_k: 60
+  bm25_weight: 0.5
+  dense_weight: 0.5
+
+# Reranking
+reranking:
+  enabled: true
+  model: cross-encoder/ms-marco-MiniLM-L-6-v2
+  top_n: 5
+  batch_size: 32
+
+# Context selection
+context:
+  max_tokens: 4000
+  max_chunks: 10
+  diversity_threshold: 0.85

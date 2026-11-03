@@ -1,0 +1,97 @@
+# Anomaly Detection Configuration
+
+# Deterministic rules
+rules:
+  # Invoice amount exceeds PO amount
+  invoice_exceeds_po:
+    enabled: true
+    severity: high
+    description: "Invoice amount exceeds associated PO amount"
+
+  # Invoice amount exceeds contract limit
+  invoice_exceeds_contract:
+    enabled: true
+    severity: high
+    description: "Invoice amount exceeds contract maximum value"
+
+  # Duplicate invoice detection
+  duplicate_invoice:
+    enabled: true
+    severity: high
+    description: "Potential duplicate invoice detected"
+    fuzzy_match_threshold: 0.85
+    match_fields:
+      - vendor_id
+      - amount
+      - invoice_date
+      - line_items
+
+  # Missing approval
+  missing_approval:
+    enabled: true
+    severity: high
+    description: "Invoice missing required approval"
+
+  # Expired contract
+  expired_contract:
+    enabled: true
+    severity: medium
+    description: "Invoice submitted after contract expiration"
+
+  # Wrong vendor
+  wrong_vendor:
+    enabled: true
+    severity: high
+    description: "Invoice vendor does not match PO vendor"
+
+  # Already paid
+  already_paid:
+    enabled: true
+    severity: high
+    description: "Invoice has already been paid"
+
+  # Invalid PO reference
+  invalid_po:
+    enabled: true
+    severity: high
+    description: "Invoice references non-existent PO"
+
+  # Wrong currency
+  wrong_currency:
+    enabled: true
+    severity: medium
+    description: "Invoice currency does not match PO/contract currency"
+
+  # Payment mismatch
+  payment_mismatch:
+    enabled: true
+    severity: high
+    description: "Payment amount does not match invoice amount"
+
+# ML-based anomaly detection
+ml:
+  enabled: true
+  algorithm: isolation_forest
+  contamination: 0.05
+  random_state: 42
+  features:
+    - amount
+    - days_since_invoice
+    - days_since_due
+    - vendor_exception_count
+    - department_exception_count
+  retrain_interval_days: 7
+  model_path: data/processed/anomaly_model.pkl
+
+# Severity levels
+severity_levels:
+  low:
+    color: yellow
+    auto_flag: false
+  medium:
+    color: orange
+    auto_flag: true
+  high:
+    color: red
+    auto_flag: true
+    require_approval: true

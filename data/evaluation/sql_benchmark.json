@@ -1,0 +1,1892 @@
+[
+  {
+    "question": "What is the status of invoice INV-010017?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-010017'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-010017 has status paid",
+      "Amount: 10612.31 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-004037?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'eff53ffd-e830-422a-be58-26a174278341' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-004037 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-024505?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-024505'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-024505 has status paid",
+      "Amount: 8445.93 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-009822?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'f5bab80b-506d-407b-9baa-d177d318202d' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-009822 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-010588?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-010588'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-010588 has status paid",
+      "Amount: 238666.56 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-004266?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '6248fc40-24c9-4b85-bbdd-4be614454ddb' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-004266 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-035349?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-035349'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-035349 has status paid",
+      "Amount: 2828063.65 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-014164?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '9876f2ef-11bd-4f56-85d8-53c4581d3b6d' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-014164 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-034758?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-034758'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-034758 has status paid",
+      "Amount: 178758.9 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-013926?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'e01b6823-83aa-47c7-89bf-c91b3487189e' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-013926 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-000038?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-000038'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-000038 has status overdue",
+      "Amount: 117767.68 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-000020?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '8cbe9f74-2a70-4623-8e52-0a91675d901a' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-000020 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-039253?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-039253'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-039253 has status paid",
+      "Amount: 12036.36 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-015682?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'd1963c14-363f-4bc6-a2a3-452f96593cbc' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-015682 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-021244?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-021244'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-021244 has status paid",
+      "Amount: 117759.28 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-008502?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '40a0793e-7cd9-4261-96f9-9c36060413f1' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-008502 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-032022?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-032022'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-032022 has status paid",
+      "Amount: 74481.83 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-012830?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '626ac02e-7b01-4f44-9221-e984f81b2dd4' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-012830 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-001277?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-001277'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-001277 has status paid",
+      "Amount: 744813.58 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-000515?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'fdd9fc50-5e94-488d-be58-612840d9938f' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-000515 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-007332?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-007332'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-007332 has status overdue",
+      "Amount: 1855.0 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-002946?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '28bb1aa9-16c7-4ace-ac7d-e808ccc422cb' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-002946 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-023789?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-023789'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-023789 has status paid",
+      "Amount: 298069.15 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-009531?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '0ba226c2-15b8-4d36-8872-11693c88f3b6' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-009531 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-020154?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-020154'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-020154 has status paid",
+      "Amount: 27766.57 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-008061?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'e75fd289-b8bd-423d-8320-ad9d6ae09358' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-008061 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-015693?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-015693'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-015693 has status paid",
+      "Amount: 32554.74 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-006286?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '4f70e540-c46f-48f4-9d5e-e89f140e8531' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-006286 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-003797?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-003797'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-003797 has status paid",
+      "Amount: 302380.82 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-001517?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'f2204217-7085-4242-bc3a-3e03dd4f06c0' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-001517 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-015786?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-015786'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-015786 has status paid",
+      "Amount: 6468.07 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-006322?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'd382efd9-8046-40e8-95fc-d3e61dc8d32d' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-006322 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-037183?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-037183'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-037183 has status paid",
+      "Amount: 36689.84 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-014892?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '83d0ffba-ca98-42e1-a555-789df7800f1f' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-014892 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-005162?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-005162'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-005162 has status paid",
+      "Amount: 3858.44 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-002062?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'f38e2640-fd4c-400b-8dcd-dbae89d36eaf' AND status = 'overdue'",
+    "expected_result": {
+      "count": 2
+    },
+    "expected_facts": [
+      "PO PO-002062 has 2 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-005614?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-005614'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-005614 has status overdue",
+      "Amount: 337215.84 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-002243?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '32b2cd7c-6e76-4dcd-806d-8babe0afbdf5' AND status = 'overdue'",
+    "expected_result": {
+      "count": 2
+    },
+    "expected_facts": [
+      "PO PO-002243 has 2 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-031850?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-031850'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-031850 has status overdue",
+      "Amount: 1033728.91 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-012759?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'c5cd999f-4d59-40b6-8f43-cc9412e2df3f' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-012759 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-004536?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-004536'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-004536 has status overdue",
+      "Amount: 900102.5 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-001814?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '696d6a82-7a61-4bdc-b01f-66f783672022' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-001814 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-034912?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-034912'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-034912 has status paid",
+      "Amount: 14648.87 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-013989?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '797603be-5c85-43b5-bc62-ddb8eafbdbf3' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-013989 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-008242?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-008242'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-008242 has status paid",
+      "Amount: 107878.47 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-003323?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '50a4d213-f6ff-45eb-be67-dd3c30317ff7' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-003323 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-008415?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-008415'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-008415 has status overdue",
+      "Amount: 14468.69 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-003387?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '7d86ba70-7da3-47c5-a69c-37e8b952c6c1' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-003387 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-031149?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-031149'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-031149 has status overdue",
+      "Amount: 4158.99 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-012489?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '5c00f9e7-cbd8-4138-963e-fcf5312a9151' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-012489 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-036032?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-036032'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-036032 has status paid",
+      "Amount: 93954.85 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-014428?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'e7397636-bde0-4710-b468-deccb1605a21' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-014428 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-010822?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-010822'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-010822 has status paid",
+      "Amount: 8048817.75 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-004357?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'f173ec2c-a4a7-43b8-bbde-c9ec36561ae2' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-004357 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-017371?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-017371'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-017371 has status paid",
+      "Amount: 9443.38 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-006955?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'dc97dcd0-bcaf-4a75-96c6-8e52a9201a80' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-006955 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-034582?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-034582'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-034582 has status overdue",
+      "Amount: 34346.87 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-013861?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '5434919d-6e79-4d02-9aa1-a9b684f13a37' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-013861 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-039754?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-039754'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-039754 has status overdue",
+      "Amount: 295764.18 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-015884?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'bb16cc7a-55bd-4914-848f-64b2464fb0e7' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-015884 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-027731?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-027731'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-027731 has status paid",
+      "Amount: 31247.39 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-011112?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '48d22b6a-554c-4a2b-825a-d84f2b86e52b' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-011112 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-013881?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-013881'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-013881 has status paid",
+      "Amount: 92454.32 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-005570?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '481ee02a-062c-4833-99c7-06959675dc4b' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-005570 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-035344?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-035344'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-035344 has status overdue",
+      "Amount: 7692489.17 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-014162?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '438b6906-e6ab-4231-ae23-8533fe1ee161' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-014162 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-013183?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-013183'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-013183 has status paid",
+      "Amount: 44004.41 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-005296?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '40be879f-1135-49b2-b6ff-62ac569f7f5b' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-005296 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-020429?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-020429'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-020429 has status overdue",
+      "Amount: 271912.6 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-008170?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '541f6801-8cce-4daa-a395-db7989079d66' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-008170 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-026149?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-026149'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-026149 has status paid",
+      "Amount: 12815.78 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-010468?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '49aac14a-836b-4356-9965-f9e0357a4885' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-010468 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-024473?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-024473'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-024473 has status paid",
+      "Amount: 137976.91 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-009810?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'b7082b19-f528-4947-a445-c276080ecddc' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-009810 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-028712?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-028712'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-028712 has status paid",
+      "Amount: 11169.74 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-011501?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '47b0bb31-6b60-4f93-bac7-f63e4e3421dd' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-011501 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-033920?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-033920'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-033920 has status paid",
+      "Amount: 1377.99 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-013586?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '398a6452-f9d4-40ce-a366-19e83be27a8f' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-013586 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-029589?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-029589'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-029589 has status paid",
+      "Amount: 889395.01 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-011854?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '0e18f7df-58ba-46d3-a16f-7ee567a59b3f' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-011854 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-007931?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-007931'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-007931 has status paid",
+      "Amount: 9913.17 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-003193?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'e374d888-a422-4b68-92a5-0deed7d63bad' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-003193 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-016247?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-016247'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-016247 has status paid",
+      "Amount: 14850.11 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-006492?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '0c5b24cf-5726-43fc-906f-148aabdf4bf6' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-006492 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-014726?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-014726'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-014726 has status paid",
+      "Amount: 75661.01 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-005910?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '7da43ad0-164a-4edb-aabf-5401a7bd955f' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-005910 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-004197?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-004197'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-004197 has status paid",
+      "Amount: 43639.81 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-001672?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'b890f7b2-09c0-4eb6-a863-ff78b4c0ecc4' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-001672 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-022157?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-022157'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-022157 has status paid",
+      "Amount: 48620.6 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-008873?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'c472154e-fddd-4e29-ad1b-6e9a20a87c29' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-008873 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-001379?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-001379'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-001379 has status paid",
+      "Amount: 99574.8 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-000560?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'e8515ce9-9186-434e-a775-39adde219171' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-000560 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-038556?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-038556'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-038556 has status overdue",
+      "Amount: 30044.5 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-015415?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '03c49585-52ea-4660-962a-e1d4a17e59d2' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-015415 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-036302?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-036302'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-036302 has status paid",
+      "Amount: 88608.74 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-014541?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '66c6e936-b41c-49fc-80da-ac83d9e4d13e' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-014541 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-015081?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-015081'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-015081 has status paid",
+      "Amount: 932350.2 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-006053?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'adadab05-bac9-4525-b54c-269814601b15' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-006053 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-038565?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-038565'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-038565 has status paid",
+      "Amount: 42911.49 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-015419?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '847477aa-4eaf-499a-803e-6733465aa0b4' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-015419 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-014433?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-014433'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-014433 has status paid",
+      "Amount: 12622.94 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-005790?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '7ce25c7d-3c60-4e62-b285-5f8ccc8f8d96' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-005790 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-000472?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-000472'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-000472 has status paid",
+      "Amount: 188125.04 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-000194?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'ce66d0c8-ec74-4a64-84aa-3e467d9869fd' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-000194 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-004653?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-004653'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-004653 has status paid",
+      "Amount: 37113.76 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-001862?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '38256465-a4f8-47db-b757-58914a6f0670' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-001862 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-041360?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-041360'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-041360 has status overdue",
+      "Amount: 6129.94 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-016529?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'bc93fc7c-f33c-419d-bec7-540b6b5cfade' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-016529 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-003859?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-003859'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-003859 has status paid",
+      "Amount: 21786.01 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-001542?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '4c79bf79-5ceb-48c2-97b4-02f9f5e1ec38' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-001542 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-015004?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-015004'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-015004 has status paid",
+      "Amount: 10916.09 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-006022?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '4262ea4f-5c50-454d-8ede-41808d708c9a' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-006022 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-004418?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-004418'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-004418 has status paid",
+      "Amount: 62570368.86 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-001761?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'e390a6fe-a01b-4e2d-b8fc-554e7bb3a57c' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-001761 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-002059?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-002059'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-002059 has status paid",
+      "Amount: 27895.45 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-000824?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '5a9d4466-1adf-4141-ae4f-0beb786393ae' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-000824 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-021655?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-021655'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-021655 has status overdue",
+      "Amount: 87378.22 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-008668?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '622af60b-7ac8-44f8-a8d3-a1af193f1550' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-008668 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-004644?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-004644'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-004644 has status paid",
+      "Amount: 1459.74 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-001857?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'fa29bfb3-dcb8-4831-b90b-800e00433056' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-001857 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-033696?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-033696'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-033696 has status paid",
+      "Amount: 748195.7 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-013498?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '56c30b7d-68c6-4971-96c5-d028eff5d90f' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-013498 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-030997?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-030997'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-030997 has status paid",
+      "Amount: 843183.72 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-012429?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'dbda7fee-603a-42b7-86c3-a8116dc949bb' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-012429 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-026678?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-026678'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-026678 has status paid",
+      "Amount: 2507.8 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-010689?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '599f7d99-8f85-4acd-a5bf-6a1a7fd92a16' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-010689 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-012479?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-012479'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-012479 has status paid",
+      "Amount: 374207.1 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-005022?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '7f8dc9ab-c9fa-481c-ad3f-6e13243486ef' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-005022 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-006182?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-006182'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-006182 has status overdue",
+      "Amount: 49332.99 USD"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-002476?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'cfe02588-661b-4696-8e0d-29d4de3e0384' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-002476 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-006353?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-006353'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-006353 has status overdue",
+      "Amount: 2677418.11 USD"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-002548?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '40cc8f06-c05a-4586-aa71-1b1ef4137309' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-002548 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-028250?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-028250'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-028250 has status paid",
+      "Amount: 31694.14 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-011318?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '13646ce3-5a0c-4da2-b8fd-74dcda7a12a8' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-011318 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-023220?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-023220'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-023220 has status paid",
+      "Amount: 126213.26 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-009297?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'dcf58039-3552-45e7-9c62-1b69dafa5655' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-009297 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-027760?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-027760'",
+    "expected_result": {
+      "status": "submitted"
+    },
+    "expected_facts": [
+      "Invoice INV-027760 has status submitted",
+      "Amount: 2677838.69 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-011123?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'fd821b8b-2cee-419f-b489-8cc702648330' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-011123 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-026942?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-026942'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-026942 has status paid",
+      "Amount: 1903.08 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-010799?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '0a0395a3-aa40-4703-ac54-94f940b3c3da' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-010799 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-030607?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-030607'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-030607 has status paid",
+      "Amount: 45774.02 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-012270?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '7776c039-806b-4b74-af21-fce2acad9334' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-012270 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-003551?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-003551'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-003551 has status paid",
+      "Amount: 78942.28 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-001426?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '2108d370-e742-476c-8081-696b9cfa901a' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-001426 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-006450?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-006450'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-006450 has status paid",
+      "Amount: 18709.61 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-002584?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'dccb3955-985e-491a-835a-156246d60ce2' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-002584 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-003973?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-003973'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-003973 has status paid",
+      "Amount: 960503.4 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-001584?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'af8ff9c2-27df-4c05-b72b-f36c4919f204' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-001584 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-026387?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-026387'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-026387 has status overdue",
+      "Amount: 15672.87 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-010572?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'b9de21a7-27bd-4402-add5-43f749aa8510' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-010572 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-022237?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-022237'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-022237 has status paid",
+      "Amount: 28423.72 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-008906?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '3fea243f-f33f-4bf7-8721-864ea69eeead' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-008906 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-007162?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-007162'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-007162 has status paid",
+      "Amount: 149403.86 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-002879?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'd0797607-3203-4c1f-a4e4-59195ff0d986' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-002879 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-016296?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-016296'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-016296 has status overdue",
+      "Amount: 34843.92 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-006513?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '8a064498-e545-47cc-935a-76f37a413091' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-006513 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-012557?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-012557'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-012557 has status paid",
+      "Amount: 74174.33 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-005056?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '1844f231-f89c-4827-a51f-9495d3504ed8' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-005056 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-012466?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-012466'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-012466 has status paid",
+      "Amount: 40879.38 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-005017?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '56a62bc3-c29e-45aa-a4bb-1ae619cc016e' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-005017 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-035147?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-035147'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-035147 has status paid",
+      "Amount: 30110.85 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-014085?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '30fde83d-7913-45bf-b4e4-1453022cf494' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-014085 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-029401?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-029401'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-029401 has status paid",
+      "Amount: 136198.7 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-011781?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'cd3267cd-189c-426a-9500-b10c5fdc053b' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-011781 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-009187?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-009187'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-009187 has status paid",
+      "Amount: 34338.34 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-003694?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '7bcb657e-bdef-4dea-8cef-6d09d42d6275' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-003694 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-027649?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-027649'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-027649 has status overdue",
+      "Amount: 615661.03 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-011077?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '191ad4c2-5876-4c22-b315-e52c5a171fe8' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-011077 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-012026?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-012026'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-012026 has status paid",
+      "Amount: 69904.14 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-004846?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '751d8fee-357d-4551-a095-2aabbafd221b' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-004846 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-018255?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-018255'",
+    "expected_result": {
+      "status": "overdue"
+    },
+    "expected_facts": [
+      "Invoice INV-018255 has status overdue",
+      "Amount: 34052.54 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-007307?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '6e9d2480-f5a8-452b-bb68-3fb4526825da' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-007307 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-030319?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-030319'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-030319 has status paid",
+      "Amount: 86771.23 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-012148?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'e53c35cc-6196-4f06-ae99-73aef714b171' AND status = 'overdue'",
+    "expected_result": {
+      "count": 1
+    },
+    "expected_facts": [
+      "PO PO-012148 has 1 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-016372?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-016372'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-016372 has status paid",
+      "Amount: 9226.35 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-006541?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = 'edbc3aab-e261-4c9b-8227-872002410ffa' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-006541 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-004941?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-004941'",
+    "expected_result": {
+      "status": "submitted"
+    },
+    "expected_facts": [
+      "Invoice INV-004941 has status submitted",
+      "Amount: 6444067.39 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-001973?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '06e38da9-6a01-4ade-b5f4-7c154e77db32' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-001973 has 0 overdue invoices"
+    ]
+  },
+  {
+    "question": "What is the status of invoice INV-029042?",
+    "expected_sql": "SELECT status FROM invoices WHERE invoice_number = 'INV-029042'",
+    "expected_result": {
+      "status": "paid"
+    },
+    "expected_facts": [
+      "Invoice INV-029042 has status paid",
+      "Amount: 43299.97 GBP"
+    ]
+  },
+  {
+    "question": "Which invoices are overdue for PO PO-011639?",
+    "expected_sql": "SELECT * FROM invoices WHERE po_id = '0f11da66-b5b8-416e-9f40-3ef9cadc9038' AND status = 'overdue'",
+    "expected_result": {
+      "count": 0
+    },
+    "expected_facts": [
+      "PO PO-011639 has 0 overdue invoices"
+    ]
+  }
+]

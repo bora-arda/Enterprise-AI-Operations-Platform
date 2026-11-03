@@ -1,0 +1,85 @@
+# Approval Workflow Configuration
+
+# Risk assessment thresholds
+risk_assessment:
+  # Amount thresholds (in EUR)
+  amount:
+    low_risk_max: 10000
+    medium_risk_max: 50000
+    high_risk_min: 50000
+
+  # Action types and their base risk
+  action_types:
+    create_request:
+      base_risk: low
+    create_exception:
+      base_risk: low
+    execute_payment:
+      base_risk: high
+    update_workflow:
+      base_risk: medium
+
+  # Role-based risk modifiers
+  role_modifiers:
+    specialist: +1  # Increases risk by 1 level
+    manager: 0
+    director: -1  # Decreases risk by 1 level
+    admin: -1
+
+  # Anomaly flag impact
+  anomaly_impact:
+    no_anomalies: 0
+    low_severity: 0
+    medium_severity: +1
+    high_severity: +2
+
+  # Duplicate check impact
+  duplicate_impact:
+    clean: 0
+    suspicious: +2
+
+# Approval routing
+approval_routing:
+  low_risk:
+    auto_approve: true
+    required_approvers: 0
+    audit_log: true
+
+  medium_risk:
+    auto_approve: false
+    required_approvers: 1
+    approver_roles:
+      - manager
+    timeout_hours: 48
+    escalation_roles:
+      - director
+
+  high_risk:
+    auto_approve: false
+    required_approvers: 2
+    approver_roles:
+      - manager
+      - finance
+    timeout_hours: 72
+    escalation_roles:
+      - director
+      - admin
+
+# Approval request settings
+approval_request:
+  id_prefix: APPR-
+  justification_required: true
+  comment_required_on_reject: true
+  max_justification_length: 1000
+  max_comment_length: 500
+
+# Notification settings (placeholder for future implementation)
+notifications:
+  enabled: false
+  channels:
+    - email
+    - in_app
+  templates:
+    approval_required: "Approval required for {action_type} on {entity_id}"
+    approval_granted: "Your request {approval_id} has been approved"
+    approval_rejected: "Your request {approval_id} has been rejected: {reason}"
