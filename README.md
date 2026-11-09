@@ -16,11 +16,17 @@ Approve & Execute / Reject controls:
 
 ![Pending approvals](docs/assets/approvals-panel.png)
 
-Regenerate screenshots with the frontend running on `:3000`:
+**Observability** — provisioned Grafana dashboard showing request rate, workflow
+routes, node/planner latency, tokens, tool calls, approvals, and anomalies:
+
+![Grafana dashboard](docs/assets/grafana-dashboard.png)
+
+Regenerate screenshots with the stack running:
 
 ```bash
 cd frontend
-node capture_screenshots.mjs ../docs/assets
+node capture_screenshots.mjs ../docs/assets   # UI
+node capture_grafana.mjs ../docs/assets       # Grafana (:3001)
 ```
 
 ## Project Status
@@ -49,8 +55,9 @@ node capture_screenshots.mjs ../docs/assets
 | Prometheus metrics endpoint | ✅ Complete |
 | Authentication (JWT) + role-based access control | ✅ Complete |
 | Frontend login + chat + approvals panel | ✅ Complete (production build verified) |
+| Full Docker Compose stack (6 services) | ✅ Verified: API, UI, MCP, Prometheus, Grafana |
 | LLM narrative layer | ⚙️ Optional (disabled by default) |
-| MCP server | ✅ stdio + streamable HTTP (:8001); API uses the shared mock ERP service |
+| MCP server | ✅ stdio + streamable HTTP (:8001), tool calls verified |
 
 ---
 
@@ -131,6 +138,10 @@ docker compose up --build -d
 Grafana is provisioned automatically with the Prometheus datasource and the
 **Procurement AI Platform** dashboard (request rate, workflow routes, node and
 planner latency, tokens, tool calls, approvals, anomalies).
+
+Verified in the full stack: API health, JWT login and planner-routed chat,
+frontend through nginx, MCP `list_tools` and `create_payment_request` over HTTP,
+Prometheus targets `up`, and all 10 Grafana panels populated.
 
 The container images install the full ML dependency set (including local
 embeddings), so the first build downloads several GB and can take a while.
