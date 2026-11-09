@@ -69,7 +69,12 @@ class TestMetricParser:
 
     def test_pending_payments(self):
         req = parse_metric_request("show pending payments")
-        assert req.metric == "pending_payment_requests"
+        assert req is not None
+        assert req.metric == "pending_payments"
+
+    def test_policy_question_is_not_a_metric(self):
+        assert parse_metric_request("overdue policies") is None
+        assert parse_metric_request("What is the overdue invoice policy?") is None
 
     def test_non_metric_question(self):
         assert parse_metric_request("Why is invoice INV-000001 overdue?") is None
@@ -113,6 +118,17 @@ class TestMetricFormatting:
         text = format_metric_result(result)
         assert "CF-2022-00001" in text
         assert "2026-12-01" in text
+
+    def test_pending_payments_empty_result_hint(self):
+        result = MetricResult(
+            metric="pending_payments",
+            label="Pending payments",
+            dimension=None,
+            rows=[],
+        )
+        text = format_metric_result(result)
+        assert "no payment records are pending" in text
+        assert "pending payment requests" in text.lower()
 
     def test_pending_approvals_table(self):
         result = MetricResult(

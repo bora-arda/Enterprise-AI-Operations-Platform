@@ -135,6 +135,12 @@ def classify_intent(text: str) -> str:
     if not any(term in text_lower for term in PROCUREMENT_TERMS):
         return "out_of_scope"
 
+    # Actions must win over entity lookup: "approve INV-..." and
+    # "request payment for INV-..." are controlled actions, not read-only lookups.
+    for pattern in INTENT_RULES[0][1]:
+        if re.search(pattern, text_lower):
+            return "act"
+
     # Entity lookups (INV-, PO-, CF-, PAY-, APPR-) are single-record retrieval.
     # Invoice compliance questions remain multi-step investigations.
     if has_entity_id(text_lower):
@@ -160,6 +166,7 @@ INTENT_TO_WORKFLOW = {
     "investigate": "investigation",
     "detect": "detection",
     "act": "action",
+    "agent": "agent",
     "clarify": "clarification",
     "out_of_scope": "fallback",
 }
@@ -183,7 +190,8 @@ def intent_classifier_node(state: dict) -> dict:
         intent = planned.get("intent") or "find"
 
         needs_invoice_context = (
-            planned.get("follow_up")
+            workflow != "agent"
+            and planned.get("follow_up")
             and not state.get("last_invoice_number")
             and not planned.get("metric")
             and planned.get("entity_type") in (None, "invoice")

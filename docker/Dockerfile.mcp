@@ -1,20 +1,33 @@
 FROM python:3.12-slim
 
-WORKDIR /app
-
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
 ENV PYTHONUNBUFFERED=1 \
     UV_COMPILE_BYTECODE=1 \
-    UV_LINK_MODE=copy
+    UV_LINK_MODE=copy \
+    UV_NO_CACHE=1
 
-COPY pyproject.toml uv.lock README.md ./
-COPY src/ ./src/
+# Create the runtime user and give it ownership of the app directory before
+# copying anything large. This avoids a `chown -R /app` layer, which would
+# duplicate the whole virtualenv in the image.
+RUN useradd -m appuser \
+    && mkdir -p /app \
+    && chown appuser:appuser /app
 
-RUN uv sync --frozen --no-dev
-
-RUN useradd -m appuser && chown -R appuser:appuser /app
+WORKDIR /app
 USER appuser
+
+# Install dependencies first. This layer only changes when pyproject.toml or
+# uv.lock change, so editing source code reuses it instead of rebuilding
+# (and re-caching) several GB of dependencies.
+COPY --chown=appuser:appuser pyproject.toml uv.lock README.md ./
+RUN uv sync --frozen --no-dev --extra cpu --no-install-project
+
+COPY --chown=appuser:appuser src/ ./src/
+RUN uv sync --frozen --no-dev --extra cpu
+
+# The environment is fully synced at build time; don't mutate it at runtime.
+ENV UV_NO_SYNC=1
 
 EXPOSE 8001
 

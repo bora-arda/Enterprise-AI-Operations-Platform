@@ -9,6 +9,7 @@ from collections.abc import Callable
 from langgraph.graph import END, START, StateGraph
 
 from procurement_ai.graph.nodes.action import action_workflow_node
+from procurement_ai.graph.nodes.agent import agent_workflow_node
 from procurement_ai.graph.nodes.clarify import clarify_node
 from procurement_ai.graph.nodes.detection import detection_workflow_node
 from procurement_ai.graph.nodes.guardrails import guardrails_node
@@ -62,6 +63,7 @@ def create_orchestrator(checkpointer=None):
     graph.add_node("investigation_workflow", _timed("investigation_workflow", investigation_workflow_node))
     graph.add_node("detection_workflow", _timed("detection_workflow", detection_workflow_node))
     graph.add_node("action_workflow", _timed("action_workflow", action_workflow_node))
+    graph.add_node("agent_workflow", _timed("agent_workflow", agent_workflow_node))
     graph.add_node("clarify", _timed("clarify", clarify_node))
     graph.add_node("response_validator", _timed("response_validator", response_validator_node))
     graph.add_node("fallback", _timed("fallback", fallback_node))
@@ -88,6 +90,7 @@ def create_orchestrator(checkpointer=None):
             "investigate": "investigation_workflow",
             "detect": "detection_workflow",
             "act": "action_workflow",
+            "agent": "agent_workflow",
             "clarify": "clarify",
             "out_of_scope": "fallback",
         },
@@ -100,6 +103,7 @@ def create_orchestrator(checkpointer=None):
         "investigation_workflow",
         "detection_workflow",
         "action_workflow",
+        "agent_workflow",
         "clarify",
     ]:
         graph.add_edge(workflow, "response_validator")
@@ -122,6 +126,8 @@ def route_after_intent(state: AgentState) -> str:
     """Route based on classified intent, preferring clarification when needed."""
     if state.get("clarification_needed"):
         return "clarify"
+    if state.get("workflow") == "agent":
+        return "agent"
     return state.get("intent", "out_of_scope")
 
 

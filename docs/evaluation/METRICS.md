@@ -47,6 +47,29 @@ Measures the agent's ability to select tools and route correctly.
 
 **Benchmark:** `data/evaluation/agent_benchmark.json` (100 tasks)
 
+### 3b. Open-Ended Agent Metrics
+
+Measures the tool-calling fallback introduced for comparative and arbitrary
+data questions.
+
+| Metric | Description |
+|---|---|
+| **Routing Accuracy** | Planner sends open-ended questions to the agent |
+| **Tool Selection Accuracy** | Expected primary tool appeared in the run |
+| **Answer Term Coverage** | Required terms are present in the final answer (not semantic correctness) |
+| **Tool Success Rate** | Tool calls complete without an error |
+| **Average Agent Steps** | Mean tool-calling rounds (hard cap: 6) |
+| **Adversarial SQL Block Rate** | Unsafe statements rejected by the SQL guard |
+
+**Benchmark:** `data/evaluation/open_ended_benchmark.json` (5 curated tasks)
+
+**Results and limitations:** [OPEN_ENDED.md](OPEN_ENDED.md)
+
+```bash
+uv run python scripts/evaluate_open_ended.py \
+  --output docs/evaluation/open_ended_results.json
+```
+
 ### 4. Business Metrics
 
 Measures detection and compliance performance.

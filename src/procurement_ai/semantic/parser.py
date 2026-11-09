@@ -6,15 +6,22 @@ from decimal import Decimal
 
 from procurement_ai.semantic.metrics import LIST_METRICS, MetricRequest
 
+POLICY_QUERY_RE = re.compile(
+    r"\b(policy|policies|procedure|procedures|process|guidance|rules?|requirements?)\b",
+    re.IGNORECASE,
+)
+
 
 def _detect_metric(q: str) -> str | None:
     # Record-list questions must win over aggregate/rate interpretations.
     if re.search(r"\bpending\b", q) and re.search(r"\bpayment\s+requests?\b", q):
         return "pending_payment_requests"
-    if re.search(r"\bpending\b", q) and re.search(r"\b(approvals?|requests?)\b", q):
+    if re.search(r"\bpending\b", q) and re.search(r"\bapprovals?\b", q):
+        return "pending_approvals"
+    if re.search(r"\bpending\b", q) and re.search(r"\brequests?\b", q):
         return "pending_approvals"
     if re.search(r"\bpending\b", q) and re.search(r"\bpayments?\b", q):
-        return "pending_payment_requests"
+        return "pending_payments"
     if (
         re.search(r"\boverdue\b", q)
         and not re.search(r"\b(rate|percentage|percent)\b", q)
@@ -73,6 +80,13 @@ def _detect_days(q: str) -> int | None:
 def parse_metric_request(question: str) -> MetricRequest | None:
     """Return a governed metric request, or None if this is not an analytics question."""
     q = question.lower().strip()
+
+    # Policy/procedure questions are document questions, not transactional lists.
+    # Let the planner use retrieval/agent synthesis instead of hijacking them to
+    # a metric such as overdue_invoices.
+    if POLICY_QUERY_RE.search(q):
+        return None
+
     metric = _detect_metric(q)
     if not metric:
         return None
@@ -111,6 +125,12 @@ def _format_table_value(value) -> str:
 def format_metric_result(result) -> str:
     """Format a MetricResult for the user with explicit units."""
     if not result.rows:
+        if result.metric == "pending_payments":
+            return (
+                "Pending payments: no payment records are pending or processing. "
+                "Pending payment requests are a separate list; ask for "
+                "'pending payment requests' to see those."
+            )
         return f"{result.label}: no records matched the request."
 
     metric = result.metric

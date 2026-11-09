@@ -6,37 +6,49 @@
 
 ## Demo
 
+**Agent-first anomaly triage** — the agent reads the exception store and
+explains all 150 open records across 10 exception types:
+
+![Agent anomaly summary](docs/assets/chat-agent-anomalies.png)
+
+**Exception drill-down** — the follow-up “show me the top 5 invoices that
+exceed PO” uses several tools to return invoice, PO, vendor, contract, and
+overage details:
+
+![Agent exception detail](docs/assets/chat-agent-exception-detail.png)
+
+**Open-ended prioritization** — “what should I focus on this week?” is answered
+by combining pending approvals, exceptions, overdue invoices, spend, and
+policy context:
+
+![Agent focus summary](docs/assets/chat-agent-focus.png)
+
 **Evidence-backed investigation** — invoice, PO, contract, payment, and approval
 evidence with citations and confidence:
 
 ![Invoice investigation](docs/assets/chat-investigation.png)
 
-**Human-in-the-loop approvals** — pending payment requests with risk level and
-Approve & Execute / Reject controls:
+**Human-in-the-loop approvals** — illustrative pending payment request with
+risk level and Approve & Execute / Reject controls:
 
 ![Pending approvals](docs/assets/approvals-panel.png)
 
-**Operational lists** — pending approvals, payment requests, and overdue
-invoices are answered from PostgreSQL as formatted tables:
-
-![Pending payment requests](docs/assets/chat-pending-requests.png)
-
 **Observability** — provisioned Grafana dashboard showing request rate, workflow
-routes, node/planner latency, tokens, tool calls, approvals, and anomalies:
+routes, node/LLM latency, tokens, tool calls, approvals, and open exceptions:
 
 ![Grafana dashboard](docs/assets/grafana-dashboard.png)
 
-Regenerate screenshots with the stack running:
+Regenerate screenshots with the local services running:
 
 ```bash
 cd frontend
-node capture_screenshots.mjs ../docs/assets   # UI
+node capture_agent_demo.mjs ../docs/assets    # agent-first UI (:3000)
 node capture_grafana.mjs ../docs/assets       # Grafana (:3001)
 ```
 
 ## Project Status
 
-**Phase: Working vertical slice.** The platform runs end-to-end on the UK Contracts Finder backbone with a deterministic, evidence-backed agent. No API keys are required for the core workflows.
+**Phase: Working vertical slice.** The platform runs end-to-end on the UK Contracts Finder backbone in **agent-first** mode: read-only questions are handled by a tool-calling agent that can query SQL, semantic metrics, documents, exceptions, and entity records. Controlled actions remain deterministic and require human approval. Hybrid mode with deterministic fast paths is still available. Core hybrid workflows need no API key; the agent and LLM planner use Claude Haiku 5.5 via OpenCode Go.
 
 | Capability | Status |
 |---|---|
@@ -48,10 +60,14 @@ node capture_grafana.mjs ../docs/assets       # Grafana (:3001)
 | Planner decision audit trail | ✅ Complete (`GET /decisions`) |
 | Evidence-backed investigation (invoice/PO/contract/payment) | ✅ Complete |
 | Semantic metrics layer (governed SQL + list queries) | ✅ Complete |
+| Agent-first orchestration (open-ended read-only questions) | ✅ Default (`ORCHESTRATION_MODE=agent_first`) |
+| Open-ended tool-calling agent (schema, read-only SQL, metrics, documents, exceptions, entity lookups) | ✅ Complete, locally verified |
+| Hybrid mode (deterministic fast paths + agent fallback) | ✅ Optional (`ORCHESTRATION_MODE=hybrid`) |
+| SQL guardrails (SELECT-only, denylist, row cap, timeout, read-only transaction) | ✅ Complete |
 | Multi-turn conversation memory (Postgres checkpoints) | ✅ Complete |
 | Clarification for missing/ambiguous identifiers | ✅ Complete |
-| Deterministic anomaly detection (rules + duplicates) | ✅ Complete |
-| Read-only SQL analytics templates | ✅ Complete |
+| Deterministic anomaly detection (rules + duplicates) | ✅ Retained for hybrid mode; agent uses `list_exceptions` |
+| Read-only SQL analytics templates | ✅ Retained for hybrid mode |
 | Document retrieval (policy/email/notes) | ✅ Complete |
 | Human-in-the-loop approvals + execution via mock ERP | ✅ Complete |
 | LangGraph checkpointing + interrupt/resume (Postgres) | ✅ Complete |
@@ -60,8 +76,8 @@ node capture_grafana.mjs ../docs/assets       # Grafana (:3001)
 | Prometheus metrics endpoint | ✅ Complete |
 | Authentication (JWT) + role-based access control | ✅ Complete |
 | Frontend login + chat + approvals panel | ✅ Complete (production build verified) |
-| Full Docker Compose stack (6 services) | ✅ Verified: API, UI, MCP, Prometheus, Grafana |
-| LLM narrative layer | ⚙️ Optional (disabled by default) |
+| Full Docker Compose stack (6 services) | ✅ Verified for the deterministic stack; rebuild pending for the agent version |
+| LLM planner / agent | ⚙️ Optional; fast paths remain deterministic |
 | MCP server | ✅ stdio + streamable HTTP (:8001), tool calls verified |
 
 ---
@@ -105,6 +121,11 @@ uv run python scripts/seed_demo_users.py
 uv run uvicorn src.procurement_ai.main:app --reload
 ```
 
+> **PyTorch builds:** a plain `uv sync` installs the default PyPI wheel (CUDA on
+> Linux/WSL). Use `uv sync --extra cu130` for the official CUDA 13.0 wheels, or
+> `uv sync --extra cpu` for CPU-only. The Docker images always build with the
+> `cpu` extra to keep image size down.
+
 ### Frontend
 
 ```bash
@@ -141,12 +162,12 @@ docker compose up --build -d
 | PostgreSQL | localhost:5432 |
 
 Grafana is provisioned automatically with the Prometheus datasource and the
-**Procurement AI Platform** dashboard (request rate, workflow routes, node and
-planner latency, tokens, tool calls, approvals, anomalies).
+**Procurement AI Platform** dashboard (request rate, workflow routes, node/LLM
+latency, tokens, tool calls, approvals, and open exceptions).
 
-Verified in the full stack: API health, JWT login and planner-routed chat,
-frontend through nginx, MCP `list_tools` and `create_payment_request` over HTTP,
-Prometheus targets `up`, and all 10 Grafana panels populated.
+Verified locally: API health, JWT login, agent-first chat, frontend on :3000,
+MCP `list_tools`/tool calls over HTTP, Prometheus targets `up`, and the Grafana
+dashboard populated.
 
 The container images install the full ML dependency set (including local
 embeddings), so the first build downloads several GB and can take a while.
@@ -216,6 +237,10 @@ curl -X POST http://localhost:8000/chat \
   -d '{"message": "Why is invoice INV-000010 overdue?"}'
 ```
 
+The workflow labels below describe **hybrid mode**. In the default agent-first
+mode, all read-only questions report `agent`, while action requests still route
+to the deterministic action workflow.
+
 | Question | Workflow |
 |---|---|
 | Why is invoice INV-000010 overdue? | investigation |
@@ -231,11 +256,60 @@ curl -X POST http://localhost:8000/chat \
 | What is the exception rate by vendor? | sql (semantic) |
 | Which invoices are overdue? | sql (semantic list) |
 | Which payment requests are pending? | sql (semantic list) |
-| List all pending payments and approvals as a table | sql (semantic list) |
+| List all pending payments and approvals as a table | agent (multi-category) |
 | Which contracts expire within 60 days? | sql (semantic) |
 | What is the average approval cycle time by department? | sql (semantic) |
-| What are the approval requirements for invoices over 50000? | retrieval |
+| What are the approval requirements for invoices over 50000? | agent (documents) |
+| How can you help me with finance operations? | agent (help) |
+| I just said all | agent (conversation context) |
+| Which vendors have the highest average invoice value? Show the top 5 with invoice counts | agent (SQL) |
+| What changed in spending from 2024 to 2025? | agent (SQL) |
+| Find invoices that exceed their contract maximum and show the contract title | agent (SQL) |
+| Show me payments above 1,000,000 with invoice numbers and vendors | agent (SQL) |
 | Request payment for INV-000003 | action |
+
+### Orchestration modes
+
+**Agent-first (default):** every read-only question goes to the agent, including
+anomalies, exceptions, policy synthesis, entity lookups, comparisons, and
+follow-ups. The agent decides which tools to use and can chain several tools
+when one is not enough. Payment/approval actions are intercepted and sent to the
+deterministic human-in-the-loop action workflow.
+
+**Hybrid (optional):** the validated planner/fast-path router is used instead.
+Simple metrics and entity lookups stay deterministic; open-ended, policy,
+exception-detail, and multi-category pending questions still route to the agent.
+
+```bash
+ORCHESTRATION_MODE=agent_first   # default
+# ORCHESTRATION_MODE=hybrid
+```
+
+The agent can call `describe_schema`, `query_database`, `run_metric`,
+`search_documents`, `list_exceptions`, and read-only entity tools. It observes
+results, corrects failed SQL, and writes the final answer with citations. The
+planner decision (in hybrid mode) and a compact agent tool trace are persisted
+in `planner_decisions.raw_decision`; the API records a decision ID and trace ID
+for each chat request.
+
+The deterministic detection workflow remains in the codebase as a hybrid-mode
+fallback. In agent-first mode, anomaly questions use `list_exceptions` and the
+agent can enrich the result with invoice, PO, contract, vendor, and payment
+lookups.
+
+The agent is read-only. It cannot execute payments or approvals; those still go
+through the human-in-the-loop action workflow.
+
+**SQL guardrails:** the agent SQL tool accepts one `SELECT`/`WITH` statement,
+rejects data-changing/schema-changing keywords and dangerous functions, blocks
+sensitive tables/columns (`planner_decisions`, checkpoints, `password_hash`,
+`embedding`, `bank_details`), runs in a read-only transaction, caps results at
+100 rows, and applies a 5-second statement timeout. Production deployments
+should also use a dedicated `SELECT`-only database role.
+
+Open-ended agent responses were verified locally against the running database
+and Claude Haiku. The Docker images have not yet been rebuilt with this version
+(by design; local verification first).
 
 Multi-turn follow-ups work within a session:
 
@@ -244,6 +318,15 @@ Multi-turn follow-ups work within a session:
 "message": "What is the status of invoice INV-000010?", "session_id": "demo"
 # Turn 2 — resolves "its" against the previous invoice
 "message": "What about its payment?", "session_id": "demo"
+```
+
+Ambiguous pending requests are handled conversationally:
+
+```text
+User: pend
+Agent: Do you mean pending approvals, pending payment requests, or pending payments?
+User: all
+Agent: shows all three categories separately.
 ```
 
 ### Approvals
@@ -276,12 +359,14 @@ Client (React UI)
       ▼
 FastAPI ──► LangGraph orchestrator
       │         ├── guardrails (injection / length / PII)
-      │         ├── deterministic intent routing
-      │         ├── retrieval   → documents table
-      │         ├── SQL         → read-only templates
-      │         ├── investigation → invoice/PO/contract/payments/approvals
-      │         ├── detection   → rules + duplicate heuristics
-      │         ├── action      → validation → approval request
+      │         ├── agent-first (default)
+      │         │     ├── tool loop: schema, read-only SQL, metrics, docs,
+      │         │     │   exceptions, entity lookups
+      │         │     └── action interception → human approval
+      │         ├── hybrid mode (optional)
+      │         │     ├── planner (validated route + audit)
+      │         │     ├── retrieval / SQL / investigation / detection
+      │         │     └── agent fallback
       │         └── response validation (citations, confidence)
       │
       ├── PostgreSQL + pgvector
@@ -298,8 +383,8 @@ FastAPI ──► LangGraph orchestrator
 ## Evaluation Results
 
 Measured by `uv run python scripts/run_benchmarks.py` against the loaded database
-(274 documents, 384-dim embeddings, 41,986 invoices, 150 injected anomalies).
-Full report: [docs/evaluation/RESULTS.md](docs/evaluation/RESULTS.md).
+on 2026-11-09 (274 documents, 384-dim embeddings, 42,001 invoices, 150 injected
+anomalies). Full report: [docs/evaluation/RESULTS.md](docs/evaluation/RESULTS.md).
 
 ### Retrieval (K = 5, 48 queries)
 
@@ -313,6 +398,22 @@ Full report: [docs/evaluation/RESULTS.md](docs/evaluation/RESULTS.md).
 
 - 100/100 benchmark tasks routed to the expected workflow.
 
+### Open-Ended Agent (5 curated tasks, local)
+
+| Metric | Value |
+|---|---|
+| Routing accuracy | **1.00** (5/5) |
+| Tool selection accuracy | **1.00** (5/5) |
+| Answer term coverage | **1.00** (5/5) |
+| Tool success rate | **1.00** |
+| Average agent steps | 3.6 |
+| Adversarial SQL block rate | **1.00** (7/7) |
+
+This is a small verification sample, not a statistically meaningful benchmark;
+term coverage is not a semantic-correctness score. See
+[docs/evaluation/OPEN_ENDED.md](docs/evaluation/OPEN_ENDED.md) for tasks,
+limitations, and the reproducible script.
+
 ### Anomaly Detection
 
 | Metric | Value |
@@ -324,29 +425,79 @@ Full report: [docs/evaluation/RESULTS.md](docs/evaluation/RESULTS.md).
 Remaining false positives are duplicate copies that also trip amount/approval
 rules, plus two contract-end date edge cases.
 
+### Current engineering verification
+
+- **174 tests passed** with `uv run pytest tests/ -q`.
+- `ruff check` and `mypy src/` clean.
+- Agent-first demo verified against the live local stack:
+  - `anomalies and exceptions` → 150 open exceptions across 10 types.
+  - `invoice exceeds po` → 30 affected invoices with PO, contract, vendor, and
+    overage details.
+  - `what should I focus on this week?` → combined exceptions, overdue
+    invoices, pending queues, and contract context.
+- Open-ended evaluation: 5/5 routing, 5/5 primary-tool selection, 5/5 required
+  term coverage, 3.6 average tool rounds, and 7/7 adversarial SQL statements
+  rejected. See [OPEN_ENDED.md](docs/evaluation/OPEN_ENDED.md).
+- Docker images still reflect the pre-agent-first build; no rebuild was performed
+  during this local verification.
+
 ## Observability
 
 `GET /metrics` exposes Prometheus metrics:
 
 | Metric | Type | Labels |
 |---|---|---|
-| `agent_requests_total` | Counter | HTTP method, path bucket |
-| `agent_request_duration_seconds` | Histogram | path bucket |
+| `agent_requests_total` | Counter | intent, workflow/path |
+| `agent_request_duration_seconds` | Histogram | intent |
 | `agent_workflow_total` | Counter | workflow, intent |
 | `agent_workflow_duration_seconds` | Histogram | workflow |
 | `node_duration_seconds` | Histogram | LangGraph node |
 | `tool_calls_total` / `tool_errors_total` | Counter | tool name |
 | `llm_calls_total`, `llm_tokens_total` | Counter | provider / type |
-| `approval_requests_total`, `anomalies_detected_total` | Counter | status / type |
+| `llm_request_duration_seconds` | Histogram | provider, model |
+| `approval_requests_total` | Counter | status |
+| `anomalies_detected_total` | Counter | type (hybrid detection workflow) |
+| `exceptions_open_total` | Gauge | type (agent `list_exceptions` view) |
 
 Every graph node is timed, and the chat endpoint records the routed workflow,
-tool calls, and end-to-end duration. Example scrape output after one request:
+tool calls, and end-to-end duration. In agent-first mode, the `agent` workflow
+dominates; `exceptions_open_total` is populated when the agent reads exception
+records.
 
-```text
-agent_workflow_total{intent="investigate",workflow="investigation"} 1
-node_duration_seconds_count{node="investigation_workflow"} 1
-tool_calls_total{tool="run_anomaly_rules"} 1
-```
+### Reading the Grafana dashboard
+
+Open http://localhost:3001 and choose **Dashboards → Procurement → Procurement AI Platform**.
+The default range is **Last 6 hours**, so it includes historical demo traffic
+and any earlier hybrid-mode runs, not just the latest request.
+
+| Panel | What it means | How to read it |
+|---|---|---|
+| **HTTP request rate (all endpoints)** | Rate of all HTTP requests handled by the API. | Includes `/health` probes and `/metrics` scrapes. Filter by `workflow="/chat"` to isolate user chat traffic. A flat zero means no API traffic in the selected window. |
+| **LLM calls (planner + agent)** | Provider/model call rate. | In agent-first mode this is dominated by `opencode_go` agent calls. In hybrid mode it also includes planner calls. Zero means no LLM-backed request in the window. |
+| **Workflow routes** | Request rate by routed workflow. | In agent-first mode expect `agent`; in hybrid mode you may see `sql`, `retrieval`, `investigation`, `detection`, `clarification`, and `action`. |
+| **Workflow latency p95** | 95th percentile of LangGraph workflow duration. | Agent questions can be 20–30 seconds because they may make several tool/LLM rounds. This is not the same as a single HTTP request or database query. |
+| **Node latency p95** | Per-node execution latency. | Compare `agent_workflow` with `guardrails`, `intent_classifier`, `planner`, and `response_validator`. Planner should be near zero in agent-first mode because it is bypassed. |
+| **LLM call latency p95** | 95th percentile LLM call duration by model. | A long tail here explains high workflow latency. It covers planner plus agent LLM calls. |
+| **LLM tokens / second** | Input and output token throughput. | Spikes occur during multi-step agent answers. This is rate, not cumulative spend. |
+| **Tool calls** | Tool invocation rate by name. | Useful for seeing whether the agent used `query_database`, `run_metric`, `list_exceptions`, `describe_schema`, or document/entity tools. A zero series means the tool was not called in the window, not necessarily an error. |
+| **Approvals by status** | Approval counter by status. | Counters are **process-local** and reset when the API restarts. This is not a live count of rows in PostgreSQL; use `/approvals` for the current database state. |
+| **Open exceptions by type** | Gauge populated by the agent’s `list_exceptions` tool. | Shows the current curated exception counts (for example 30 `invoice_exceeds_po`). It updates when the agent reads exceptions; it is not a count of every detection run. |
+
+**Current local snapshot** (from the final agent-first demo run; rates are over
+the last 5 minutes and counters reset on API restart):
+
+- HTTP request rate: ~`0.08 req/s` with `/chat` traffic present.
+- Agent workflow rate: ~`0.007 req/s`; workflow p95: `28 s`.
+- LLM call rate: ~`0.011 calls/s`; LLM p95: `9.6 s`; token rates: ~`131 input/s`
+  and ~`15 output/s`.
+- Tool activity: `run_metric`, `list_exceptions`, `describe_schema`, and
+  `query_database` were observed.
+- Open exceptions: 30 `invoice_exceeds_po`, 25 `missing_approval`,
+  20 `invoice_exceeds_contract`, 15 `duplicate_invoice`, and 10 each for the
+  remaining six types.
+
+The screenshot in the [Demo](#demo) section is a 6-hour Grafana view and
+therefore intentionally shows more history than the 5-minute snapshot above.
 
 ## Data Access Model
 
@@ -358,30 +509,38 @@ re-embedding on every invoice, PO, or payment change.
 
 Analytics run through the **semantic layer** (`src/procurement_ai/semantic/`):
 metrics such as total spend, overdue rate, exception rate, and approval cycle
-time have explicit definitions and allow-listed dimensions. No free-form SQL is
-generated at runtime.
+time have explicit definitions and allow-listed dimensions. In agent-first mode
+the agent may also generate **guarded read-only SQL** for arbitrary joins and
+comparisons; that SQL is validated, row-capped, time-limited, and executed in a
+read-only transaction. Transactional data is never embedded.
 
 ## LLM Planner
 
-The planner converts natural language into a **validated structured route**:
-workflow, entity reference, semantic metric, clarification, or fallback.
+In **hybrid mode**, the planner converts natural language into a **validated
+structured route**: workflow, entity reference, semantic metric, clarification,
+or fallback. In agent-first mode the planner is bypassed for read-only
+questions; the agent owns tool selection. Controlled actions still use the
+deterministic action workflow.
 
-Two modes:
+Planner modes (hybrid):
 
 | Mode | Behavior |
 |---|---|
-| `deterministic` (default) | Keyword router, no API key, no network |
-| `llm` | Claude Haiku 5.5 via OpenCode Go, with deterministic fallback |
+| `deterministic` (default) | Keyword router, no API key, no network; simple fast paths only |
+| `llm` | Claude Haiku 5.5 via OpenCode Go, with deterministic fallback; enables the open-ended agent |
 
 Configuration (in `.env`, never committed):
 
 ```bash
+ORCHESTRATION_MODE=agent_first
 PLANNER_MODE=llm
 OPENCODE_GO_API_KEY=...
 OPENCODE_GO_BASE_URL=https://opencode.ai/zen/go/v1
 OPENCODE_GO_MODEL=claude-haiku-5-5
 OPENCODE_SESSION_ID=procurement-ai-planner
 LLM_TIMEOUT_SECONDS=20
+SQL_MAX_ROWS=100
+SQL_QUERY_TIMEOUT_MS=5000
 ```
 
 How a request flows with the planner:
@@ -411,8 +570,10 @@ latency metrics are exported as `llm_calls_total`, `llm_tokens_total`, and
 
 ## Planner Decision Audit
 
-Every chat request writes a durable decision record, whether the LLM planner or
-the deterministic router handled it. The chat response includes `decision_id`.
+Every chat request writes a durable decision record, whether agent-first
+routing, the LLM planner, or the deterministic router handled it. The chat
+response includes `decision_id`; agent runs also include a compact tool trace in
+`raw_decision`.
 
 ```bash
 # Query decisions by session, trace, workflow, mode, or fallback usage
@@ -465,7 +626,7 @@ after the request finishes.
 - **ML:** scikit-learn (anomaly features)
 - **MCP:** MCP server over stdio + shared mock ERP service
 - **Auth:** JWT (HS256) + role-based access control
-- **Testing:** pytest (120 tests)
+- **Testing:** pytest (174 tests)
 - **Packaging:** uv
 - **Containers:** Docker Compose (PostgreSQL, API, frontend, MCP, Prometheus, Grafana)
 - **Observability:** Prometheus metrics; OpenTelemetry scaffolding

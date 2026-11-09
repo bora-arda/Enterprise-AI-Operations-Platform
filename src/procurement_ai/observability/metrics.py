@@ -1,6 +1,6 @@
 """Prometheus metrics."""
 
-from prometheus_client import Counter, Histogram, Info
+from prometheus_client import Counter, Gauge, Histogram, Info
 
 # Request metrics
 REQUEST_COUNT = Counter(
@@ -86,7 +86,13 @@ APPROVAL_REQUESTS = Counter(
 
 ANOMALIES_DETECTED = Counter(
     "anomalies_detected_total",
-    "Anomalies by type",
+    "Anomalies by type (deterministic detection workflow)",
+    ["type"],
+)
+
+EXCEPTIONS_OPEN = Gauge(
+    "exceptions_open_total",
+    "Open exception records by type (agent list_exceptions view)",
     ["type"],
 )
 

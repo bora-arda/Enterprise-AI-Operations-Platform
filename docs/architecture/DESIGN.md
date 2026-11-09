@@ -295,14 +295,23 @@ All scripts are deterministic (seeded) and reproducible.
 
 ### Main orchestration graph
 
+**Default mode:** agent-first. After guardrails, read-only questions go to the
+tool-calling agent; controlled action requests go to the deterministic,
+human-in-the-loop action workflow. Hybrid mode is available by setting
+`ORCHESTRATION_MODE=hybrid`, in which case the planner selects the workflow.
+
 ```mermaid
 graph TD
     START([User Input]) --> GUARD[Input Guardrails<br/>PII / Injection / Auth]
-    GUARD -->|pass| INTENT[Intent Classifier<br/>Route to Workflow]
+    GUARD -->|pass| MODE{Orchestration Mode}
     GUARD -->|fail| REJECT[Reject Request<br/>Log & Explain]
+    MODE -->|agent-first read-only| AGENT
+    MODE -->|agent-first action| ACTION
+    MODE -->|hybrid| INTENT[Intent Classifier<br/>Route to Workflow]
 
     INTENT -->|find/understand| RETRIEVAL[Retrieval Workflow]
     INTENT -->|query/analyze| SQL[SQL/Data Workflow]
+    INTENT -->|open-ended analysis| AGENT[Tool-Calling Agent]
     INTENT -->|investigate| INVESTIGATION[Investigation Workflow]
     INTENT -->|detect| DETECTION[Detection Workflow]
     INTENT -->|act| ACTION[Action Workflow]
@@ -310,6 +319,7 @@ graph TD
 
     RETRIEVAL --> EVIDENCE[Evidence Aggregator]
     SQL --> EVIDENCE
+    AGENT --> EVIDENCE
     INVESTIGATION --> EVIDENCE
     DETECTION --> EVIDENCE
     ACTION --> EVIDENCE
@@ -346,6 +356,24 @@ graph TD
     SQLERR --> SQLGEN
     FORMAT --> LLM[LLM Summarization]
 ```
+
+#### Open-Ended Agent Workflow
+
+```mermaid
+graph TD
+    Q[User Query] --> MODEL[Claude Haiku<br/>Native Tool Calling]
+    MODEL -->|tool call| EXEC[Read-Only Tool Executor<br/>SQL / Metrics / Docs / Entities]
+    EXEC --> OBS[Observations]
+    OBS --> MODEL
+    MODEL -->|final answer| ANSWER[Markdown Response<br/>+ Citations]
+```
+
+The agent is a bounded ReAct-style loop (maximum six rounds). It reasons over
+tool observations instead of emitting SQL in one shot. The SQL path is protected
+by a strict `SELECT`/`WITH` validator, denied keywords/functions/tables/columns,
+a hard row cap, a statement timeout, and a read-only transaction. Sensitive
+columns are filtered from results even with `SELECT *`. The agent cannot execute
+payments or approvals.
 
 #### Investigation Workflow
 
@@ -426,8 +454,9 @@ LangGraph uses **PostgreSQL checkpointing** via `langgraph.checkpoint.postgres`.
 
 | Error type | Handling |
 |---|---|
-| LLM timeout | Retry with backoff (max 2), then fallback response |
-| SQL syntax error | LLM regenerates SQL (max 2 retries) |
+| LLM timeout | Agent returns a clear failure; planner has deterministic fallback |
+| SQL syntax error | Error returned to the agent, which can revise within the tool budget |
+| Unsafe SQL | Rejected before execution by the SQL guard |
 | Tool failure | Log, return error to LLM for alternative approach |
 | Database unavailable | Return "system unavailable" with retry guidance |
 | Vector DB failure | Degrade to BM25-only retrieval |
@@ -1086,8 +1115,13 @@ Health check for Docker/Compose.
 | `get_contract` | `contract_id: str` | `Contract` | Retrieve single contract |
 | `get_vendor` | `vendor_id: str` | `Vendor` | Retrieve vendor details |
 | `get_payment_status` | `invoice_id: str` | `PaymentStatus` | Check payment status |
+| `get_payment` | `payment_reference: str` | `Payment` | Retrieve single payment |
+| `get_approval` | `approval_number: str` | `ApprovalRequest` | Retrieve single approval |
 | `search_documents` | `query: str, filters?: dict` | `list[DocumentChunk]` | Hybrid document search |
-| `query_procurement_db` | `sql: str` (read-only) | `list[dict]` | Execute read-only SQL |
+| `describe_schema` | none | `dict` | Inspect non-sensitive public schema |
+| `query_database` | `sql: str` (read-only) | `dict` | Guarded `SELECT`/`WITH` query, max 100 rows |
+| `run_metric` | `metric: str, dimension?: str, days?: int` | `MetricResult` | Governed semantic metric |
+| `list_exceptions` | `exception_type?: str, severity?: str` | `dict` | Curated exceptions with invoice/PO/contract context |
 | `run_business_analysis` | `query: str` | `AnalysisResult` | Python data analysis |
 | `detect_anomalies` | `entity_type: str, entity_id?: str` | `list[Anomaly]` | Run anomaly detection |
 | `check_policy` | `entity_type: str, entity_id: str` | `PolicyCheckResult` | Check policy compliance |
@@ -1099,6 +1133,9 @@ Health check for Docker/Compose.
 |---|---|---|---|
 | `create_approval_request` | `request_type, entity_id, justification` | `ApprovalRequest` | Create approval request |
 | `execute_controlled_action` | `action_type, entity_id, params` | `ActionResult` | Execute after approval |
+
+The open-ended agent only receives read-only tools. Write/action tools remain in
+the action workflow behind human approval.
 
 ### Tool contract example
 

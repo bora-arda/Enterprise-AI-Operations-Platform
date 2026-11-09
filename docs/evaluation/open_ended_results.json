@@ -1,0 +1,198 @@
+{
+  "metrics": {
+    "routing_accuracy": 1.0,
+    "tool_selection_accuracy": 1.0,
+    "answer_term_coverage": 1.0,
+    "tool_success_rate": 1.0,
+    "average_agent_steps": 3.6,
+    "total_tasks": 5,
+    "adversarial_sql_block_rate": 1.0
+  },
+  "results": {
+    "spend-change": {
+      "workflow": "agent",
+      "metric": null,
+      "tools_used": [
+        "describe_schema",
+        "query_database",
+        "run_metric",
+        "query_database"
+      ],
+      "tool_traces": [
+        {
+          "tool_name": "describe_schema",
+          "args": {},
+          "success": true,
+          "row_count": null,
+          "error": null
+        },
+        {
+          "tool_name": "query_database",
+          "args": {
+            "sql": "SELECT EXTRACT(YEAR FROM invoice_date)::int AS yr, currency, COUNT(*) AS invoices, SUM(amount) AS total_spend, AVG(amount) AS avg_value FROM invoices WHERE EXTRACT(YEAR FROM invoice_date) IN (2024, 2025) GROUP BY 1, 2 ORDER BY 1, 2"
+          },
+          "success": true,
+          "row_count": 6,
+          "error": null
+        },
+        {
+          "tool_name": "run_metric",
+          "args": {
+            "metric": "total_spend",
+            "dimension": "month"
+          },
+          "success": true,
+          "row_count": 20,
+          "error": null
+        },
+        {
+          "tool_name": "query_database",
+          "args": {
+            "sql": "SELECT EXTRACT(YEAR FROM invoice_date)::int AS yr, COUNT(DISTINCT EXTRACT(MONTH FROM invoice_date)) AS months_with_data, MIN(invoice_date) AS first_date, MAX(invoice_date) AS last_date, percentile_cont(0.5) WITHIN GROUP (ORDER BY amount) AS median_amount, MAX(amount) AS max_amount, SUM(CASE WHEN amount > 100000000 THEN amount ELSE 0 END) AS spend_over_100m, COUNT(*) FILTER (WHERE amount > 100000000) AS invoices_over_100m FROM invoices WHERE currency='GBP' AND EXTRACT(YEAR FROM invoice_date) IN (2024, 2025) GROUP BY 1 ORDER BY 1"
+          },
+          "success": true,
+          "row_count": 2,
+          "error": null
+        }
+      ],
+      "answer": "## Spending in 2025 vs 2024\n\nSpending rose sharply, but a small number of very large invoices drives most of the increase. Counting invoices by `invoice_date`:\n\n| Metric | 2024 | 2025 | Change |\n|---|---|---|---|\n| GBP invoice spend | \u00a333,740,836,486.87 | \u00a391,777,234,483.22 | +\u00a358,036,397,996 (+172%) |\n| GBP invoice count | 14,177 | 13,253 | \u2212924 (\u22126.5%) |\n| GBP average invoice | \u00a32,379,970 | \u00a36,925,016 | +191% |\n| GBP median invoice | \u00a330,789 | \u00a339,174 | +27% |\n| Invoices over \u00a3100M | 52 (\u00a325.45B) | 152 (\u00a379.78B) | +100 invoices, +\u00a354.3B |\n| Spend excluding invoices over \u00a3100M | \u00a38.29B (14,125 invoices) | \u00a312.00B (13,101 invoices) | +\u00a33.71B (+44.7%) |\n\n**What changed:**\n- Volume fell slightly, but the average and median invoice grew, so the value per invoice went up.\n- Invoices over \u00a3100M went from 52 to 152, and their share of GBP spend rose from about 75% to about 87%.\n- Excluding those large invoices, spend still grew about 45%, so the rise is not only from the outliers.\n\n**Other currencies (small):**\n- EUR: 5 invoices (\u20ac5.24M) in 2024 and 2 invoices (\u20ac0.91M) in 2025.\n- USD: 1 invoice each year ($49,332.99 in 2024 and $61,591.51 in 2025).\n\n**Assumptions and caveats:**\n- Spend is the sum of invoice `amount` by `invoice_date`, not payments made. Amounts are shown in their invoice currency and are not converted.\n- Single invoices of several billion pounds (the largest is about \u00a35.75B in 2025) look implausible for real procurement. This may be a data-quality issue in the synthetic dataset. Verify the largest invoices before relying on the headline growth figure.\n\n**Sources:** SQL on `invoices` (grouped by year and currency, plus a GBP breakdown with a \u00a3100M threshold), and `run_metric: total_spend` by month for cross-checking.",
+      "steps": 4
+    },
+    "vendor-overdue": {
+      "workflow": "agent",
+      "metric": null,
+      "tools_used": [
+        "run_metric",
+        "describe_schema",
+        "query_database",
+        "query_database",
+        "query_database"
+      ],
+      "tool_traces": [
+        {
+          "tool_name": "run_metric",
+          "args": {
+            "metric": "overdue_invoices",
+            "dimension": "vendor"
+          },
+          "success": true,
+          "row_count": 20,
+          "error": null
+        },
+        {
+          "tool_name": "describe_schema",
+          "args": {},
+          "success": true,
+          "row_count": null,
+          "error": null
+        },
+        {
+          "tool_name": "query_database",
+          "args": {
+            "sql": "SELECT payment_status, status, COUNT(*) AS n, MIN(due_date) AS min_due, MAX(due_date) AS max_due FROM invoices GROUP BY payment_status, status ORDER BY n DESC"
+          },
+          "success": true,
+          "row_count": 3,
+          "error": null
+        },
+        {
+          "tool_name": "query_database",
+          "args": {
+            "sql": "SELECT v.name AS vendor, COUNT(*) AS overdue_invoices, ROUND(SUM(i.amount)::numeric, 2) AS overdue_amount, i.currency, MIN(i.due_date) AS oldest_due FROM invoices i JOIN vendors v ON v.id = i.vendor_id WHERE i.status = 'overdue' GROUP BY v.name, i.currency ORDER BY overdue_invoices DESC, overdue_amount DESC LIMIT 15"
+          },
+          "success": true,
+          "row_count": 15,
+          "error": null
+        },
+        {
+          "tool_name": "query_database",
+          "args": {
+            "sql": "SELECT UPPER(v.name) AS vendor, COUNT(*) AS overdue_invoices, ROUND(SUM(i.amount)::numeric, 2) AS overdue_amount_gbp, MIN(i.due_date) AS oldest_due, COUNT(DISTINCT v.id) AS name_variants FROM invoices i JOIN vendors v ON v.id = i.vendor_id WHERE i.status = 'overdue' GROUP BY UPPER(v.name) ORDER BY overdue_invoices DESC, overdue_amount_gbp DESC LIMIT 10"
+          },
+          "success": true,
+          "row_count": 10,
+          "error": null
+        }
+      ],
+      "answer": "**Vendors with the most overdue invoices** (status = `overdue`, 6,308 invoices in total)\n\nVendor names are inconsistent in the data (for example, \"Softcat PLC\" and \"SOFTCAT PLC\" are separate vendor records). I grouped by upper-cased name, so the counts below combine those records.\n\n| Rank | Vendor | Overdue invoices | Overdue amount (GBP) | Oldest due date | Vendor records merged |\n|---|---|---|---|---|---|\n| 1 | SOFTCAT PLC | 73 | \u00a313,926,253.06 | 2024-03-09 | 15 |\n| 2 | SPECIALIST COMPUTER CENTRES PLC | 26 | \u00a35,384,162.00 | 2024-10-08 | 3 |\n| 3 | PHOENIX SOFTWARE LIMITED | 23 | \u00a33,006,574.28 | 2024-04-13 | 4 |\n| 4 | INSIGHT DIRECT (UK) LTD | 23 | \u00a31,348,769.12 | 2024-05-02 | 5 |\n| 5 | PHOENIX SOFTWARE LTD | 20 | \u00a310,415,053.39 | 2024-01-31 | 5 |\n| 6 | KPMG LLP | 19 | \u00a31,843,131.40 | 2024-04-19 | 6 |\n| 7 | HAYS SPECIALIST RECRUITMENT LTD | 19 | \u00a31,590,130.69 | 2024-02-18 | 1 |\n| 8 | COMPUTACENTER (UK) LTD | 16 | \u00a39,475,689.53 | 2024-02-15 | 4 |\n| 9 | TRUSTMARQUE SOLUTIONS LIMITED | 15 | \u00a3709,311.83 | 2024-02-08 | 3 |\n| 10 | ACADEMIA LIMITED | 14 | \u00a3683,987.17 | 2024-02-15 | 1 |\n\n**Notes**\n- **Ranking basis:** invoice count. Softcat ranks first by a wide margin. By value, Reed Specialist Recruitment (\u2248\u00a332.3M across 12 invoices, if counted separately) and Phoenix Software Ltd (\u2248\u00a310.4M) are the largest exposures. Those figures are on separate vendor records and aren't in the table above.\n- **Overdue definition:** `status = 'overdue'` in the invoices table. All of these are unpaid, with due dates from January 2024 onward.\n- **Currency:** the earlier per-currency query showed GBP for the top vendors. I assumed all amounts are GBP, which I did not check for every row.\n- **Data quality:** vendor records are duplicated under name variants. Merging them into a single vendor master would change the ranking, so it's worth a cleanup review.\n\n**Sources:** `run_metric` (overdue_invoices), `query_database` on `invoices` joined to `vendors` (grouped by vendor name, with and without case normalisation).",
+      "steps": 6
+    },
+    "contract-max": {
+      "workflow": "agent",
+      "metric": null,
+      "tools_used": [
+        "list_exceptions"
+      ],
+      "tool_traces": [
+        {
+          "tool_name": "list_exceptions",
+          "args": {
+            "exception_type": "invoice_exceeds_contract",
+            "limit": 100
+          },
+          "success": true,
+          "row_count": 20,
+          "error": null
+        }
+      ],
+      "answer": "I found **20 invoices** that exceed their contract maximum. All are open, rated high severity, and in GBP. Together they exceed their contract ceilings by about **\u00a332.2m**.\n\n| Invoice | Vendor | Contract | Contract title | Invoice amount (\u00a3) | Contract max (\u00a3) | Over by (\u00a3) |\n|---|---|---|---|---:|---:|---:|\n| INV-030295 | OpenView Security Solutions Limited | CF-2020-08080 | Electrical | 138,857,836.34 | 120,000,000.00 | 18,857,836.34 |\n| INV-041944 | Key Travel | CF-2024-11201 | Travel Management Services | 23,680,636.49 | 18,000,000.00 | 5,680,636.49 |\n| INV-041614 | South Central Ambulance Service NHS Foundation Trust | CF-2021-11098 | NHS Education Contract - South Central Ambulance Service NHS Foundation Trust | 15,224,362.82 | 10,975,158.00 | 4,249,204.82 |\n| INV-004680 | ICT Revolutions Ltd | CF-2024-01167 | Systems Implementation and Support Services | 4,732,654.65 | 3,229,920.00 | 1,502,734.65 |\n| INV-039921 | PROOFID LIMITED | CF-2022-10652 | DDaT21551 - URKI Identity & Access Management | 2,234,481.82 | 1,684,022.11 | 550,459.71 |\n| INV-002104 | Mayflower Healthcare Alliance | CF-2023-00506 | Tier 2 Dermatology Service for NHS MSE ICB | 1,121,915.86 | 971,076.00 | 150,839.86 |\n| INV-003666 | BDO LLP | CF-2025-00915 | Audit and Assurance Services for Income Contingent Repayment Student Loans Monetisation Programme | 1,074,124.24 | 862,890.00 | 211,234.24 |\n| INV-017692 | Terberg Matec UK Limited | CF-2024-04627 | GB-Borehamwood: TPPL Hertsmere Borough Council NEPO HGV Lot 2 - 6 x Food Waste Vehicles (7.5t & 11t) (20413) | 1,049,637.46 | 750,816.00 | 298,821.46 |\n| INV-014393 | Romaquip Limited | CF-2025-03703 | GB-Bilsthorpe: TPPL Via NEPO HGV Lot 2 - 3 x 26t 6x4 Gritters (22343) | 671,895.48 | 528,480.00 | 143,415.48 |\n| INV-024868 | Advanced Demand Side Management | CF-2022-06548 | Water Supply and Wastewater Services | 581,356.63 | 502,968.00 | 78,388.63 |\n| INV-016044 | Phoenix Learning and Care Limited | CF-2023-04147 | CIS/ED/INM Education Placement/ 340831 | 417,619.86 | 287,246.40 | 130,373.46 |\n| INV-036501 | Phoenix Software Limited | CF-2024-09767 | DSCOM Operations Projection Capability | 384,111.22 | 274,599.44 | 109,511.78 |\n| INV-020674 | DELL CORPORATION LIMITED | CF-2023-05436 | DDaT23355 Dell Servers | 341,616.95 | 263,307.60 | 78,309.35 |\n| INV-021253 | Progress Housing Group | CF-2023-05631 | TECS Lot 3.3 RA Mar23 - Irwell Valley Housing Association - awarded | 240,014.37 | 180,000.00 | 60,014.37 |\n| INV-011216 | INGLEFORD SCAFFOLDING LIMITED | CF-2025-02855 | Chirton Grange Estate Phase 1 Scaffolding | 201,932.63 | 170,400.00 | 31,532.63 |\n| INV-010709 | J.C. Watson Mechanical Limited | CF-2025-02701 | PAHT - Replacement Surgeon Theatre Panels in ADSU | 146,571.20 | 108,000.00 | 38,571.20 |\n| INV-017497 | Neales Taxis Limited | CF-2025-04577 | Summer Operations Week 3 - SCIG1401 - 12/08/2025 - AWARD | 79,761.23 | 70,806.01 | 8,955.22 |\n| INV-015011 | Severn Trent Water Ltd | CF-2024-03858 | Moor Bridge - Water Main Diversion construction works 1 | 55,872.66 | 37,275.02 | 18,597.64 |\n| INV-035006 | Hammond (ECS) Ltd | CF-2026-09372 | HRE - YNY/10 - Ynysybwl Branch - Afon Clydach side bridge | 41,745.08 | 32,119.20 | 9,625.88 |\n| INV-013731 | Life Technologies Ltd | CF-2023-03530 | UKRI-GSS23383 - Renewal of service contract for quantstudio Competitive quotation | 30,629.32 | 24,300.00 | 6,329.32 |\n\n**Observations**\n- The largest single case is INV-030295 (OpenView Security Solutions, contract \"Electrical\"). It is about 116% over its \u00a3120m ceiling. Its linked PO, PO-012139, is \u00a348.1m, so the invoice also exceeds the PO.\n- Several invoices run at roughly 2x or more of their contract maximum (for example INV-017497 and INV-015011 on smaller contracts, and INV-041944 and INV-041614 on larger ones). These are worth checking first for possible data-entry or unit errors.\n- Many of these contract maximums are fractional values in the source data (e.g. \u00a31,684,022.112), which I rounded to the nearest penny in the table.\n\n**Sources:** `list_exceptions` (exception type `invoice_exceeds_contract`, all 20 rows returned, within the 100-row cap). I did not run further checks on the individual invoices, POs or contracts, so the figures above are as recorded in the exception feed.",
+      "steps": 2
+    },
+    "payments-threshold": {
+      "workflow": "agent",
+      "metric": null,
+      "tools_used": [
+        "describe_schema",
+        "query_database",
+        "query_database"
+      ],
+      "tool_traces": [
+        {
+          "tool_name": "describe_schema",
+          "args": {},
+          "success": true,
+          "row_count": null,
+          "error": null
+        },
+        {
+          "tool_name": "query_database",
+          "args": {
+            "sql": "SELECT p.payment_reference, p.amount, p.currency, p.payment_date, p.status AS payment_status, p.method, i.invoice_number, v.name AS vendor_name FROM payments p JOIN invoices i ON i.id = p.invoice_id JOIN vendors v ON v.id = i.vendor_id WHERE p.amount > 1000000 ORDER BY p.amount DESC"
+          },
+          "success": true,
+          "row_count": 100,
+          "error": null
+        },
+        {
+          "tool_name": "query_database",
+          "args": {
+            "sql": "SELECT COUNT(*) AS payments_over_1m, SUM(p.amount) AS total_amount, MIN(p.amount) AS min_amount, MAX(p.amount) AS max_amount FROM payments p WHERE p.amount > 1000000"
+          },
+          "success": true,
+          "row_count": 1,
+          "error": null
+        }
+      ],
+      "answer": "There are **3,774 payments** above \u00a31,000,000, totalling about **\u00a3179.28bn**. The range runs from \u00a31,000,094.18 to \u00a36,679,757,749.23. The largest 20 are below. The full list is too long for a chat reply, so I can narrow it by vendor, date, or method if you need a specific slice.\n\n| # | Payment ref | Amount (GBP) | Payment date | Method | Invoice | Vendor |\n|---|---|---|---|---|---|---|\n| 1 | PAY-030095 | 6,679,757,749.23 | 2026-05-21 | check | INV-035490 | Organisation for Joint Armament Cooperation (OCCAR) |\n| 2 | PAY-030094 | 5,746,884,119.50 | 2025-12-17 | check | INV-035489 | Organisation for Joint Armament Cooperation (OCCAR) |\n| 3 | PAY-030096 | 5,360,863,602.33 | 2024-05-20 | bank_transfer | INV-035491 | Organisation for Joint Armament Cooperation (OCCAR) |\n| 4 | PAY-030092 | 5,326,212,502.65 | 2026-05-21 | bank_transfer | INV-035487 | Organisation for Joint Armament Cooperation (OCCAR) |\n| 5 | PAY-030093 | 5,023,945,428.43 | 2026-05-08 | card | INV-035488 | Organisation for Joint Armament Cooperation (OCCAR) |\n| 6 | PAY-003591 | 2,741,243,457.05 | 2026-10-22 | check | INV-004218 | \"A list of successful suppliers can be found in the attachments\" |\n| 7 | PAY-003589 | 2,522,210,312.98 | 2025-10-24 | card | INV-004216 | \"A list of successful suppliers can be found in the attachments\" |\n| 8 | PAY-003592 | 2,510,748,016.45 | 2026-06-12 | bank_transfer | INV-004219 | \"A list of successful suppliers can be found in the attachments\" |\n| 9 | PAY-003590 | 2,380,948,993.43 | 2025-03-30 | card | INV-004217 | \"A list of successful suppliers can be found in the attachments\" |\n| 10 | PAY-003594 | 1,993,863,625.55 | 2026-05-15 | check | INV-004221 | \"A list of successful suppliers can be found in the attachments\" |\n| 11 | PAY-003593 | 1,945,059,333.61 | 2025-01-28 | bank_transfer | INV-004220 | \"A list of successful suppliers can be found in the attachments\" |\n| 12 | PAY-023698 | 1,275,801,560.22 | 2025-10-22 | card | INV-027996 | Kensa Contracting Ltd |\n| 13 | PAY-023760 | 1,246,999,435.57 | 2026-03-06 | bank_transfer | INV-028069 | Carbon3 Ltd |\n| 14 | PAY-023690 | 1,238,709,272.92 | 2025-10-30 | check | INV-027985 | Kensa Contracting Ltd |\n| 15 | PAY-023699 | 1,189,860,299.10 | 2025-11-20 | bank_transfer | INV-027997 | Kensa Contracting Ltd |\n| 16 | PAY-019058 | 1,178,652,290.69 | 2026-07-08 | card | INV-022554 | McLaughlin & Harvey Ltd |\n| 17 | PAY-023739 | 1,124,688,243.02 | 2025-10-24 | card | INV-028043 | Breyer Group PLC |\n| 18 | PAY-023689 | 1,108,258,457.05 | 2025-01-31 | bank_transfer | INV-027984 | Kensa Contracting Ltd |\n| 19 | PAY-023691 | 1,089,474,319.66 | 2026-03-13 | card | INV-027986 | Kensa Contracting Ltd |\n| 20 | PAY-023703 | 1,083,245,884.01 | 2025-12-20 | check | INV-028002 | SWALE HEATING LIMITED |\n\n**Notes and assumptions**\n- All amounts are shown in GBP, the currency recorded on every row I checked. I did not run a currency-level check across all 3,774 rows.\n- All of the rows I reviewed have payment status \"completed\".\n- Several vendor names are placeholder text, not real supplier names (PAY-003589 to PAY-003594 and PAY-000375 to PAY-000377). Those records need vendor-master cleanup before any vendor-level totals are reported.\n- Several payment dates fall after today (2026-11-09) only if you look at later rows. Within the top 20, dates run from 2024-05-20 to 2026-10-22, so PAY-019058 (2026-07-08), PAY-003591 (2026-10-22), and PAY-019056/PAY-019047 (2026-10-08) are future-dated relative to today's date and should be checked.\n\n**Sources:** SQL query on `payments` joined to `invoices` and `vendors` (filter: `amount > 1000000`), plus a count/sum/min/max summary query on `payments`.",
+      "steps": 4
+    },
+    "exceptions-by-type": {
+      "workflow": "agent",
+      "metric": null,
+      "tools_used": [
+        "list_exceptions"
+      ],
+      "tool_traces": [
+        {
+          "tool_name": "list_exceptions",
+          "args": {},
+          "success": true,
+          "row_count": 50,
+          "error": null
+        }
+      ],
+      "answer": "There are **150 exceptions** across 10 types. Ranked by frequency:\n\n| Rank | Exception type | Count | Share of total |\n|---|---|---|---|\n| 1 | invoice_exceeds_po | 30 | 20.0% |\n| 2 | missing_approval | 25 | 16.7% |\n| 3 | invoice_exceeds_contract | 20 | 13.3% |\n| 4 | duplicate_invoice | 15 | 10.0% |\n| 5 | expired_contract | 10 | 6.7% |\n| 5 | invalid_po | 10 | 6.7% |\n| 5 | payment_mismatch | 10 | 6.7% |\n| 5 | wrong_vendor | 10 | 6.7% |\n| 5 | already_paid | 10 | 6.7% |\n| 5 | wrong_currency | 10 | 6.7% |\n\nThe top three types (invoice_exceeds_po, missing_approval, invoice_exceeds_contract) account for 75 of the 150 exceptions, or 50%.\n\nSource: `list_exceptions` (counts by type, no filters). The detailed rows returned by that call were truncated, so I have not verified per-invoice amounts here. I can list the affected invoices for any type, for example the 30 invoice_exceeds_po cases, if you want them.",
+      "steps": 2
+    }
+  }
+}

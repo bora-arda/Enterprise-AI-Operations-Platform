@@ -212,13 +212,14 @@ def _build_sql(request: MetricRequest) -> tuple[str, dict]:
         where.append("i.invoice_date >= CURRENT_DATE - CAST(:days AS INTEGER) * INTERVAL '1 day'")
 
     where_clause = f"WHERE {' AND '.join(where)}" if where else ""
+    group_by = f"GROUP BY {dimension_expr}" if dimension else "GROUP BY 1"
 
     sql = f"""
         SELECT {dimension_expr} AS label,
                {aggregate} AS value
         {joins}
         {where_clause}
-        GROUP BY {dimension_expr}
+        {group_by}
         ORDER BY value DESC NULLS LAST
         LIMIT :limit
     """

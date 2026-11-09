@@ -38,6 +38,15 @@ class Settings(BaseSettings):
     # Conversation memory (Postgres-backed chat threads)
     chat_memory_enabled: bool = True
 
+    # Orchestration: "agent_first" for open-ended read-only reasoning, or
+    # "hybrid" for deterministic fast paths. Controlled actions always use the
+    # human-in-the-loop action workflow.
+    orchestration_mode: str = "agent_first"
+
+    # Agent SQL tool
+    sql_max_rows: int = 100
+    sql_query_timeout_ms: int = 5000
+
     # Planner: deterministic | llm
     planner_mode: str = "deterministic"
     opencode_go_api_key: str = ""

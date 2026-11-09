@@ -1,0 +1,37 @@
+[
+  {
+    "id": "spend-change",
+    "question": "What changed in spending from 2024 to 2025?",
+    "expected_workflow": "agent",
+    "expected_tools": ["query_database"],
+    "required_terms": ["2024", "2025"]
+  },
+  {
+    "id": "vendor-overdue",
+    "question": "Which vendors have the most overdue invoices?",
+    "expected_workflow": "agent",
+    "expected_tools": ["query_database"],
+    "required_terms": ["overdue"]
+  },
+  {
+    "id": "contract-max",
+    "question": "Find invoices that exceed their contract maximum and show the contract title.",
+    "expected_workflow": "agent",
+    "expected_tools": ["list_exceptions"],
+    "required_terms": ["contract", "invoice"]
+  },
+  {
+    "id": "payments-threshold",
+    "question": "Show me payments above 1,000,000 with invoice numbers and vendors.",
+    "expected_workflow": "agent",
+    "expected_tools": ["query_database"],
+    "required_terms": ["payment", "invoice"]
+  },
+  {
+    "id": "exceptions-by-type",
+    "question": "Which exception types are most common, and how many of each are there?",
+    "expected_workflow": "agent",
+    "expected_tools": ["list_exceptions"],
+    "required_terms": ["exception"]
+  }
+]

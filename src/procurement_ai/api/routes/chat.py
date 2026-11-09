@@ -98,6 +98,13 @@ async def chat(
     # Persist the routing decision for audit and debugging.
     audit = final_state.get("planner_audit") or {}
     planned = final_state.get("planned_route") or {}
+    raw_decision = audit.get("raw_decision")
+    agent_trace = final_state.get("agent_trace")
+    if agent_trace:
+        raw_decision = {
+            "planner": raw_decision,
+            "agent_tool_trace": agent_trace[:20],
+        }
     decision_id: str | None = str(uuid.uuid4())
 
     try:
@@ -124,7 +131,7 @@ async def chat(
                         planned.get("clarification_message") or final_state.get("clarification_message") or None
                     ),
                     reason=planned.get("reason"),
-                    raw_decision=audit.get("raw_decision"),
+                    raw_decision=raw_decision,
                     validation_result=audit.get("validation_result", "unknown"),
                     fallback_used=bool(audit.get("fallback_used")),
                     input_tokens=audit.get("input_tokens"),

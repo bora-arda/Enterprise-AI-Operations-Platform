@@ -1,6 +1,6 @@
 """LangGraph state definitions."""
 
-from typing import Any, Literal, TypedDict
+from typing import Any, Literal, NotRequired, TypedDict
 
 
 class Evidence(TypedDict):
@@ -64,6 +64,7 @@ class AgentState(TypedDict):
     # Tool calls
     tool_calls: list[ToolCall]
     tool_results: list[ToolResult]
+    agent_trace: NotRequired[list[dict]]
 
     # Action workflow
     action_request: ActionRequest | None

@@ -32,6 +32,7 @@ WORKFLOWS = {
     "sql",
     "detection",
     "action",
+    "agent",
     "clarification",
     "fallback",
 }
@@ -42,6 +43,7 @@ WORKFLOW_INTENT = {
     "sql": "analyze",
     "detection": "detect",
     "action": "act",
+    "agent": "analyze",
     "clarification": "clarify",
     "fallback": "out_of_scope",
 }
@@ -58,7 +60,7 @@ PLANNER_PROMPT = """You are the planner for an enterprise procurement operations
 Return ONLY a JSON object with this exact shape:
 
 {
-  "workflow": "retrieval | investigation | sql | detection | action | clarification | fallback",
+  "workflow": "retrieval | investigation | sql | detection | action | agent | clarification | fallback",
   "intent": "find | investigate | analyze | detect | act | clarify | out_of_scope",
   "entity": {
     "type": "invoice | purchase_order | contract | vendor | payment | approval | null",
@@ -92,9 +94,22 @@ Routing rules:
   "pending_approvals" (all pending approvals, including payment requests),
   "pending_payment_requests" (payment requests only),
   "pending_payments" (payment records in pending/processing status).
+- If the user asks for two or more pending categories together, or says "all"
+  after being asked to choose between pending approvals, pending payment
+  requests, and pending payments, use "agent" so the categories can be
+  combined in one answer.
+- Greetings, thanks, "help me", and "what can you do" / capability questions ->
+  "agent"; do not use fallback for these.
+- Policy/procedure/process prose questions -> "retrieval". If a policy question
+  also requires comparing live data or synthesizing several sources, use "agent".
 - "detailed", "as a table", "each of them", "show those" after a metric answer is a
   follow-up: keep the previous workflow and metric, set follow_up true, and do not
   ask for an invoice identifier.
+- Use "agent" for open-ended, multi-step, comparative, or arbitrary data questions
+  that are not covered by a named metric or a direct entity lookup. Examples:
+  comparisons across quarters, joins across several tables, top-N rankings with
+  derived columns, "which ... and how many ...", spending changes, or questions
+  requiring iteration. Set metric to null.
 - Duplicates, anomalies, fraud, policy violations -> "detection".
 - Request payment / approve / create exception -> "action" with entity invoice.
 - Clarification is ONLY for a single-record lookup missing its identifier. Never ask for
@@ -170,6 +185,28 @@ Q: "List all pending payments and approvals detailed as a table" ->
   "follow_up": false,
   "clarification_message": null,
   "reason": "detailed pending approvals table"
+}
+
+Q: "Compare 2025 and 2026 spending for IT, excluding cancelled POs" ->
+{
+  "workflow": "agent",
+  "intent": "analyze",
+  "entity": {"type": null, "id": null, "name": null},
+  "metric": {"name": null, "dimension": null, "days": null},
+  "follow_up": false,
+  "clarification_message": null,
+  "reason": "open-ended comparative SQL analysis"
+}
+
+Q: "How can you help me with finance operations?" ->
+{
+  "workflow": "agent",
+  "intent": "find",
+  "entity": {"type": null, "id": null, "name": null},
+  "metric": {"name": null, "dimension": null, "days": null},
+  "follow_up": false,
+  "clarification_message": null,
+  "reason": "capability/help question"
 }
 """
 
@@ -359,7 +396,7 @@ async def plan_request(
             model=model,
             messages=messages,
             temperature=0,
-            max_tokens=500,
+            max_tokens=800,
         )
         latency_ms = int((time.perf_counter() - start) * 1000)
 

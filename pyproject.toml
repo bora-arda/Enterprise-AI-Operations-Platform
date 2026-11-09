@@ -51,6 +51,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+cpu = ["torch==2.14.1"]
+cu130 = ["torch==2.14.1"]
 dev = [
     "pytest>=8.2.0",
     "pytest-asyncio>=0.23.0",
@@ -105,3 +107,29 @@ dev = [
     "pytest-cov>=7.1.0",
     "ruff>=0.17.1",
 ]
+
+# PyTorch builds are selected per environment:
+#   uv sync                  -> default PyPI wheel (CUDA on this Linux/WSL host)
+#   uv sync --extra cu130    -> CUDA 13.0 wheel from the official PyTorch index
+#   uv sync --extra cpu      -> CPU-only wheel (used by the Docker images)
+# The CPU and CUDA extras are mutually exclusive.
+[tool.uv]
+conflicts = [
+    [{ extra = "cpu" }, { extra = "cu130" }],
+]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu", extra = "cpu" },
+    { index = "pytorch-cu130", extra = "cu130" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true

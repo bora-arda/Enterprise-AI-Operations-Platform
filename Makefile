@@ -1,4 +1,4 @@
-.PHONY: help install test lint format typecheck docker-up docker-down clean
+.PHONY: help install test lint format typecheck docker-up docker-down docker-prune clean
 
 help: ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
@@ -32,6 +32,10 @@ docker-up: ## Start Docker services
 
 docker-down: ## Stop Docker services
 	docker compose down
+
+docker-prune: ## Reclaim all Docker build cache and dangling images (keeps volumes)
+	docker builder prune -af
+	docker image prune -f
 
 clean: ## Clean generated files
 	rm -rf .pytest_cache .mypy_cache .ruff_cache .coverage htmlcov

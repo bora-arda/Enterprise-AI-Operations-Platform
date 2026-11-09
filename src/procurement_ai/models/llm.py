@@ -23,16 +23,32 @@ class LLMProvider(ABC):
 
 
 class OpenAIProvider(LLMProvider):
-    """OpenAI LLM provider."""
+    """OpenAI-compatible provider, preferring OpenCode Go when configured."""
 
     def __init__(self):
         settings = get_settings()
-        if not settings.openai_api_key:
-            raise ValueError("OPENAI_API_KEY is required for OpenAI provider")
-        self.model_name = settings.openai_model
+        self.opencode_key = getattr(settings, "opencode_go_api_key", "")
+        self.use_opencode = bool(self.opencode_key)
+        if not self.opencode_key and not settings.openai_api_key:
+            raise ValueError("OPENCODE_GO_API_KEY or OPENAI_API_KEY is required for the LLM provider")
+        self.model_name = (
+            getattr(settings, "opencode_go_model", "claude-haiku-5-5") if self.use_opencode else settings.openai_model
+        )
 
     def get_model(self) -> BaseChatModel:
         settings = get_settings()
+        if self.use_opencode:
+            return ChatOpenAI(
+                api_key=SecretStr(self.opencode_key),
+                model=self.model_name,
+                temperature=0.1,
+                max_completion_tokens=4096,
+                base_url=getattr(settings, "opencode_go_base_url", "https://opencode.ai/zen/go/v1"),
+                default_headers={
+                    "x-opencode-session": getattr(settings, "opencode_session_id", "procurement-ai-planner")
+                },
+            )
+
         return ChatOpenAI(
             api_key=SecretStr(settings.openai_api_key),
             model=self.model_name,

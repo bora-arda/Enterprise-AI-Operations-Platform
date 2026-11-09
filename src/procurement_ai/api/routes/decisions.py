@@ -51,7 +51,7 @@ async def list_decisions(
     session_id: str | None = Query(None),
     user_id: str | None = Query(None),
     workflow: str | None = Query(None),
-    planner_mode: str | None = Query(None, pattern="^(llm|deterministic)$"),
+    planner_mode: str | None = Query(None, pattern="^(llm|deterministic|agent_first)$"),
     fallback_used: bool | None = Query(None),
     limit: int = Query(50, ge=1, le=200),
     offset: int = Query(0, ge=0),

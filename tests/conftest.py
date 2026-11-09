@@ -9,6 +9,9 @@ import pytest
 os.environ.setdefault("CHAT_MEMORY_ENABLED", "false")
 # Never make live LLM calls from the test suite.
 os.environ.setdefault("PLANNER_MODE", "deterministic")
+# Preserve the deterministic workflow assertions; agent-first is covered by
+# explicit unit tests with a monkeypatched mode.
+os.environ.setdefault("ORCHESTRATION_MODE", "hybrid")
 
 
 @pytest.fixture
