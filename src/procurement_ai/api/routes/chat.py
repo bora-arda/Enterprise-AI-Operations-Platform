@@ -45,6 +45,7 @@ async def chat(
         "intent": "",
         "workflow": "",
         "planned_route": None,
+        "previous_route": None,
         "evidence": [],
         "citations": [],
         "tool_calls": [],
@@ -74,6 +75,8 @@ async def chat(
         initial_state["history"] = history
         if previous_values.get("last_invoice_number"):
             initial_state["last_invoice_number"] = previous_values["last_invoice_number"]
+        if previous_values.get("planned_route"):
+            initial_state["previous_route"] = previous_values["planned_route"]
 
         final_state = await graph.ainvoke(initial_state, config=config)
     except Exception as e:

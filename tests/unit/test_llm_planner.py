@@ -2,6 +2,7 @@
 
 import asyncio
 
+from procurement_ai.graph.nodes.planner import planner_node
 from procurement_ai.planner.llm_planner import (
     _extract_json,
     plan_request,
@@ -84,6 +85,16 @@ class TestPlannerValidation:
         )
         assert decision.days is None
 
+    def test_list_metric(self):
+        decision = validate_decision(
+            {
+                "workflow": "sql",
+                "metric": {"name": "pending_approvals", "dimension": None},
+            }
+        )
+        assert decision.metric == "pending_approvals"
+        assert decision.dimension is None
+
     def test_extract_json_with_fences(self):
         payload = _extract_json('```json\n{"workflow": "fallback"}\n```')
         assert payload == {"workflow": "fallback"}
@@ -100,3 +111,36 @@ class TestPlannerFallback:
         assert outcome.planner_mode == "deterministic"
         assert outcome.validation_result == "deterministic"
         assert outcome.fallback_used is False
+
+
+class TestPlannerNode:
+    def test_metric_safety_net(self):
+        state = {
+            "user_input": "which payment requests are pending?",
+            "history": [],
+            "previous_route": None,
+        }
+        result = asyncio.run(planner_node(state))
+        route = result["planned_route"]
+        assert route is not None
+        assert route["workflow"] == "sql"
+        assert route["metric"] == "pending_payment_requests"
+
+    def test_detail_follow_up_reuses_previous_metric(self):
+        state = {
+            "user_input": "list me with each of them detailed as a table",
+            "history": [],
+            "previous_route": {
+                "workflow": "sql",
+                "intent": "analyze",
+                "metric": "pending_approvals",
+                "dimension": None,
+                "days": None,
+            },
+        }
+        result = asyncio.run(planner_node(state))
+        route = result["planned_route"]
+        assert route is not None
+        assert route["workflow"] == "sql"
+        assert route["metric"] == "pending_approvals"
+        assert route["follow_up"] is True

@@ -29,7 +29,7 @@ class Settings(BaseSettings):
     # API
     api_host: str = "0.0.0.0"
     api_port: int = 8000
-    api_secret_key: str = "change-me-in-production"
+    api_secret_key: str = "change-me-in-production-use-32-chars-min"
     access_token_expire_minutes: int = 480
 
     # MCP Server

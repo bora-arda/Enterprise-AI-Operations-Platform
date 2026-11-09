@@ -77,7 +77,8 @@ Return ONLY a JSON object with this exact shape:
 
 Allowed metrics:
 total_spend, invoice_count, avg_invoice_value, overdue_rate,
-exception_count, exception_rate, approval_cycle_time, contracts_expiring.
+exception_count, exception_rate, approval_cycle_time, contracts_expiring,
+overdue_invoices, pending_approvals, pending_payment_requests, pending_payments.
 
 Routing rules:
 - Specific record lookup by ID (INV-, PO-, CF-, PAY-, APPR-) -> workflow "retrieval", entity type and id.
@@ -86,11 +87,21 @@ Routing rules:
 - Analytics: spending, counts, averages, rates, trends, expiring contracts -> "sql" with a metric.
   Choose a dimension only from the question: vendor, category, department, month, status, exception_type.
   Use days when a time window is stated ("last 30 days", "within 60 days").
+- "Which invoices are overdue?" / list overdue invoices -> "sql", metric "overdue_invoices".
+- Pending approvals / pending payment requests / pending payments -> "sql":
+  "pending_approvals" (all pending approvals, including payment requests),
+  "pending_payment_requests" (payment requests only),
+  "pending_payments" (payment records in pending/processing status).
+- "detailed", "as a table", "each of them", "show those" after a metric answer is a
+  follow-up: keep the previous workflow and metric, set follow_up true, and do not
+  ask for an invoice identifier.
 - Duplicates, anomalies, fraud, policy violations -> "detection".
 - Request payment / approve / create exception -> "action" with entity invoice.
-- A record lookup with a missing identifier -> "clarification" with a helpful clarification_message.
+- Clarification is ONLY for a single-record lookup missing its identifier. Never ask for
+  an invoice when the user asked for a list, aggregate, metric, or table.
 - A follow-up that refers to the previous invoice ("its payment", "what about the contract") ->
   follow_up true, entity type "invoice", id null, and the most relevant workflow.
+- A detail/table follow-up on a metric answer -> follow_up true, no entity, keep the metric.
 - Questions outside procurement/finance -> "fallback", intent "out_of_scope".
 - Never invent identifiers. Only use IDs that appear in the question or conversation.
 
@@ -137,6 +148,28 @@ Q: "What about its payment?" (previous invoice INV-000010) ->
   "follow_up": true,
   "clarification_message": null,
   "reason": "follow-up on previous invoice"
+}
+
+Q: "Which payment requests are pending?" ->
+{
+  "workflow": "sql",
+  "intent": "analyze",
+  "entity": {"type": null, "id": null, "name": null},
+  "metric": {"name": "pending_payment_requests", "dimension": null, "days": null},
+  "follow_up": false,
+  "clarification_message": null,
+  "reason": "list pending payment requests"
+}
+
+Q: "List all pending payments and approvals detailed as a table" ->
+{
+  "workflow": "sql",
+  "intent": "analyze",
+  "entity": {"type": null, "id": null, "name": null},
+  "metric": {"name": "pending_approvals", "dimension": null, "days": null},
+  "follow_up": false,
+  "clarification_message": null,
+  "reason": "detailed pending approvals table"
 }
 """
 
@@ -268,6 +301,7 @@ class PlannerOutcome:
 async def plan_request(
     question: str,
     history: list[dict] | None = None,
+    previous_route: dict | None = None,
 ) -> PlannerOutcome:
     """Ask Claude Haiku for a structured route, with audit metadata."""
     settings = get_settings()
@@ -307,6 +341,14 @@ async def plan_request(
             {
                 "role": "system",
                 "content": "Recent conversation (for follow-up resolution):\n" + history_text,
+            }
+        )
+    if previous_route:
+        messages.append(
+            {
+                "role": "system",
+                "content": "Previous routing decision (for detail/table follow-ups):\n"
+                + json.dumps(previous_route, default=str),
             }
         )
     messages.append({"role": "user", "content": question})

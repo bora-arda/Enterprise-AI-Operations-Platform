@@ -59,6 +59,15 @@ def seeded_users():
     return users
 
 
+@pytest.fixture(scope="module", autouse=True)
+def cleanup_test_approvals(seeded_users):
+    """Remove approval rows created by these tests after the module finishes."""
+    yield
+    engine = create_engine(_sync_db_url())
+    with engine.begin() as conn:
+        conn.execute(text("DELETE FROM approval_requests WHERE approval_number LIKE 'APPR-TEST-%'"))
+
+
 def _insert_approval(requested_by: str, request_type: str = "invoice_approval") -> str:
     engine = create_engine(_sync_db_url())
     approval_id = uuid.uuid4()

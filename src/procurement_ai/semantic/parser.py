@@ -1,11 +1,27 @@
 """Parse natural-language metric requests into governed metric calls."""
 
 import re
+from datetime import date, datetime
+from decimal import Decimal
 
-from procurement_ai.semantic.metrics import MetricRequest
+from procurement_ai.semantic.metrics import LIST_METRICS, MetricRequest
 
 
 def _detect_metric(q: str) -> str | None:
+    # Record-list questions must win over aggregate/rate interpretations.
+    if re.search(r"\bpending\b", q) and re.search(r"\bpayment\s+requests?\b", q):
+        return "pending_payment_requests"
+    if re.search(r"\bpending\b", q) and re.search(r"\b(approvals?|requests?)\b", q):
+        return "pending_approvals"
+    if re.search(r"\bpending\b", q) and re.search(r"\bpayments?\b", q):
+        return "pending_payment_requests"
+    if (
+        re.search(r"\boverdue\b", q)
+        and not re.search(r"\b(rate|percentage|percent)\b", q)
+        and not re.search(r"\binv-\d+\b", q)
+    ):
+        return "overdue_invoices"
+
     if re.search(r"\bexception\s+rate\b", q):
         return "exception_rate"
     if re.search(r"\b(most|top|highest|count|number of)\b.*\bexceptions?\b", q) or re.search(
@@ -66,22 +82,52 @@ def parse_metric_request(question: str) -> MetricRequest | None:
     # Sensible defaults
     if dimension is None and metric in ("exception_count", "exception_rate"):
         dimension = "vendor"
-    if metric == "contracts_expiring":
+    if metric == "contracts_expiring" or metric in LIST_METRICS:
         dimension = None
 
     days = _detect_days(q)
     if metric == "contracts_expiring":
         days = days or 60
 
-    return MetricRequest(metric=metric, dimension=dimension, days=days, limit=10)
+    limit = 20 if metric in LIST_METRICS else 10
+    return MetricRequest(metric=metric, dimension=dimension, days=days, limit=limit)
+
+
+def _format_table_value(value) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, Decimal):
+        return f"{value:,.2f}"
+    if isinstance(value, datetime):
+        return value.strftime("%Y-%m-%d %H:%M")
+    if isinstance(value, date):
+        return value.isoformat()
+    text = str(value).replace("|", "\\|")
+    if len(text) > 90:
+        text = text[:87] + "..."
+    return text
 
 
 def format_metric_result(result) -> str:
     """Format a MetricResult for the user with explicit units."""
     if not result.rows:
-        return f"{result.label}: no data matched the request."
+        return f"{result.label}: no records matched the request."
 
     metric = result.metric
+
+    if metric in LIST_METRICS:
+        headers = list(result.rows[0].keys())
+        lines = [
+            f"{result.label} ({len(result.rows)}):",
+            "",
+            "| " + " | ".join(headers) + " |",
+            "| " + " | ".join("---" for _ in headers) + " |",
+        ]
+        for row in result.rows:
+            values = [_format_table_value(row.get(header)) for header in headers]
+            lines.append("| " + " | ".join(values) + " |")
+        return "\n".join(lines)
+
     lines = [f"{result.label}:"]
 
     for row in result.rows:

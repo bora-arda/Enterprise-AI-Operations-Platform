@@ -16,6 +16,11 @@ Approve & Execute / Reject controls:
 
 ![Pending approvals](docs/assets/approvals-panel.png)
 
+**Operational lists** — pending approvals, payment requests, and overdue
+invoices are answered from PostgreSQL as formatted tables:
+
+![Pending payment requests](docs/assets/chat-pending-requests.png)
+
 **Observability** — provisioned Grafana dashboard showing request rate, workflow
 routes, node/planner latency, tokens, tool calls, approvals, and anomalies:
 
@@ -42,7 +47,7 @@ node capture_grafana.mjs ../docs/assets       # Grafana (:3001)
 | LLM planner (Claude Haiku 5.5 via OpenCode Go) | ✅ Complete (`PLANNER_MODE=llm`) |
 | Planner decision audit trail | ✅ Complete (`GET /decisions`) |
 | Evidence-backed investigation (invoice/PO/contract/payment) | ✅ Complete |
-| Semantic metrics layer (governed SQL, 7 metrics) | ✅ Complete |
+| Semantic metrics layer (governed SQL + list queries) | ✅ Complete |
 | Multi-turn conversation memory (Postgres checkpoints) | ✅ Complete |
 | Clarification for missing/ambiguous identifiers | ✅ Complete |
 | Deterministic anomaly detection (rules + duplicates) | ✅ Complete |
@@ -196,7 +201,7 @@ Role permissions:
 Configuration:
 
 ```bash
-API_SECRET_KEY=change-me-in-production   # JWT signing key; change in production
+API_SECRET_KEY=change-me-in-production-use-32-chars-min   # JWT signing key; change in production
 ACCESS_TOKEN_EXPIRE_MINUTES=480
 ```
 
@@ -224,6 +229,9 @@ curl -X POST http://localhost:8000/chat \
 | Find transactions that may violate procurement policy | detection |
 | Show me spending by category | sql (semantic) |
 | What is the exception rate by vendor? | sql (semantic) |
+| Which invoices are overdue? | sql (semantic list) |
+| Which payment requests are pending? | sql (semantic list) |
+| List all pending payments and approvals as a table | sql (semantic list) |
 | Which contracts expire within 60 days? | sql (semantic) |
 | What is the average approval cycle time by department? | sql (semantic) |
 | What are the approval requirements for invoices over 50000? | retrieval |

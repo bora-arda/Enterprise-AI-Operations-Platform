@@ -54,6 +54,7 @@ class AgentState(TypedDict):
     intent: str
     workflow: str
     planned_route: dict | None
+    previous_route: dict | None
     planner_audit: dict | None
 
     # Evidence

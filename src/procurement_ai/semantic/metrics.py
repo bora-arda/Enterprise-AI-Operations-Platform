@@ -60,6 +60,17 @@ METRIC_LABELS = {
     "exception_rate": "Exception rate",
     "approval_cycle_time": "Average approval time (hours)",
     "contracts_expiring": "Contracts expiring",
+    "overdue_invoices": "Overdue invoices",
+    "pending_approvals": "Pending approvals",
+    "pending_payment_requests": "Pending payment requests",
+    "pending_payments": "Pending payments",
+}
+
+LIST_METRICS = {
+    "overdue_invoices",
+    "pending_approvals",
+    "pending_payment_requests",
+    "pending_payments",
 }
 
 # metric -> allowed dimensions
@@ -72,6 +83,10 @@ ALLOWED_DIMENSIONS = {
     "exception_rate": {"vendor", "exception_type", "month", "department"},
     "approval_cycle_time": {"department", "vendor", "month"},
     "contracts_expiring": set(),
+    "overdue_invoices": set(),
+    "pending_approvals": set(),
+    "pending_payment_requests": set(),
+    "pending_payments": set(),
 }
 
 AGGREGATES = {
@@ -89,7 +104,78 @@ AGGREGATES = {
 
 def _build_sql(request: MetricRequest) -> tuple[str, dict]:
     metric = request.metric
-    params: dict = {"limit": request.limit}
+    params: dict = {"limit": max(request.limit, 20) if metric in LIST_METRICS else request.limit}
+
+    if metric == "overdue_invoices":
+        sql = """
+            SELECT i.invoice_number AS "Invoice",
+                   COALESCE(v.name, 'Unknown vendor') AS "Vendor",
+                   i.amount AS "Amount",
+                   i.currency AS "Currency",
+                   i.due_date AS "Due date",
+                   (CURRENT_DATE - i.due_date) AS "Days overdue"
+            FROM invoices i
+            LEFT JOIN vendors v ON v.id = i.vendor_id
+            WHERE i.status = 'overdue'
+            ORDER BY "Days overdue" DESC
+            LIMIT :limit
+        """
+        return sql, params
+
+    if metric == "pending_approvals":
+        sql = """
+            SELECT a.approval_number AS "Approval",
+                   a.request_type AS "Type",
+                   i.invoice_number AS "Invoice",
+                   i.amount AS "Amount",
+                   i.currency AS "Currency",
+                   COALESCE(v.name, 'Unknown vendor') AS "Vendor",
+                   a.justification AS "Justification",
+                   a.requested_at AS "Requested"
+            FROM approval_requests a
+            LEFT JOIN invoices i ON i.id = a.invoice_id
+            LEFT JOIN vendors v ON v.id = i.vendor_id
+            WHERE a.status = 'pending'
+            ORDER BY a.requested_at DESC
+            LIMIT :limit
+        """
+        return sql, params
+
+    if metric == "pending_payment_requests":
+        sql = """
+            SELECT a.approval_number AS "Approval",
+                   i.invoice_number AS "Invoice",
+                   i.amount AS "Amount",
+                   i.currency AS "Currency",
+                   COALESCE(v.name, 'Unknown vendor') AS "Vendor",
+                   a.justification AS "Justification",
+                   a.requested_at AS "Requested"
+            FROM approval_requests a
+            LEFT JOIN invoices i ON i.id = a.invoice_id
+            LEFT JOIN vendors v ON v.id = i.vendor_id
+            WHERE a.status = 'pending' AND a.request_type = 'payment_request'
+            ORDER BY a.requested_at DESC
+            LIMIT :limit
+        """
+        return sql, params
+
+    if metric == "pending_payments":
+        sql = """
+            SELECT p.payment_reference AS "Payment",
+                   i.invoice_number AS "Invoice",
+                   p.amount AS "Amount",
+                   p.currency AS "Currency",
+                   p.status AS "Status",
+                   p.payment_date AS "Date",
+                   COALESCE(v.name, 'Unknown vendor') AS "Vendor"
+            FROM payments p
+            LEFT JOIN invoices i ON i.id = p.invoice_id
+            LEFT JOIN vendors v ON v.id = i.vendor_id
+            WHERE p.status IN ('pending', 'processing')
+            ORDER BY p.payment_date DESC
+            LIMIT :limit
+        """
+        return sql, params
 
     if metric == "contracts_expiring":
         days = request.days or 60
@@ -141,7 +227,11 @@ def _build_sql(request: MetricRequest) -> tuple[str, dict]:
 
 async def compute_metric(session: AsyncSession, request: MetricRequest) -> MetricResult:
     """Execute a metric using the governed definition."""
-    if request.metric not in AGGREGATES and request.metric != "contracts_expiring":
+    if (
+        request.metric not in AGGREGATES
+        and request.metric != "contracts_expiring"
+        and request.metric not in LIST_METRICS
+    ):
         raise ValueError(f"Unknown metric: {request.metric}")
 
     sql, params = _build_sql(request)

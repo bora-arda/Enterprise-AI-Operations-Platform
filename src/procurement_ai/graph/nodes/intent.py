@@ -182,6 +182,14 @@ def intent_classifier_node(state: dict) -> dict:
         workflow = planned["workflow"]
         intent = planned.get("intent") or "find"
 
+        needs_invoice_context = (
+            planned.get("follow_up")
+            and not state.get("last_invoice_number")
+            and not planned.get("metric")
+            and planned.get("entity_type") in (None, "invoice")
+            and not planned.get("entity_id")
+        )
+
         if workflow == "clarification":
             state["clarification_needed"] = True
             state["clarification_message"] = (
@@ -189,7 +197,7 @@ def intent_classifier_node(state: dict) -> dict:
                 or "Could you provide the record identifier (for example INV-000001)?"
             )
             intent = "clarify"
-        elif planned.get("follow_up") and not state.get("last_invoice_number"):
+        elif needs_invoice_context:
             state["clarification_needed"] = True
             state["clarification_message"] = (
                 "Which invoice would you like to continue with? "

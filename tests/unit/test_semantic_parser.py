@@ -54,6 +54,23 @@ class TestMetricParser:
         req = parse_metric_request("Show spending by month for the last quarter")
         assert req.days == 90
 
+    def test_overdue_invoices_list(self):
+        req = parse_metric_request("Which invoices are overdue?")
+        assert req.metric == "overdue_invoices"
+        assert req.dimension is None
+
+    def test_pending_payment_requests(self):
+        req = parse_metric_request("which payment requests are pending?")
+        assert req.metric == "pending_payment_requests"
+
+    def test_pending_approvals(self):
+        req = parse_metric_request("list me all pending payments and approvals")
+        assert req.metric == "pending_approvals"
+
+    def test_pending_payments(self):
+        req = parse_metric_request("show pending payments")
+        assert req.metric == "pending_payment_requests"
+
     def test_non_metric_question(self):
         assert parse_metric_request("Why is invoice INV-000001 overdue?") is None
         assert parse_metric_request("Find duplicate invoices") is None
@@ -96,3 +113,23 @@ class TestMetricFormatting:
         text = format_metric_result(result)
         assert "CF-2022-00001" in text
         assert "2026-12-01" in text
+
+    def test_pending_approvals_table(self):
+        result = MetricResult(
+            metric="pending_approvals",
+            label="Pending approvals",
+            dimension=None,
+            rows=[
+                {
+                    "Approval": "APPR-1",
+                    "Type": "payment_request",
+                    "Invoice": "INV-1",
+                    "Amount": 100,
+                    "Currency": "GBP",
+                }
+            ],
+        )
+        text = format_metric_result(result)
+        assert "| Approval |" in text
+        assert "APPR-1" in text
+        assert "payment_request" in text

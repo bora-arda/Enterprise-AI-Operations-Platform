@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import './App.css';
 import ApprovalsPanel from './ApprovalsPanel';
 
@@ -20,6 +22,14 @@ interface AuthUser {
 
 const API_BASE = 'http://localhost:8000';
 const TOKEN_KEY = 'procurement_token';
+const SESSION_KEY = 'procurement_session';
+
+function newSessionId(): string {
+  if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
+    return crypto.randomUUID();
+  }
+  return `s-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
 
 function Login({ onLogin }: { onLogin: (token: string) => void }) {
   const [email, setEmail] = useState('manager@example.com');
@@ -89,6 +99,9 @@ function App() {
   const [token, setToken] = useState<string | null>(() =>
     localStorage.getItem(TOKEN_KEY)
   );
+  const [sessionId, setSessionId] = useState<string>(
+    () => localStorage.getItem(SESSION_KEY) || newSessionId()
+  );
   const [user, setUser] = useState<AuthUser | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -96,6 +109,7 @@ function App() {
 
   const logout = useCallback(() => {
     localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(SESSION_KEY);
     setToken(null);
     setUser(null);
     setMessages([]);
@@ -121,7 +135,11 @@ function App() {
   }, [token, logout]);
 
   const handleLogin = (newToken: string) => {
+    const freshSession = newSessionId();
     localStorage.setItem(TOKEN_KEY, newToken);
+    localStorage.setItem(SESSION_KEY, freshSession);
+    setSessionId(freshSession);
+    setMessages([]);
     setToken(newToken);
   };
 
@@ -143,7 +161,7 @@ function App() {
         },
         body: JSON.stringify({
           message: question,
-          session_id: 'ui-session',
+          session_id: sessionId,
         }),
       });
 
@@ -213,7 +231,15 @@ function App() {
 
             {messages.map((msg, idx) => (
               <div key={idx} className={`message ${msg.role}`}>
-                <div className="message-content">{msg.content}</div>
+                <div className="message-content">
+                  {msg.role === 'assistant' ? (
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {msg.content}
+                    </ReactMarkdown>
+                  ) : (
+                    msg.content
+                  )}
+                </div>
                 {msg.workflow && (
                   <div className="message-meta">
                     workflow: {msg.workflow}
