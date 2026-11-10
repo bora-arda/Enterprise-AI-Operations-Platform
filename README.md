@@ -90,7 +90,7 @@ node capture_grafana.mjs ../docs/assets       # Grafana (:3001)
 
 ## Quick Start
 
-Prerequisites: Docker, Python 3.12+, [uv](https://docs.astral.sh/uv/).
+Prerequisites: Docker, Python 3.12+, [uv](https://docs.astral.sh/uv/), and Node.js 26 LTS via [nvm](https://github.com/nvm-sh/nvm) for the frontend.
 
 ```bash
 # 1. Install dependencies (creates .venv automatically)
@@ -134,12 +134,21 @@ uv run uvicorn src.procurement_ai.main:app --reload
 
 ### Frontend
 
+The frontend is pinned to **Node.js 26.13.0 LTS** in `frontend/.nvmrc`.
+
 ```bash
 cd frontend
-npm install
+nvm install      # reads .nvmrc
+nvm use
+npm ci           # reproducible install from package-lock.json
 npm start        # dev server on :3000
 npm run build    # production build in frontend/build
 ```
+
+Node 26 was verified against React Scripts 5, the TypeScript build, the dev
+server, and the Playwright login smoke test. `npm audit` still reports
+transitive React Scripts/workbox advisories, with no critical findings; those
+require a larger CRA/tooling migration rather than a Node runtime change.
 
 - API: http://localhost:8000
 - Swagger: http://localhost:8000/docs
