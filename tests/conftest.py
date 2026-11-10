@@ -12,6 +12,9 @@ os.environ.setdefault("PLANNER_MODE", "deterministic")
 # Preserve the deterministic workflow assertions; agent-first is covered by
 # explicit unit tests with a monkeypatched mode.
 os.environ.setdefault("ORCHESTRATION_MODE", "hybrid")
+# Legacy integration tests exercise deterministic workflows directly; focused
+# security tests enable row-level access explicitly.
+os.environ.setdefault("ROW_LEVEL_ACCESS_ENABLED", "false")
 
 
 @pytest.fixture

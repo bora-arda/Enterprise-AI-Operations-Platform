@@ -56,6 +56,37 @@ LLM_LATENCY = Histogram(
     buckets=[0.1, 0.25, 0.5, 1.0, 2.0, 5.0, 10.0, 20.0, 30.0],
 )
 
+LLM_COST_USD = Counter(
+    "llm_cost_usd_total",
+    "Estimated LLM cost in USD",
+    ["provider", "model"],
+)
+
+REQUEST_COST_USD = Histogram(
+    "agent_request_cost_usd",
+    "Estimated model cost per chat request",
+    ["workflow"],
+    buckets=[0.0001, 0.001, 0.0025, 0.005, 0.01, 0.025, 0.05, 0.1, 0.5, 1.0],
+)
+
+REQUEST_ERRORS = Counter(
+    "agent_request_errors_total",
+    "Request or stage errors",
+    ["stage", "error_type"],
+)
+
+ANSWER_VERIFICATION = Counter(
+    "answer_verification_total",
+    "Answer verification outcomes",
+    ["status"],
+)
+
+CACHE_EVENTS = Counter(
+    "agent_cache_events_total",
+    "Agent cache events",
+    ["cache", "result"],
+)
+
 # Retrieval metrics
 RETRIEVAL_LATENCY = Histogram(
     "retrieval_latency_seconds",

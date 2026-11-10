@@ -4,6 +4,7 @@ All tools are read-only. Actions such as payments continue to go through the
 existing human-approval workflow, not through this agent.
 """
 
+import copy
 import logging
 from datetime import date, datetime
 from decimal import Decimal
@@ -12,6 +13,7 @@ from uuid import UUID
 
 from sqlalchemy import func, select
 
+from procurement_ai.agent.cache import get_agent_cache
 from procurement_ai.database.connection import AsyncSessionLocal
 from procurement_ai.database.models import (
     ApprovalRequest,
@@ -21,12 +23,11 @@ from procurement_ai.database.models import (
     PurchaseOrder,
     Vendor,
 )
-from procurement_ai.database.models import (
-    Exception as ExceptionRecord,
-)
+from procurement_ai.database.models import Exception as ExceptionRecord
 from procurement_ai.database.sql_guard import describe_schema, run_readonly_sql
-from procurement_ai.observability.metrics import EXCEPTIONS_OPEN
+from procurement_ai.observability.metrics import CACHE_EVENTS, EXCEPTIONS_OPEN
 from procurement_ai.retrieval.hybrid import hybrid_search
+from procurement_ai.security.access import AccessScope
 from procurement_ai.semantic.metrics import (
     ALLOWED_DIMENSIONS,
     DIMENSIONS,
@@ -251,6 +252,53 @@ TOOL_SCHEMAS: list[dict] = [
 ]
 
 
+async def _invoice_department(invoice_id: str | None) -> str | None:
+    if not invoice_id:
+        return None
+    try:
+        invoice_uuid = UUID(str(invoice_id))
+    except (ValueError, TypeError):
+        return None
+    async with AsyncSessionLocal() as session:
+        result = await session.execute(
+            select(PurchaseOrder.department_id)
+            .join(Invoice, Invoice.po_id == PurchaseOrder.id)
+            .where(Invoice.id == invoice_uuid)
+        )
+        value = result.scalar_one_or_none()
+        return str(value) if value else None
+
+
+async def _vendor_in_department(vendor_id: str | None, scope: AccessScope) -> bool:
+    if not vendor_id:
+        return False
+    try:
+        vendor_uuid = UUID(str(vendor_id))
+    except (ValueError, TypeError):
+        return False
+    async with AsyncSessionLocal() as session:
+        result = await session.execute(
+            select(PurchaseOrder.id)
+            .where(
+                PurchaseOrder.vendor_id == vendor_uuid,
+                PurchaseOrder.department_id == scope.department_uuid,
+            )
+            .limit(1)
+        )
+        return result.scalar_one_or_none() is not None
+
+
+def _scope_denied() -> dict:
+    return {
+        "error": "not_found",
+        "detail": "Record not found or not accessible for this user's department",
+    }
+
+
+def _scope_allows_department(scope: AccessScope | None, department_id: str | UUID | None) -> bool:
+    return scope is None or scope.allows_department(department_id)
+
+
 async def _get_payment(reference: str) -> dict | None:
     async with AsyncSessionLocal() as session:
         result = await session.execute(select(Payment).where(Payment.payment_reference == reference.upper()))
@@ -334,9 +382,20 @@ async def _list_exceptions(
     exception_type: str | None,
     severity: str | None,
     limit: int,
+    scope: AccessScope | None = None,
 ) -> dict:
     normalized_type = _normalize_exception_type(exception_type)
     normalized_severity = severity.lower() if severity else None
+
+    if scope is not None and scope.restricted and not scope.department_uuid:
+        return {
+            "exception_type": normalized_type,
+            "severity": normalized_severity,
+            "total": 0,
+            "counts": [],
+            "rows": [],
+            "row_count": 0,
+        }
 
     async with AsyncSessionLocal() as session:
         filters = []
@@ -344,6 +403,8 @@ async def _list_exceptions(
             filters.append(ExceptionRecord.exception_type == normalized_type)
         if normalized_severity:
             filters.append(ExceptionRecord.severity == normalized_severity)
+        if scope is not None and scope.restricted:
+            filters.append(PurchaseOrder.department_id == scope.department_uuid)
 
         count_stmt = (
             select(ExceptionRecord.exception_type, func.count())
@@ -351,6 +412,13 @@ async def _list_exceptions(
             .order_by(func.count().desc())
         )
         total_stmt = select(func.count()).select_from(ExceptionRecord)
+        if scope is not None and scope.restricted:
+            count_stmt = count_stmt.join(Invoice, Invoice.id == ExceptionRecord.invoice_id).join(
+                PurchaseOrder, PurchaseOrder.id == Invoice.po_id
+            )
+            total_stmt = total_stmt.join(Invoice, Invoice.id == ExceptionRecord.invoice_id).join(
+                PurchaseOrder, PurchaseOrder.id == Invoice.po_id
+            )
         if filters:
             count_stmt = count_stmt.where(*filters)
             total_stmt = total_stmt.where(*filters)
@@ -443,13 +511,35 @@ async def _list_exceptions(
         }
 
 
-async def execute_tool(name: str, args: dict, user_id: str | None = None) -> dict:
+async def execute_tool(
+    name: str,
+    args: dict,
+    user_id: str | None = None,
+    scope: AccessScope | None = None,
+) -> dict:
     """Execute a read-only agent tool and return JSON-serializable data."""
     try:
         if name == "describe_schema":
-            return await describe_schema()
+            cache = get_agent_cache()
+            cache_key = "schema:public"
+            cached = cache.get(cache_key)
+            if cached is not None:
+                CACHE_EVENTS.labels(cache="schema", result="hit").inc()
+                return copy.deepcopy(cached)
+            CACHE_EVENTS.labels(cache="schema", result="miss").inc()
+            result = await describe_schema()
+            cache.set(cache_key, result)
+            return result
 
         if name == "query_database":
+            if scope is not None and scope.restricted:
+                return {
+                    "error": "access_denied",
+                    "detail": (
+                        "Arbitrary SQL is available only to global read roles. "
+                        "Use scoped metrics, exceptions, or entity tools."
+                    ),
+                }
             sql = str(args.get("sql", ""))
             return await run_readonly_sql(sql, user_id=user_id)
 
@@ -466,15 +556,24 @@ async def execute_tool(name: str, args: dict, user_id: str | None = None) -> dic
             except (TypeError, ValueError):
                 days = None
 
+            department_id = scope.department_id if scope is not None and scope.restricted else None
             request = MetricRequest(
                 metric=metric,
                 dimension=dimension,
                 days=days,
                 limit=20,
+                department_id=department_id,
             )
+            cache_key = f"metric:{department_id or 'global'}:{metric}:{dimension}:{days}:{request.limit}"
+            cache = get_agent_cache()
+            cached = cache.get(cache_key)
+            if cached is not None:
+                CACHE_EVENTS.labels(cache="metric", result="hit").inc()
+                return copy.deepcopy(cached)
+            CACHE_EVENTS.labels(cache="metric", result="miss").inc()
             async with AsyncSessionLocal() as session:
                 metric_result = await compute_metric(session, request)
-            return {
+            response = {
                 "metric": metric_result.metric,
                 "label": metric_result.label,
                 "dimension": metric_result.dimension,
@@ -482,15 +581,33 @@ async def execute_tool(name: str, args: dict, user_id: str | None = None) -> dic
                 "row_count": len(metric_result.rows),
                 "formatted": format_metric_result(metric_result),
             }
+            cache.set(cache_key, response)
+            return response
 
         if name == "search_documents":
             query = str(args.get("query", "")).strip()
             if not query:
                 return {"error": "invalid_query", "detail": "Query is required"}
             top_k = min(max(int(args.get("top_k", 5)), 1), 8)
+            department_key = scope.department_id if scope is not None and scope.restricted else "global"
+            cache_key = f"documents:{department_key}:{top_k}:{query[:200]}"
+            cache = get_agent_cache()
+            cached = cache.get(cache_key)
+            if cached is not None:
+                CACHE_EVENTS.labels(cache="documents", result="hit").inc()
+                return copy.deepcopy(cached)
+            CACHE_EVENTS.labels(cache="documents", result="miss").inc()
             async with AsyncSessionLocal() as session:
                 results = await hybrid_search(session, query, top_k=top_k)
-            return {
+            results = [
+                r
+                for r in results
+                if scope is None
+                or not scope.restricted
+                or not r.get("department")
+                or str(r.get("department")) == str(scope.department_id)
+            ]
+            response = {
                 "query": query,
                 "results": [
                     {
@@ -498,10 +615,13 @@ async def execute_tool(name: str, args: dict, user_id: str | None = None) -> dic
                         "title": r.get("title", ""),
                         "content": (r.get("content") or "")[:1200],
                         "score": r.get("score", 0),
+                        "department": r.get("department"),
                     }
                     for r in results
                 ],
             }
+            cache.set(cache_key, response)
+            return response
 
         if name == "list_exceptions":
             try:
@@ -512,22 +632,36 @@ async def execute_tool(name: str, args: dict, user_id: str | None = None) -> dic
                 str(args.get("exception_type") or "") or None,
                 str(args.get("severity") or "") or None,
                 limit,
+                scope=scope,
             )
 
         if name == "get_invoice":
             async with AsyncSessionLocal() as session:
                 entity_result = await get_invoice(session, str(args.get("invoice_id", "")))
+            if entity_result and scope is not None and scope.restricted:
+                department = await _invoice_department(entity_result.get("invoice_id"))
+                if not scope.allows_department(department):
+                    return _scope_denied()
             return entity_result or {"error": "not_found", "detail": "Invoice not found"}
 
         if name == "get_purchase_order":
             async with AsyncSessionLocal() as session:
                 entity_result = await get_purchase_order(session, str(args.get("po_id", "")))
+            if (
+                entity_result
+                and scope is not None
+                and scope.restricted
+                and not scope.allows_department(entity_result.get("department_id"))
+            ):
+                return _scope_denied()
             return entity_result or {
                 "error": "not_found",
                 "detail": "Purchase order not found",
             }
 
         if name == "get_contract":
+            if scope is not None and scope.restricted:
+                return _scope_denied()
             async with AsyncSessionLocal() as session:
                 entity_result = await get_contract(session, str(args.get("contract_id", "")))
             return entity_result or {
@@ -538,14 +672,29 @@ async def execute_tool(name: str, args: dict, user_id: str | None = None) -> dic
         if name == "get_vendor":
             async with AsyncSessionLocal() as session:
                 entity_result = await get_vendor(session, str(args.get("vendor_id", "")))
+            if (
+                entity_result
+                and scope is not None
+                and scope.restricted
+                and not await _vendor_in_department(entity_result.get("vendor_id"), scope)
+            ):
+                return _scope_denied()
             return entity_result or {"error": "not_found", "detail": "Vendor not found"}
 
         if name == "get_payment":
             entity_result = await _get_payment(str(args.get("payment_reference", "")))
+            if entity_result and scope is not None and scope.restricted:
+                department = await _invoice_department(entity_result.get("invoice_id"))
+                if not scope.allows_department(department):
+                    return _scope_denied()
             return entity_result or {"error": "not_found", "detail": "Payment not found"}
 
         if name == "get_approval":
             entity_result = await _get_approval(str(args.get("approval_number", "")))
+            if entity_result and scope is not None and scope.restricted:
+                department = await _invoice_department(entity_result.get("invoice_id"))
+                if not scope.allows_department(department):
+                    return _scope_denied()
             return entity_result or {
                 "error": "not_found",
                 "detail": "Approval not found",
@@ -585,7 +734,8 @@ def citations_for_tool(name: str, args: dict, result: dict) -> list[dict]:
         return [
             {
                 "source": item.get("source", "document"),
-                "snippet": (item.get("content") or "")[:200],
+                "snippet": (f"{item.get('title', '')}: " if item.get("title") else "")
+                + (item.get("content") or "")[:240],
             }
             for item in (result.get("results") or [])[:3]
         ]

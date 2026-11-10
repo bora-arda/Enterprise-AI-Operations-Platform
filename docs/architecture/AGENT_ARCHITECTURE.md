@@ -128,6 +128,20 @@ The model observes each result, can correct a failed query, and stops after at
 most six tool-calling rounds. If the budget is exhausted, it must answer with
 the evidence gathered and state any gaps.
 
+### Hardening Layers
+
+- **Answer verification:** numeric and percentage claims are checked against
+  tool evidence; unsupported claims and missing citations lower confidence.
+- **Untrusted tool output:** tool results are sanitized and wrapped in a
+  `<tool_output trust="untrusted">` envelope before re-entering context.
+- **Access scope:** restricted users are department-scoped; arbitrary SQL is
+  denied for restricted roles. Global read roles retain cross-department access.
+- **Cost/error tracking:** each request reports estimated model cost, and
+  Prometheus exports LLM cost, request errors, verification outcomes, and cache
+  events.
+- **Model routing/cache:** greetings can use a configured fast model; schema,
+  metric, and document lookups use a short TTL cache.
+
 ### SQL Guardrails
 
 The agent SQL tool is deliberately conservative:

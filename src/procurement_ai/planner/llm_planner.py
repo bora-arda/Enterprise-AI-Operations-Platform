@@ -21,7 +21,13 @@ if TYPE_CHECKING:
     from openai.types.chat import ChatCompletionMessageParam
 
 from procurement_ai.config.settings import get_settings
-from procurement_ai.observability.metrics import LLM_CALLS, LLM_LATENCY, LLM_TOKENS
+from procurement_ai.observability.cost import estimate_cost
+from procurement_ai.observability.metrics import (
+    LLM_CALLS,
+    LLM_COST_USD,
+    LLM_LATENCY,
+    LLM_TOKENS,
+)
 from procurement_ai.semantic.metrics import ALLOWED_DIMENSIONS, METRIC_LABELS
 
 logger = logging.getLogger(__name__)
@@ -441,8 +447,13 @@ async def plan_request(
 
 
 def record_usage(prompt_tokens: int | None, completion_tokens: int | None) -> None:
-    """Record token usage from a planner response."""
+    """Record token usage and estimated cost from a planner response."""
+    settings = get_settings()
     if prompt_tokens:
         LLM_TOKENS.labels(type="input").inc(prompt_tokens)
     if completion_tokens:
         LLM_TOKENS.labels(type="output").inc(completion_tokens)
+    LLM_COST_USD.labels(
+        provider="opencode_go",
+        model=settings.opencode_go_model,
+    ).inc(estimate_cost(prompt_tokens, completion_tokens))

@@ -22,3 +22,13 @@ class TestMetricSql:
         sql, params = _build_sql(MetricRequest(metric="contracts_expiring", days=30))
         assert "CAST(:days AS INTEGER)" in sql
         assert params["days"] == 30
+
+    def test_department_scope_filters_aggregate(self):
+        sql, params = _build_sql(MetricRequest(metric="total_spend", department_id="dept-uuid"))
+        assert "p.department_id = CAST(:department_id AS UUID)" in sql
+        assert params["department_id"] == "dept-uuid"
+
+    def test_department_scope_filters_pending_payments(self):
+        sql, params = _build_sql(MetricRequest(metric="pending_payments", department_id="dept-uuid"))
+        assert "po.department_id = CAST(:department_id AS UUID)" in sql
+        assert params["department_id"] == "dept-uuid"

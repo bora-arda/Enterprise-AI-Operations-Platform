@@ -39,6 +39,7 @@ class MetricRequest:
     dimension: str | None = None
     days: int | None = None
     limit: int = 10
+    department_id: str | None = None
 
 
 @dataclass
@@ -105,9 +106,12 @@ AGGREGATES = {
 def _build_sql(request: MetricRequest) -> tuple[str, dict]:
     metric = request.metric
     params: dict = {"limit": max(request.limit, 20) if metric in LIST_METRICS else request.limit}
+    if request.department_id:
+        params["department_id"] = request.department_id
 
     if metric == "overdue_invoices":
-        sql = """
+        department_filter = "AND p.department_id = CAST(:department_id AS UUID)" if request.department_id else ""
+        sql = f"""
             SELECT i.invoice_number AS "Invoice",
                    COALESCE(v.name, 'Unknown vendor') AS "Vendor",
                    i.amount AS "Amount",
@@ -115,15 +119,17 @@ def _build_sql(request: MetricRequest) -> tuple[str, dict]:
                    i.due_date AS "Due date",
                    (CURRENT_DATE - i.due_date) AS "Days overdue"
             FROM invoices i
+            LEFT JOIN purchase_orders p ON p.id = i.po_id
             LEFT JOIN vendors v ON v.id = i.vendor_id
-            WHERE i.status = 'overdue'
+            WHERE i.status = 'overdue' {department_filter}
             ORDER BY "Days overdue" DESC
             LIMIT :limit
         """
         return sql, params
 
     if metric == "pending_approvals":
-        sql = """
+        department_filter = "AND p.department_id = CAST(:department_id AS UUID)" if request.department_id else ""
+        sql = f"""
             SELECT a.approval_number AS "Approval",
                    a.request_type AS "Type",
                    i.invoice_number AS "Invoice",
@@ -134,15 +140,17 @@ def _build_sql(request: MetricRequest) -> tuple[str, dict]:
                    a.requested_at AS "Requested"
             FROM approval_requests a
             LEFT JOIN invoices i ON i.id = a.invoice_id
+            LEFT JOIN purchase_orders p ON p.id = i.po_id
             LEFT JOIN vendors v ON v.id = i.vendor_id
-            WHERE a.status = 'pending'
+            WHERE a.status = 'pending' {department_filter}
             ORDER BY a.requested_at DESC
             LIMIT :limit
         """
         return sql, params
 
     if metric == "pending_payment_requests":
-        sql = """
+        department_filter = "AND p.department_id = CAST(:department_id AS UUID)" if request.department_id else ""
+        sql = f"""
             SELECT a.approval_number AS "Approval",
                    i.invoice_number AS "Invoice",
                    i.amount AS "Amount",
@@ -152,15 +160,17 @@ def _build_sql(request: MetricRequest) -> tuple[str, dict]:
                    a.requested_at AS "Requested"
             FROM approval_requests a
             LEFT JOIN invoices i ON i.id = a.invoice_id
+            LEFT JOIN purchase_orders p ON p.id = i.po_id
             LEFT JOIN vendors v ON v.id = i.vendor_id
-            WHERE a.status = 'pending' AND a.request_type = 'payment_request'
+            WHERE a.status = 'pending' AND a.request_type = 'payment_request' {department_filter}
             ORDER BY a.requested_at DESC
             LIMIT :limit
         """
         return sql, params
 
     if metric == "pending_payments":
-        sql = """
+        department_filter = "AND po.department_id = CAST(:department_id AS UUID)" if request.department_id else ""
+        sql = f"""
             SELECT p.payment_reference AS "Payment",
                    i.invoice_number AS "Invoice",
                    p.amount AS "Amount",
@@ -170,8 +180,9 @@ def _build_sql(request: MetricRequest) -> tuple[str, dict]:
                    COALESCE(v.name, 'Unknown vendor') AS "Vendor"
             FROM payments p
             LEFT JOIN invoices i ON i.id = p.invoice_id
+            LEFT JOIN purchase_orders po ON po.id = i.po_id
             LEFT JOIN vendors v ON v.id = i.vendor_id
-            WHERE p.status IN ('pending', 'processing')
+            WHERE p.status IN ('pending', 'processing') {department_filter}
             ORDER BY p.payment_date DESC
             LIMIT :limit
         """
@@ -180,7 +191,14 @@ def _build_sql(request: MetricRequest) -> tuple[str, dict]:
     if metric == "contracts_expiring":
         days = request.days or 60
         params["days"] = days
-        sql = """
+        department_filter = (
+            "AND EXISTS (SELECT 1 FROM purchase_orders p "
+            "WHERE p.contract_id = c.id "
+            "AND p.department_id = CAST(:department_id AS UUID))"
+            if request.department_id
+            else ""
+        )
+        sql = f"""
             SELECT c.contract_number AS label,
                    c.title AS detail,
                    c.end_date AS end_date,
@@ -189,6 +207,7 @@ def _build_sql(request: MetricRequest) -> tuple[str, dict]:
             LEFT JOIN vendors v ON v.id = c.vendor_id
             WHERE c.end_date BETWEEN CURRENT_DATE
                   AND CURRENT_DATE + CAST(:days AS INTEGER) * INTERVAL '1 day'
+                  {department_filter}
             ORDER BY c.end_date
             LIMIT :limit
         """
@@ -207,6 +226,8 @@ def _build_sql(request: MetricRequest) -> tuple[str, dict]:
         joins += "LEFT JOIN approval_requests a ON a.invoice_id = i.id "
 
     where = []
+    if request.department_id:
+        where.append("p.department_id = CAST(:department_id AS UUID)")
     if request.days:
         params["days"] = request.days
         where.append("i.invoice_date >= CURRENT_DATE - CAST(:days AS INTEGER) * INTERVAL '1 day'")

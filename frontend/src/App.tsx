@@ -11,6 +11,8 @@ interface Message {
   confidence?: number | null;
   workflow?: string | null;
   traceId?: string;
+  costUsd?: number | null;
+  verificationStatus?: string | null;
 }
 
 interface AuthUser {
@@ -180,6 +182,8 @@ function App() {
           confidence: data.confidence,
           workflow: data.workflow,
           traceId: data.trace_id,
+          costUsd: data.cost_usd,
+          verificationStatus: data.verification_status,
         },
       ]);
     } catch {
@@ -240,13 +244,9 @@ function App() {
                     msg.content
                   )}
                 </div>
-                {msg.workflow && (
-                  <div className="message-meta">
-                    workflow: {msg.workflow}
-                    {msg.confidence != null &&
-                      ` · confidence: ${Math.round(msg.confidence * 100)}%`}
-                  </div>
-                )}
+                {/* Internal routing/cost/verification metadata is intentionally
+                    not shown in the user-facing chat. It is persisted by the
+                    backend and returned in the API response for diagnostics. */}
                 {msg.citations && msg.citations.length > 0 && (
                   <div className="citations">
                     <strong>Sources:</strong>

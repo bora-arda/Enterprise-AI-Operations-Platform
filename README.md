@@ -62,8 +62,14 @@ node capture_grafana.mjs ../docs/assets       # Grafana (:3001)
 | Semantic metrics layer (governed SQL + list queries) | ✅ Complete |
 | Agent-first orchestration (open-ended read-only questions) | ✅ Default (`ORCHESTRATION_MODE=agent_first`) |
 | Open-ended tool-calling agent (schema, read-only SQL, metrics, documents, exceptions, entity lookups) | ✅ Complete, locally verified |
+| Answer verification (numeric evidence and citation checks) | ✅ Complete |
+| Per-request model cost and error tracking | ✅ Complete (`cost_usd`, Prometheus metrics) |
+| Row-level access scope for restricted users | ✅ Complete (application layer; DB RLS recommended for production) |
+| Tool-output sanitization and untrusted-data envelope | ✅ Complete |
+| Model routing / read-only result caching | ✅ Complete (configurable) |
 | Hybrid mode (deterministic fast paths + agent fallback) | ✅ Optional (`ORCHESTRATION_MODE=hybrid`) |
 | SQL guardrails (SELECT-only, denylist, row cap, timeout, read-only transaction) | ✅ Complete |
+| Security threat model (prompt injection, tool misuse, exfiltration, escalation) | ✅ Complete ([review](docs/security/THREAT_MODEL.md)) |
 | Multi-turn conversation memory (Postgres checkpoints) | ✅ Complete |
 | Clarification for missing/ambiguous identifiers | ✅ Complete |
 | Deterministic anomaly detection (rules + duplicates) | ✅ Retained for hybrid mode; agent uses `list_exceptions` |
@@ -297,6 +303,12 @@ fallback. In agent-first mode, anomaly questions use `list_exceptions` and the
 agent can enrich the result with invoice, PO, contract, vendor, and payment
 lookups.
 
+Security controls include input guardrails, untrusted tool-output envelopes,
+read-only SQL validation, row-level application scope, no agent access to write
+or action tools, human approval for payments, and audit traces. See the
+[security threat model](docs/security/THREAT_MODEL.md) for residual risks and the
+production hardening checklist.
+
 The agent is read-only. It cannot execute payments or approvals; those still go
 through the human-in-the-loop action workflow.
 
@@ -377,6 +389,7 @@ FastAPI ──► LangGraph orchestrator
 - Full design: [docs/architecture/DESIGN.md](docs/architecture/DESIGN.md)
 - Data generation: [docs/data/GENERATION.md](docs/data/GENERATION.md)
 - Evaluation: [docs/evaluation/METRICS.md](docs/evaluation/METRICS.md)
+- Security threat model and review: [docs/security/THREAT_MODEL.md](docs/security/THREAT_MODEL.md)
 
 ---
 
@@ -427,8 +440,8 @@ rules, plus two contract-end date edge cases.
 
 ### Current engineering verification
 
-- **174 tests passed** with `uv run pytest tests/ -q`.
-- `ruff check` and `mypy src/` clean.
+- **198 tests passed** with `uv run pytest tests/ -q`.
+- `ruff check` and `mypy src/` clean; frontend production build succeeds.
 - Agent-first demo verified against the live local stack:
   - `anomalies and exceptions` → 150 open exceptions across 10 types.
   - `invoice exceeds po` → 30 affected invoices with PO, contract, vendor, and
@@ -438,8 +451,57 @@ rules, plus two contract-end date edge cases.
 - Open-ended evaluation: 5/5 routing, 5/5 primary-tool selection, 5/5 required
   term coverage, 3.6 average tool rounds, and 7/7 adversarial SQL statements
   rejected. See [OPEN_ENDED.md](docs/evaluation/OPEN_ENDED.md).
-- Docker images still reflect the pre-agent-first build; no rebuild was performed
+- Hardening verified live:
+  - request costs returned in chat responses (`cost_usd`);
+  - verification returned `passed` or `warnings`;
+  - restricted specialist received department-scoped exception data (21 records)
+    rather than the global 150;
+  - repeated metric calls produced cache hits;
+  - failed restricted SQL produced a tracked tool error.
+- Docker images still reflect the pre-hardening build; no rebuild was performed
   during this local verification.
+
+### Answer verification
+
+Agent answers are checked against tool evidence before the response is
+finalized. The verifier:
+
+- extracts monetary and percentage claims,
+- checks them against numeric values returned by tools,
+- reports unsupported numbers,
+- flags missing citations when data evidence exists,
+- flags failed or truncated tool output.
+
+Verification warnings reduce confidence and are returned as
+`verification_status`; they do not silently rewrite the answer.
+
+### Cost and error tracking
+
+Each chat response includes estimated model cost in `cost_usd`. Prometheus
+exports per-call cost (`llm_cost_usd_total`), per-request cost
+(`agent_request_cost_usd`), request errors (`agent_request_errors_total`),
+verification outcomes, cache events, tool errors, and token usage. The planner
+decision audit also stores the compact agent tool trace, model, cost, and
+verification result.
+
+Internal routing, confidence, cost, and verification values are intentionally
+**not shown in the user-facing chat UI**. They remain available in the API
+response, `planner_decisions.raw_decision`, and structured `Chat diagnostics`
+server logs for debugging and later quality review.
+
+### Row-level access
+
+The application-layer scope is:
+
+| Role | Read scope |
+|---|---|
+| specialist | own department; arbitrary SQL denied |
+| manager, finance, director, admin | global read access |
+
+Restricted users get scoped metrics, exceptions, documents, and entity tools.
+Actions are also checked against the invoice’s department. Production should
+still add PostgreSQL RLS and a dedicated read-only role; that is documented in
+the [security review](docs/security/THREAT_MODEL.md).
 
 ## Observability
 
@@ -449,12 +511,17 @@ rules, plus two contract-end date edge cases.
 |---|---|---|
 | `agent_requests_total` | Counter | intent, workflow/path |
 | `agent_request_duration_seconds` | Histogram | intent |
+| `agent_request_cost_usd` | Histogram | workflow |
+| `agent_request_errors_total` | Counter | stage, error_type |
 | `agent_workflow_total` | Counter | workflow, intent |
 | `agent_workflow_duration_seconds` | Histogram | workflow |
 | `node_duration_seconds` | Histogram | LangGraph node |
 | `tool_calls_total` / `tool_errors_total` | Counter | tool name |
 | `llm_calls_total`, `llm_tokens_total` | Counter | provider / type |
 | `llm_request_duration_seconds` | Histogram | provider, model |
+| `llm_cost_usd_total` | Counter | provider, model |
+| `answer_verification_total` | Counter | status |
+| `agent_cache_events_total` | Counter | cache, result |
 | `approval_requests_total` | Counter | status |
 | `anomalies_detected_total` | Counter | type (hybrid detection workflow) |
 | `exceptions_open_total` | Gauge | type (agent `list_exceptions` view) |
@@ -482,6 +549,9 @@ and any earlier hybrid-mode runs, not just the latest request.
 | **Tool calls** | Tool invocation rate by name. | Useful for seeing whether the agent used `query_database`, `run_metric`, `list_exceptions`, `describe_schema`, or document/entity tools. A zero series means the tool was not called in the window, not necessarily an error. |
 | **Approvals by status** | Approval counter by status. | Counters are **process-local** and reset when the API restarts. This is not a live count of rows in PostgreSQL; use `/approvals` for the current database state. |
 | **Open exceptions by type** | Gauge populated by the agent’s `list_exceptions` tool. | Shows the current curated exception counts (for example 30 `invoice_exceeds_po`). It updates when the agent reads exceptions; it is not a count of every detection run. |
+| **Estimated LLM cost / hour** | `sum(rate(llm_cost_usd_total[5m])) * 3600`. | Model inference cost only. It excludes hosting, database, observability, and human review. |
+| **Request errors by stage** | Workflow/tool error rate. | A flat zero is healthy. Tool denials, SQL failures, and LLM failures are recorded with stage/error labels. |
+| **Answer verification outcomes (1h)** | Count of passed, warning, and failed verification results. | Warnings mean numeric claims were not found in tool evidence, citations were missing, or tool output was truncated. |
 
 **Current local snapshot** (from the final agent-first demo run; rates are over
 the last 5 minutes and counters reset on API restart):
@@ -496,8 +566,9 @@ the last 5 minutes and counters reset on API restart):
   20 `invoice_exceeds_contract`, 15 `duplicate_invoice`, and 10 each for the
   remaining six types.
 
-The screenshot in the [Demo](#demo) section is a 6-hour Grafana view and
-therefore intentionally shows more history than the 5-minute snapshot above.
+The screenshot in the [Demo](#demo) section is a historical 6-hour Grafana view
+and may predate the latest hardening panels; the live dashboard is provisioned
+from the updated dashboard JSON.
 
 ## Data Access Model
 
@@ -541,6 +612,11 @@ OPENCODE_SESSION_ID=procurement-ai-planner
 LLM_TIMEOUT_SECONDS=20
 SQL_MAX_ROWS=100
 SQL_QUERY_TIMEOUT_MS=5000
+ANSWER_VERIFICATION_ENABLED=true
+ROW_LEVEL_ACCESS_ENABLED=true
+ROW_LEVEL_GLOBAL_ROLES=manager,finance,director,admin
+AGENT_CACHE_TTL_SECONDS=300
+AGENT_PARALLEL_TOOLS=true
 ```
 
 How a request flows with the planner:
@@ -626,7 +702,7 @@ after the request finishes.
 - **ML:** scikit-learn (anomaly features)
 - **MCP:** MCP server over stdio + shared mock ERP service
 - **Auth:** JWT (HS256) + role-based access control
-- **Testing:** pytest (174 tests)
+- **Testing:** pytest (198 tests)
 - **Packaging:** uv
 - **Containers:** Docker Compose (PostgreSQL, API, frontend, MCP, Prometheus, Grafana)
 - **Observability:** Prometheus metrics; OpenTelemetry scaffolding

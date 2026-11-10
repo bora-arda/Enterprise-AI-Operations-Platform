@@ -17,7 +17,7 @@ class LLMProvider(ABC):
     """Abstract base class for LLM providers."""
 
     @abstractmethod
-    def get_model(self) -> BaseChatModel:
+    def get_model(self, model_name: str | None = None) -> BaseChatModel:
         """Return the LangChain chat model."""
         pass
 
@@ -35,12 +35,13 @@ class OpenAIProvider(LLMProvider):
             getattr(settings, "opencode_go_model", "claude-haiku-5-5") if self.use_opencode else settings.openai_model
         )
 
-    def get_model(self) -> BaseChatModel:
+    def get_model(self, model_name: str | None = None) -> BaseChatModel:
         settings = get_settings()
+        selected_model = model_name or self.model_name
         if self.use_opencode:
             return ChatOpenAI(
                 api_key=SecretStr(self.opencode_key),
-                model=self.model_name,
+                model=selected_model,
                 temperature=0.1,
                 max_completion_tokens=4096,
                 base_url=getattr(settings, "opencode_go_base_url", "https://opencode.ai/zen/go/v1"),
@@ -51,7 +52,7 @@ class OpenAIProvider(LLMProvider):
 
         return ChatOpenAI(
             api_key=SecretStr(settings.openai_api_key),
-            model=self.model_name,
+            model=selected_model,
             temperature=0.1,
             max_completion_tokens=4096,
         )
@@ -65,11 +66,11 @@ class OllamaProvider(LLMProvider):
         self.base_url = settings.ollama_base_url
         self.model_name = settings.ollama_model
 
-    def get_model(self) -> BaseChatModel:
+    def get_model(self, model_name: str | None = None) -> BaseChatModel:
         settings = get_settings()
         return ChatOllama(
             base_url=settings.ollama_base_url,
-            model=self.model_name,
+            model=model_name or self.model_name,
             temperature=0.1,
         )
 
@@ -85,7 +86,7 @@ def get_llm_provider() -> LLMProvider:
         raise ValueError(f"Unknown LLM provider: {settings.llm_provider}")
 
 
-def get_chat_model() -> BaseChatModel:
-    """Get the configured chat model."""
+def get_chat_model(model_name: str | None = None) -> BaseChatModel:
+    """Get the configured chat model, optionally overriding its model name."""
     provider = get_llm_provider()
-    return provider.get_model()
+    return provider.get_model(model_name=model_name)

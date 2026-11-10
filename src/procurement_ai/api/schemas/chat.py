@@ -24,3 +24,8 @@ class ChatResponse(BaseModel):
     workflow: str | None = Field(None, description="Workflow that handled the request")
     trace_id: str | None = Field(None, description="Observability trace identifier")
     decision_id: str | None = Field(None, description="Planner decision audit record identifier")
+    cost_usd: float | None = Field(None, ge=0.0, description="Estimated model cost for this request")
+    verification_status: str | None = Field(
+        None,
+        description="Answer verification outcome: passed, warnings, skipped, or failed",
+    )

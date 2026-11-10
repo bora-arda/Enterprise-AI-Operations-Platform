@@ -47,6 +47,22 @@ class Settings(BaseSettings):
     sql_max_rows: int = 100
     sql_query_timeout_ms: int = 5000
 
+    # Agent cost, verification, caching, and model routing
+    answer_verification_enabled: bool = True
+    tool_output_max_chars: int = 12000
+    tool_output_injection_scan: bool = True
+    row_level_access_enabled: bool = True
+    row_level_global_roles: str = "manager,finance,director,admin"
+    agent_fast_model: str = ""
+    agent_cache_ttl_seconds: int = 300
+    agent_parallel_tools: bool = True
+    llm_input_cost_per_million: float = 0.10
+    llm_output_cost_per_million: float = 0.50
+    llm_cache_read_cost_per_million: float = 0.01
+    llm_input_cost_per_million_high: float = 0.50
+    llm_output_cost_per_million_high: float = 2.50
+    llm_cost_context_tier: int = 100000
+
     # Planner: deterministic | llm
     planner_mode: str = "deterministic"
     opencode_go_api_key: str = ""

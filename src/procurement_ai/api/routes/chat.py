@@ -11,7 +11,10 @@ from procurement_ai.auth.dependencies import AuthUser, get_current_user
 from procurement_ai.database.connection import AsyncSessionLocal
 from procurement_ai.database.models import PlannerDecisionRecord
 from procurement_ai.graph.chat_runtime import get_chat_graph
+from procurement_ai.observability.cost import estimate_cost
 from procurement_ai.observability.metrics import (
+    REQUEST_COST_USD,
+    REQUEST_ERRORS,
     TOOL_CALLS,
     TOOL_ERRORS,
     WORKFLOW_COUNT,
@@ -40,6 +43,8 @@ async def chat(
     initial_state = {
         "user_input": request.message,
         "user_id": user.id,
+        "user_role": user.role,
+        "department_id": user.department_id,
         "session_id": session_id,
         "history": [],
         "intent": "",
@@ -95,16 +100,53 @@ async def chat(
         if not tool_result.get("success", True):
             TOOL_ERRORS.labels(tool=tool_name).inc()
 
+    verification = final_state.get("verification") or {}
+    cost_usd = float(final_state.get("request_cost_usd") or 0.0)
+    audit_for_cost = final_state.get("planner_audit") or {}
+    if workflow != "agent":
+        cost_usd += estimate_cost(
+            audit_for_cost.get("input_tokens"),
+            audit_for_cost.get("output_tokens"),
+        )
+    REQUEST_COST_USD.labels(workflow=workflow).observe(cost_usd)
+    for error in final_state.get("errors", []):
+        REQUEST_ERRORS.labels(
+            stage="workflow",
+            error_type=str(error)[:80] or "unknown",
+        ).inc()
+
     # Persist the routing decision for audit and debugging.
     audit = final_state.get("planner_audit") or {}
     planned = final_state.get("planned_route") or {}
-    raw_decision = audit.get("raw_decision")
+    planner_raw = audit.get("raw_decision")
     agent_trace = final_state.get("agent_trace")
-    if agent_trace:
+    raw_decision = planner_raw
+    if agent_trace or cost_usd or verification:
         raw_decision = {
-            "planner": raw_decision,
-            "agent_tool_trace": agent_trace[:20],
+            "planner": planner_raw,
+            "agent_tool_trace": agent_trace or [],
+            "model": final_state.get("agent_model"),
+            "cost_usd": round(cost_usd, 8),
+            "verification": verification,
+            "confidence": final_state.get("confidence"),
         }
+    tool_errors = sum(
+        1
+        for item in final_state.get("tool_results", [])
+        if not item.get("success", True)
+    )
+    logger.info(
+        "Chat diagnostics trace_id=%s session_id=%s workflow=%s confidence=%s "
+        "cost_usd=%.8f verification=%s tool_errors=%s duration_ms=%s",
+        trace_id,
+        session_id,
+        workflow,
+        final_state.get("confidence"),
+        cost_usd,
+        verification.get("status"),
+        tool_errors,
+        int(duration * 1000),
+    )
     decision_id: str | None = str(uuid.uuid4())
 
     try:
@@ -156,4 +198,6 @@ async def chat(
         workflow=final_state.get("workflow") or final_state.get("intent"),
         trace_id=trace_id,
         decision_id=decision_id,
+        cost_usd=round(cost_usd, 8),
+        verification_status=verification.get("status"),
     )

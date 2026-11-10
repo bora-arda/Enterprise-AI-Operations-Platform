@@ -10,7 +10,12 @@ import logging
 import re
 import uuid
 
+from sqlalchemy import select
+
+from procurement_ai.database.connection import AsyncSessionLocal
+from procurement_ai.database.models import Invoice, PurchaseOrder
 from procurement_ai.graph.action_execution import run_action_request
+from procurement_ai.security.access import scope_from_state
 
 logger = logging.getLogger(__name__)
 
@@ -23,13 +28,31 @@ async def action_workflow_node(state: dict) -> dict:
     if planned.get("entity_type") == "invoice" and planned.get("entity_id"):
         question = f"{question} {planned['entity_id']}"
 
-    if not re.search(r"\b(INV-\d+)\b", question, re.IGNORECASE):
+    match = re.search(r"\b(INV-\d+)\b", question, re.IGNORECASE)
+    if not match:
         state["response"] = (
             "I can initiate controlled actions such as payment requests, but I need "
             "the invoice number (for example, INV-000001)."
         )
         state["confidence"] = 0.3
         return state
+
+    scope = scope_from_state(state)
+    if scope.restricted:
+        async with AsyncSessionLocal() as session:
+            scope_result = await session.execute(
+                select(PurchaseOrder.department_id)
+                .join(Invoice, Invoice.po_id == PurchaseOrder.id)
+                .where(Invoice.invoice_number == match.group(1).upper())
+            )
+            department_id = scope_result.scalar_one_or_none()
+        if not scope.allows_department(department_id):
+            state["response"] = (
+                "I couldn't find an invoice with that reference in your department, so no action was taken."
+            )
+            state["confidence"] = 0.3
+            state["workflow"] = "action"
+            return state
 
     approval_id = str(uuid.uuid4())
 

@@ -44,6 +44,8 @@ class AgentState(TypedDict):
     # Input
     user_input: str
     user_id: str
+    user_role: NotRequired[str]
+    department_id: NotRequired[str | None]
     session_id: str
 
     # Conversation memory
@@ -61,10 +63,16 @@ class AgentState(TypedDict):
     evidence: list[Evidence]
     citations: list[Citation]
 
-    # Tool calls
+    # Tool calls and verification
     tool_calls: list[ToolCall]
     tool_results: list[ToolResult]
     agent_trace: NotRequired[list[dict]]
+    verification: NotRequired[dict]
+    request_cost_usd: NotRequired[float]
+    request_input_tokens: NotRequired[int]
+    request_output_tokens: NotRequired[int]
+    request_tool_errors: NotRequired[int]
+    agent_model: NotRequired[str]
 
     # Action workflow
     action_request: ActionRequest | None

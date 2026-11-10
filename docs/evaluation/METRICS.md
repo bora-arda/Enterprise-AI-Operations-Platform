@@ -70,6 +70,20 @@ uv run python scripts/evaluate_open_ended.py \
   --output docs/evaluation/open_ended_results.json
 ```
 
+### 3c. Hardening Metrics
+
+| Metric | Description | Target |
+|---|---|---|
+| **Answer verification pass rate** | Answers with numeric claims supported by tool evidence | > 95% |
+| **Unsupported numeric claim rate** | Material currency/percentage claims not found in tool output | < 1% |
+| **Request error rate** | Requests with workflow/tool errors | < 1% |
+| **Model cost per request** | Estimated input/output token cost | < $0.01 |
+| **Cache hit rate** | Reused schema/metric/document lookups | > 30% for repeated workloads |
+| **Restricted-data violations** | Cross-department records returned | 0 |
+
+Current implementation exposes verification through `verification_status` and
+Prometheus counters; cost and error values are per request and cumulative.
+
 ### 4. Business Metrics
 
 Measures detection and compliance performance.

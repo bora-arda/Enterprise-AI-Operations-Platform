@@ -27,6 +27,7 @@ def _to_doc(doc: Document) -> dict:
         "content": doc.content or "",
         "title": doc.title or doc.document_id,
         "document_type": doc.document_type or "document",
+        "department": doc.department,
         "metadata": doc.doc_metadata or {},
     }
 
@@ -87,6 +88,7 @@ async def hybrid_search(
                 "title": doc.get("title", doc.get("id", "")),
                 "score": float(item.get("score", 0.0)),
                 "document_type": doc.get("document_type", "document"),
+                "department": doc.get("department"),
                 "metadata": doc.get("metadata", {}),
             }
         )

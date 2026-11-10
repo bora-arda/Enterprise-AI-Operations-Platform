@@ -12,6 +12,7 @@ import re
 from procurement_ai.config.settings import get_settings
 from procurement_ai.graph.nodes.intent import classify_intent
 from procurement_ai.planner.llm_planner import PlannerDecision, plan_request
+from procurement_ai.security.access import scope_from_state
 from procurement_ai.semantic.parser import parse_metric_request
 
 logger = logging.getLogger(__name__)
@@ -128,12 +129,58 @@ async def planner_node(state: dict) -> dict:
     history = state.get("history", [])
     previous = state.get("previous_route") or {}
     settings = get_settings()
+    scope = scope_from_state(state)
+    restricted = settings.row_level_access_enabled and scope.restricted
+    action_requested = classify_intent(question) == "act"
+    decision: PlannerDecision | None
 
     # Agent-first mode: use the tool-calling agent for all read-only questions.
     # Controls such as payment/approval actions remain on the deterministic,
     # human-in-the-loop action workflow. Hybrid mode retains planner routing.
-    if settings.orchestration_mode.lower() == "agent_first" and settings.opencode_go_api_key:
-        action_requested = classify_intent(question) == "act"
+    # Restricted users are forced through the scoped agent for read-only work.
+    if action_requested and restricted:
+        decision = PlannerDecision(
+            workflow="action",
+            intent="act",
+            follow_up=False,
+            reason="restricted-user controlled action",
+        )
+        state["planned_route"] = decision.to_dict()
+        state["planner_audit"] = {
+            "planner_mode": "agent_first",
+            "model": None,
+            "validation_result": "accepted",
+            "fallback_used": False,
+            "raw_decision": None,
+            "latency_ms": 0,
+            "input_tokens": None,
+            "output_tokens": None,
+        }
+        return state
+
+    if restricted and not settings.opencode_go_api_key:
+        decision = PlannerDecision(
+            workflow="fallback",
+            intent="out_of_scope",
+            follow_up=False,
+            reason="restricted user requires scoped agent; LLM unavailable",
+        )
+        state["planned_route"] = decision.to_dict()
+        state["planner_audit"] = {
+            "planner_mode": "agent_first",
+            "model": None,
+            "validation_result": "accepted",
+            "fallback_used": True,
+            "raw_decision": None,
+            "latency_ms": 0,
+            "input_tokens": None,
+            "output_tokens": None,
+        }
+        return state
+
+    if (settings.orchestration_mode.lower() == "agent_first" and settings.opencode_go_api_key) or (
+        restricted and settings.opencode_go_api_key
+    ):
         agent_first_decision = PlannerDecision(
             workflow="action" if action_requested else "agent",
             intent="act" if action_requested else "analyze",
