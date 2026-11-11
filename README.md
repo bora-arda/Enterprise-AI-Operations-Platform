@@ -1,4 +1,4 @@
-# Agentic Procurement Intelligence & Operations Platform
+# Iris — Agentic Procurement Intelligence & Operations Platform
 
 > An agentic AI platform for enterprise procurement operations — natural-language investigation across databases and documents, with evidence-backed answers, anomaly detection, and human-in-the-loop approval workflows.
 
@@ -6,32 +6,35 @@
 
 ## Demo
 
-**Agent-first anomaly triage** — the agent reads the exception store and
-explains all 150 open records across 10 exception types:
+**Live JWT sign-in** — the Iris UI authenticates against the real API and keeps
+the authenticated session across reloads:
 
-![Agent anomaly summary](docs/assets/chat-agent-anomalies.png)
+![Iris login](frontend/screenshots/login-light.png)
 
-**Exception drill-down** — the follow-up “show me the top 5 invoices that
-exceed PO” uses several tools to return invoice, PO, vendor, contract, and
-overage details:
+**Iris operations desk** — live approval workload, queue shortcuts, and the
+agent-first procurement workflow:
 
-![Agent exception detail](docs/assets/chat-agent-exception-detail.png)
+![Iris home](frontend/screenshots/home-light.png)
 
-**Open-ended prioritization** — “what should I focus on this week?” is answered
-by combining pending approvals, exceptions, overdue invoices, spend, and
-policy context:
+**Approval review queue** — real approval records from the PostgreSQL-backed
+API, with search, filtering, status, amounts, and requester context:
 
-![Agent focus summary](docs/assets/chat-agent-focus.png)
+![Iris approvals](frontend/screenshots/approvals-light.png)
 
-**Evidence-backed investigation** — invoice, PO, contract, payment, and approval
-evidence with citations and confidence:
+**Approval detail** — invoice, vendor, department, amount, risk, justification,
+and decision controls in a focused drawer:
 
-![Invoice investigation](docs/assets/chat-investigation.png)
+![Iris approval detail](frontend/screenshots/approval-detail-light.png)
 
-**Human-in-the-loop approvals** — illustrative pending payment request with
-risk level and Approve & Execute / Reject controls:
+**Agent chat** — live answers from the Iris API with markdown tables, citations,
+and the current agent-first reasoning loop:
 
-![Pending approvals](docs/assets/approvals-panel.png)
+![Iris chat](frontend/screenshots/chat-light.png)
+
+**Conversation history** — chats are saved per user and can be reopened without
+starting over:
+
+![Iris chat history](frontend/screenshots/chat-history-light.png)
 
 **Observability** — provisioned Grafana dashboard showing request rate, workflow
 routes, node/LLM latency, tokens, tool calls, approvals, and open exceptions:
@@ -42,13 +45,37 @@ Regenerate screenshots with the local services running:
 
 ```bash
 cd frontend
-node capture_agent_demo.mjs ../docs/assets    # agent-first UI (:3000)
+node screenshots/capture_ui.mjs
 node capture_grafana.mjs ../docs/assets       # Grafana (:3001)
 ```
 
+### Demo walkthrough
+
+1. Sign in at http://localhost:3000 with `manager@example.com / demo123`.
+   The home desk shows the real pending payment workload. The current demo
+   database contains three manager-submitted requests:
+   `APPR-F67B3701` (£9,463.75), `APPR-0D1A4262` (£11,491.89), and
+   `APPR-2677C0EF` (£36,907.63).
+2. Open **Pending approvals** to search and filter the live approval records.
+   Open a request to see real invoice, vendor, department, amount, and risk
+   context. Because these requests were submitted by the manager, use
+   `finance@example.com / demo123` or `director@example.com / demo123` to test
+   the decision path; the manager cannot self-approve.
+3. Open **Chat** and ask a question such as:
+   - `Which invoices are overdue?`
+   - `Show me the top 5 invoices that exceed PO`
+   - `What changed in spending from 2024 to 2025?`
+   - `What should I focus on this week?`
+4. Navigate to Home or Approvals and return to Chat. The active conversation is
+   restored. Use **History** to reopen an earlier conversation, or **New chat**
+   to start a fresh one without deleting the old one.
+5. Open **Grafana** at http://localhost:3001 (`admin` / `admin`) for live model
+   cost, workflow latency, tool calls, verification outcomes, approvals, and
+   open exception counts.
+
 ## Project Status
 
-**Phase: Working vertical slice.** The platform runs end-to-end on the UK Contracts Finder backbone in **agent-first** mode: read-only questions are handled by a tool-calling agent that can query SQL, semantic metrics, documents, exceptions, and entity records. Controlled actions remain deterministic and require human approval. Hybrid mode with deterministic fast paths is still available. Core hybrid workflows need no API key; the agent and LLM planner use Claude Haiku 5.5 via OpenCode Go.
+**Phase: Working product demo.** **Iris** runs end-to-end on the UK Contracts Finder backbone with a live React frontend, JWT authentication, real approval workflows, browser chat history, and an **agent-first** reasoning loop. Read-only questions are handled by a tool-calling agent that can query SQL, semantic metrics, documents, exceptions, and entity records. Controlled actions remain deterministic and require human approval. Hybrid mode with deterministic fast paths is still available. The agent uses Claude Haiku 5.5 via OpenCode Go.
 
 | Capability | Status |
 |---|---|
@@ -71,6 +98,7 @@ node capture_grafana.mjs ../docs/assets       # Grafana (:3001)
 | SQL guardrails (SELECT-only, denylist, row cap, timeout, read-only transaction) | ✅ Complete |
 | Security threat model (prompt injection, tool misuse, exfiltration, escalation) | ✅ Complete ([review](docs/security/THREAT_MODEL.md)) |
 | Multi-turn conversation memory (Postgres checkpoints) | ✅ Complete |
+| Browser chat history per user + History picker | ✅ Complete |
 | Clarification for missing/ambiguous identifiers | ✅ Complete |
 | Deterministic anomaly detection (rules + duplicates) | ✅ Retained for hybrid mode; agent uses `list_exceptions` |
 | Read-only SQL analytics templates | ✅ Retained for hybrid mode |
@@ -81,7 +109,8 @@ node capture_grafana.mjs ../docs/assets       # Grafana (:3001)
 | Reproducible evaluation benchmarks | ✅ Complete (see [RESULTS.md](docs/evaluation/RESULTS.md)) |
 | Prometheus metrics endpoint | ✅ Complete |
 | Authentication (JWT) + role-based access control | ✅ Complete |
-| Frontend login + chat + approvals panel | ✅ Complete (production build verified) |
+| Iris React frontend: live JWT login, approvals queue/drawer, agent chat, saved chat history, responsive light/dark UI | ✅ Complete (production build verified) |
+| Approval API enrichment (invoice, vendor, requester, department, amount, risk) | ✅ Complete |
 | Full Docker Compose stack (6 services) | ✅ Verified for the deterministic stack; rebuild pending for the agent version |
 | LLM planner / agent | ⚙️ Optional; fast paths remain deterministic |
 | MCP server | ✅ stdio + streamable HTTP (:8001), tool calls verified |
@@ -149,6 +178,20 @@ Node 26 was verified against React Scripts 5, the TypeScript build, the dev
 server, and the Playwright login smoke test. `npm audit` still reports
 transitive React Scripts/workbox advisories, with no critical findings; those
 require a larger CRA/tooling migration rather than a Node runtime change.
+
+The Iris frontend calls the live API for:
+
+| UI action | Endpoint |
+|---|---|
+| Sign in / restore session | `POST /auth/login`, `GET /auth/me` |
+| Approval queue | `GET /approvals?limit=200` |
+| Approve / reject | `POST /approvals/{id}/decide` |
+| Agent chat | `POST /chat` |
+
+Chat conversations are saved per signed-in user in browser storage and can be
+reopened from the History menu. Payment requests created by a manager cannot be
+self-approved; use `finance@example.com` or `director@example.com` for the
+decision path.
 
 - API: http://localhost:8000
 - Swagger: http://localhost:8000/docs
@@ -391,9 +434,13 @@ FastAPI ──► LangGraph orchestrator
       │         └── response validation (citations, confidence)
       │
       ├── PostgreSQL + pgvector
-      ├── Mock ERP service ──► MCP server (stdio)
-      └── Prometheus /metrics
+      ├── Mock ERP service ──► MCP server (stdio + HTTP :8001)
+      └── Prometheus /metrics ──► Grafana :3001
 ```
+
+The **Iris** React frontend is a live client of the FastAPI API. Authentication,
+approval decisions, and chat answers are server-backed; chat history is saved per
+browser user so navigation does not discard the conversation.
 
 - Full design: [docs/architecture/DESIGN.md](docs/architecture/DESIGN.md)
 - Data generation: [docs/data/GENERATION.md](docs/data/GENERATION.md)
@@ -704,17 +751,18 @@ after the request finishes.
 
 - **Language:** Python 3.12+
 - **API:** FastAPI
+- **Frontend:** React 18 + TypeScript + React Router; Node 26 LTS via nvm
 - **Orchestration:** LangGraph
 - **Database:** PostgreSQL + pgvector
 - **Retrieval:** BM25 + pgvector dense + reciprocal rank fusion; optional cross-encoder
 - **Embeddings:** sentence-transformers `all-MiniLM-L6-v2` (384 dims, local)
 - **ML:** scikit-learn (anomaly features)
-- **MCP:** MCP server over stdio + shared mock ERP service
+- **MCP:** MCP server over stdio + streamable HTTP; shared mock ERP service
 - **Auth:** JWT (HS256) + role-based access control
-- **Testing:** pytest (198 tests)
+- **Testing:** pytest (198 tests), Playwright browser smoke tests
 - **Packaging:** uv
 - **Containers:** Docker Compose (PostgreSQL, API, frontend, MCP, Prometheus, Grafana)
-- **Observability:** Prometheus metrics; OpenTelemetry scaffolding
+- **Observability:** Prometheus metrics + provisioned Grafana dashboard; OpenTelemetry scaffolding
 
 ---
 
@@ -728,10 +776,26 @@ uv run pytest tests/ -q
 uv run python scripts/run_benchmarks.py
 
 # Lint and type checks used in CI
-uv run ruff check .
+uv run ruff check src tests scripts
 uv run ruff format --check .
 uv run mypy src/
+
+# Frontend build and browser smoke test (Node 26 via nvm)
+cd frontend
+nvm use
+npm ci
+npm run build
+node screenshots/capture_ui.mjs
 ```
+
+The live demo was verified with:
+- JWT login and session restoration
+- real approvals loaded from PostgreSQL
+- real `/chat` answers from the agent
+- chat history surviving Home/Approvals navigation
+- payment request creation into the pending approval queue
+- Playwright login, approvals, chat, and screenshot capture
+- 198 backend tests, clean `ruff`/`mypy`, and a successful production frontend build
 
 ---
 
@@ -749,9 +813,12 @@ uv run mypy src/
 
 - Public procurement data is UK Contracts Finder, not a private ERP.
 - Synthetic enterprise records are generated, not real company data.
-- The mock ERP is in-process; the MCP server exposes the same service over stdio.
+- The mock ERP is in-process; MCP exposes the same service over stdio and HTTP.
 - Authentication is local JWT with seeded demo users; no SSO, refresh tokens, or multi-tenancy.
-- LLM narrative is disabled by default; the planner is optional.
+- The open-ended agent requires a configured LLM key; hybrid mode retains deterministic fast paths and fallback behavior.
+- Chat history is browser-local per user, not server-synced across devices.
+- MCP HTTP has no authentication layer in this local demo; put it behind a trusted network or gateway.
+- Row-level access is application-layer; production should add PostgreSQL RLS and a dedicated read-only database role.
 - Full contract/invoice text is not embedded (transactional data is queried live).
 
 ## License

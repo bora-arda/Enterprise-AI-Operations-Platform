@@ -23,14 +23,14 @@ settings = get_settings()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("Starting up Procurement AI Platform")
+    logger.info("Starting up Iris")
     yield
     await close_action_graph()
-    logger.info("Shutting down Procurement AI Platform")
+    logger.info("Shutting down Iris")
 
 
 app = FastAPI(
-    title="Agentic Procurement Intelligence & Operations Platform",
+    title="Iris — Procurement Intelligence & Operations Platform",
     description=(
         "Natural-language interface for procurement operations with "
         "evidence-backed answers, anomaly detection, and human-in-the-loop workflows."
@@ -65,7 +65,7 @@ async def metrics():
 @app.get("/")
 async def root():
     return {
-        "name": "Agentic Procurement Intelligence & Operations Platform",
+        "name": "Iris — Procurement Intelligence & Operations Platform",
         "version": "0.1.0",
         "status": "running",
         "docs": "/docs",

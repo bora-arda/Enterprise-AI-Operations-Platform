@@ -13,6 +13,15 @@ class ApprovalResponse(BaseModel):
     approval_number: str
     request_type: str
     invoice_id: str | None = None
+    invoice_number: str | None = None
+    amount: float | None = None
+    currency: str | None = None
+    vendor_name: str | None = None
+    requested_by_name: str | None = None
+    department_name: str | None = None
+    department_code: str | None = None
+    due_date: str | None = None
+    risk_level: str | None = None
     status: str
     requested_at: str | None = None
     decided_at: str | None = None
